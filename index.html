@@ -49,8 +49,20 @@
           height="1536"
         />
         <div class="hero-overlay"></div>
+        <div class="hero-effects" aria-hidden="true">
+          <span class="field-scan"></span>
+          <span class="signal-path path-a"></span>
+          <span class="signal-path path-b"></span>
+          <span class="beacon beacon-a"></span>
+          <span class="beacon beacon-b"></span>
+          <span class="beacon beacon-c"></span>
+        </div>
         <div class="hero-content">
-          <p class="eyebrow">函館から始まる企業ヒーロー発見ゲーム</p>
+          <div class="hero-status" aria-label="クエスト端末状態">
+            <span></span>
+            QUEST TERMINAL ONLINE
+          </div>
+          <p class="eyebrow">SOCCER EVENT QUEST</p>
           <h1>エフ・<br class="phone-only" />キャン<br class="phone-only" />カップ</h1>
           <p class="hero-copy">
             サッカー会場に隠された謎を解き、<br class="phone-only" />街を支える企業ヒーローの<br class="phone-only" />正体を呼び覚ませ。
@@ -62,7 +74,7 @@
           <dl class="event-strip" aria-label="イベント概要">
             <div>
               <dt>日時</dt>
-              <dd>2026 Summer</dd>
+              <dd>イベント当日</dd>
             </div>
             <div>
               <dt>会場</dt>
@@ -70,11 +82,19 @@
             </div>
             <div>
               <dt>対象</dt>
-              <dd>高校生・大学生・保護者</dd>
+              <dd>学生・保護者・企業</dd>
             </div>
           </dl>
         </div>
-        <div class="scroll-cue" aria-hidden="true">会場マップを進む</div>
+        <aside class="hero-console" aria-label="クエスト概要">
+          <p>FIELD SIGNAL</p>
+          <strong>Hero Call 06</strong>
+          <span>企業ブースの手がかりを集め、街のヒーローを起動する。</span>
+        </aside>
+        <div class="quest-counter" aria-label="ミッション数">
+          <strong>6</strong>
+          <span>企業ミッション</span>
+        </div>
       </section>
 
       <section class="section intro-band">
@@ -155,6 +175,9 @@
           </div>
           <div class="signal-panel" aria-label="ヒーロー信号">
             <div class="signal-ring"></div>
+            <span class="signal-dot dot-a"></span>
+            <span class="signal-dot dot-b"></span>
+            <span class="signal-dot dot-c"></span>
             <div class="signal-core">HERO<br />CALL</div>
           </div>
         </div>

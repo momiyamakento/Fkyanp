@@ -310,11 +310,15 @@ function renderMissions() {
   toolbar.insertAdjacentHTML("afterend", memberNoticeHtml());
 
   grid.replaceChildren(
-    ...companies.map((company) => {
+    ...companies.map((company, index) => {
       const isClear = state.clear.has(company.id);
       const card = el("article", "mission-card reveal");
       card.style.setProperty("--accent", company.accent);
       card.innerHTML = `
+        <div class="mission-card-top">
+          <span class="mission-index">${String(index + 1).padStart(2, "0")}</span>
+          <span class="hero-badge">${company.initial}</span>
+        </div>
         <div class="tag-row">
           <span class="tag status ${isClear ? "clear" : ""}">${isClear ? "クリア" : "未挑戦"}</span>
           <span class="tag">${company.difficulty}</span>
@@ -374,10 +378,11 @@ function renderCompanies() {
   renderTemplate("companies-template");
   const list = document.querySelector("#company-list");
   list.replaceChildren(
-    ...companies.map((company) => {
+    ...companies.map((company, index) => {
       const card = el("article", "company-card reveal");
       card.style.setProperty("--accent", company.accent);
       card.innerHTML = `
+        <span class="mission-index">${String(index + 1).padStart(2, "0")}</span>
         <div class="company-card-header">
           <span class="hero-badge">${company.initial}</span>
           <div>
