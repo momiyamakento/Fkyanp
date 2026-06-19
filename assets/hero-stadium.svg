@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Soccer stadium with city hero lights</title>
+  <desc id="desc">A bright soccer field in a stadium with city buildings and colorful hero lights.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#073763"/>
+      <stop offset=".38" stop-color="#14647a"/>
+      <stop offset=".72" stop-color="#f2b84b"/>
+      <stop offset="1" stop-color="#f97046"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#3fc17a"/>
+      <stop offset="1" stop-color="#0e7b55"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="62%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".88"/>
+      <stop offset=".28" stop-color="#ffe58d" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="830" cy="285" r="350" fill="url(#glow)"/>
+  <g opacity=".7">
+    <path d="M0 492C200 410 364 389 561 424c223 40 339-49 525-42 214 8 328 117 514 57v149H0z" fill="#102f56"/>
+    <path d="M0 516c238-89 400-70 593-36 229 41 319-56 508-45 199 12 313 96 499 51v122H0z" fill="#0a2445" opacity=".78"/>
+  </g>
+  <g opacity=".9">
+    <rect x="108" y="390" width="52" height="126" rx="4" fill="#153f63"/>
+    <rect x="176" y="340" width="62" height="176" rx="4" fill="#1b5670"/>
+    <rect x="260" y="368" width="70" height="148" rx="4" fill="#113a61"/>
+    <rect x="1262" y="360" width="64" height="160" rx="4" fill="#153f63"/>
+    <rect x="1348" y="320" width="70" height="200" rx="4" fill="#1b5670"/>
+    <rect x="1440" y="388" width="58" height="132" rx="4" fill="#113a61"/>
+  </g>
+  <g opacity=".9">
+    <path d="M190 530h1220c-99-112-244-178-610-178S289 418 190 530z" fill="#f5f7fb"/>
+    <path d="M274 514h1052c-91-70-216-111-526-111S365 444 274 514z" fill="#d9e8f3"/>
+    <path d="M356 510h888c-87-42-215-66-444-66s-357 24-444 66z" fill="#f7fafc"/>
+  </g>
+  <g filter="url(#soft)" opacity=".9">
+    <circle cx="406" cy="304" r="52" fill="#ffd166"/>
+    <circle cx="648" cy="260" r="48" fill="#4cc9f0"/>
+    <circle cx="963" cy="260" r="48" fill="#ff6b6b"/>
+    <circle cx="1195" cy="306" r="52" fill="#90be6d"/>
+  </g>
+  <rect y="548" width="1600" height="352" fill="url(#field)"/>
+  <path d="M0 668c188 34 398 52 640 46 353-9 610-69 960-16v202H0z" fill="#0a6b4b" opacity=".35"/>
+  <g fill="none" stroke="#e9fff4" stroke-width="9" opacity=".9">
+    <path d="M156 824c270-101 1020-101 1288 0"/>
+    <path d="M461 900c95-122 201-184 339-184s244 62 339 184"/>
+    <path d="M780 552v348"/>
+    <circle cx="800" cy="714" r="88"/>
+    <rect x="60" y="642" width="246" height="196" rx="5"/>
+    <rect x="1294" y="642" width="246" height="196" rx="5"/>
+  </g>
+  <g>
+    <circle cx="800" cy="714" r="42" fill="#ffffff"/>
+    <path d="M800 672l35 25-13 41h-44l-13-41z" fill="#111827"/>
+    <path d="M765 697l-36 18 18 34 31-11zM835 697l36 18-18 34-31-11zM778 738l-17 34 39 17 39-17-17-34z" fill="#111827"/>
+  </g>
+  <g opacity=".92">
+    <path d="M642 562l35-84h44l35 84-58 42z" fill="#ff595e"/>
+    <path d="M846 562l35-84h44l35 84-58 42z" fill="#1982c4"/>
+    <path d="M1049 580l31-74h40l31 74-51 38z" fill="#ffca3a"/>
+    <path d="M452 580l31-74h40l31 74-51 38z" fill="#8ac926"/>
+  </g>
+</svg>
