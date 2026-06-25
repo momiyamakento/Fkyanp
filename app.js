@@ -3,6 +3,14 @@ const companies = [
     id: "shodai",
     name: "翔大鋼業",
     hero: "スチールフレーム",
+    allyName: "ショウダイ",
+    character: "hero-steel",
+    imageSrc: "assets/characters.svg#hero-steel",
+    role: "鉄筋・骨組みの力",
+    powerDescription: "鉄筋と骨組みの力で、街を守る最強の盾を作り出す。",
+    attackName: "スチールシールド",
+    attackText: "鉄骨の盾で攻撃を受け止め、鉄筋の一撃を放つ。",
+    attackClass: "attack-shield",
     initial: "鋼",
     genre: "建設・鉄筋",
     difficulty: "★★☆",
@@ -28,6 +36,14 @@ const companies = [
     id: "pharmacy",
     name: "函館中央薬局",
     hero: "ヘルスガーディアン",
+    allyName: "チュウオウ",
+    character: "hero-health",
+    imageSrc: "assets/characters.svg#hero-health",
+    role: "医療・調剤・回復の力",
+    powerDescription: "医療と調剤の知識で、仲間と街に回復の光を届ける。",
+    attackName: "リカバリーライト",
+    attackText: "回復の光で仲間の力を整え、次の一撃につなげる。",
+    attackClass: "attack-heal",
     initial: "薬",
     genre: "医療・健康",
     difficulty: "★☆☆",
@@ -53,6 +69,14 @@ const companies = [
     id: "morikawa",
     name: "森川組",
     hero: "シティビルダー",
+    allyName: "モリカワ",
+    character: "hero-city",
+    imageSrc: "assets/characters.svg#hero-city",
+    role: "土木・建築・土台の力",
+    powerDescription: "土木と建築の力で大地を固め、街の土台を支える。",
+    attackName: "グラウンドリフト",
+    attackText: "地面を盛り上げ、怪獣の足元を崩して動きを止める。",
+    attackClass: "attack-ground",
     initial: "建",
     genre: "建設・まちづくり",
     difficulty: "★★☆",
@@ -78,6 +102,14 @@ const companies = [
     id: "dock",
     name: "函館どつく",
     hero: "ハーバーアンカー",
+    allyName: "ハコダテドック",
+    character: "hero-harbor",
+    imageSrc: "assets/characters.svg#hero-harbor",
+    role: "造船・巨大メカの力",
+    powerDescription: "港と造船の技術で、海から巨大な支援火力を呼び込む。",
+    attackName: "ハーバーカノン",
+    attackText: "海から現れた巨大船のシルエットが、怪獣へ砲撃する。",
+    attackClass: "attack-cannon",
     initial: "船",
     genre: "造船・港湾",
     difficulty: "★★★",
@@ -103,6 +135,14 @@ const companies = [
     id: "daimei",
     name: "大明工業",
     hero: "ライフラインギア",
+    allyName: "タイメイ",
+    character: "hero-lifeline",
+    imageSrc: "assets/characters.svg#hero-lifeline",
+    role: "管工事・水・空気の力",
+    powerDescription: "水と空気の流れを操り、街のライフラインを守る。",
+    attackName: "フローバインド",
+    attackText: "水流と空気のラインで怪獣の動きを封じる。",
+    attackClass: "attack-flow",
     initial: "設",
     genre: "設備・技術",
     difficulty: "★★☆",
@@ -128,6 +168,14 @@ const companies = [
     id: "toko",
     name: "東興アイテック",
     hero: "インダストリアルブースター",
+    allyName: "トウコウ",
+    character: "hero-industrial",
+    imageSrc: "assets/characters.svg#hero-industrial",
+    role: "電気・通信・情報の力",
+    powerDescription: "電気と通信の力で、全ヒーローの力をひとつにつなぐ。",
+    attackName: "コネクトブースト",
+    attackText: "通信ラインで全員の力を接続し、最後の合体攻撃を準備する。",
+    attackClass: "attack-link",
     initial: "産",
     genre: "産業技術",
     difficulty: "★★★",
@@ -155,6 +203,14 @@ const state = {
   participant: JSON.parse(localStorage.getItem("fcan.participant") || "null"),
   clear: new Set(JSON.parse(localStorage.getItem("fcan.clear") || "[]")),
   interests: new Set(JSON.parse(localStorage.getItem("fcan.interests") || "[]")),
+  recentUnlock: null,
+};
+
+const battleState = {
+  timer: null,
+  stepIndex: -1,
+  hp: 100,
+  status: "ready",
 };
 
 const app = document.querySelector("#app");
@@ -169,6 +225,7 @@ updatePageMotion();
 
 function render() {
   const route = parseRoute();
+  if (route.name !== "clear") clearBattleTimer();
   setCurrentNav(route.name);
 
   if (route.name === "home") return renderTemplate("home-template");
@@ -307,7 +364,7 @@ function renderMissions() {
   const grid = document.querySelector("#mission-grid");
   document.querySelector("#progress-label").textContent = `${state.clear.size} / ${companies.length} clear`;
   const toolbar = document.querySelector(".mission-toolbar");
-  toolbar.insertAdjacentHTML("afterend", memberNoticeHtml());
+  toolbar.insertAdjacentHTML("afterend", `${memberNoticeHtml()}${heroCollectionPanelHtml("compact")}`);
 
   grid.replaceChildren(
     ...companies.map((company) => {
@@ -315,6 +372,7 @@ function renderMissions() {
       const card = el("article", "mission-card reveal");
       card.style.setProperty("--accent", company.accent);
       card.innerHTML = `
+        ${characterSvg(company.character, "mission-character")}
         <div class="tag-row">
           <span class="tag status ${isClear ? "clear" : ""}">${isClear ? "クリア" : "未挑戦"}</span>
           <span class="tag">${company.difficulty}</span>
@@ -367,6 +425,9 @@ function renderMission(id) {
     <article class="company-profile ${isClear ? "is-visible" : ""}" id="company-profile">
       ${companyProfileHtml(company)}
     </article>
+    <aside class="collection-panel mission-roster" id="mission-roster">
+      ${heroCollectionHtml("mini")}
+    </aside>
   `;
 }
 
@@ -430,22 +491,8 @@ function renderClear() {
     ? "集めた企業ヒーローの力で怪獣を撃退。気になった企業を残して、次はブースで話してみよう。"
     : "ミッションをクリアして、フィールド中央の光を完成させよう。";
 
-  const collection = document.querySelector("#hero-collection");
-  collection.replaceChildren(
-    ...companies.map((company) => {
-      const isClear = state.clear.has(company.id);
-      const card = el("article", `collection-card reveal ${isClear ? "" : "is-locked"}`);
-      card.style.setProperty("--accent", company.accent);
-      card.innerHTML = `
-        <div class="tag-row">
-          <span class="tag status ${isClear ? "clear" : ""}">${isClear ? "解放済み" : "未解放"}</span>
-        </div>
-        <h3>${isClear ? company.hero : "????????"}</h3>
-        <p>${company.name}</p>
-      `;
-      return card;
-    })
-  );
+  document.querySelector("#hero-collection").innerHTML = heroCollectionPanelHtml("full");
+  renderFinalBattle(completed);
   prefillMatchForm();
 }
 
@@ -480,6 +527,169 @@ function companyProfileHtml(company) {
   `;
 }
 
+function heroCollectionPanelHtml(mode = "full") {
+  return `
+    <section class="collection-panel ${mode === "compact" ? "is-compact" : ""}">
+      <div class="section-heading">
+        <p class="eyebrow dark">HERO COLLECTION</p>
+        <h2>集めた企業ヒーロー</h2>
+      </div>
+      <div class="hero-collection-grid">
+        ${heroCollectionHtml(mode)}
+      </div>
+    </section>
+  `;
+}
+
+function heroCollectionHtml(mode = "full") {
+  return companies
+    .map((company) => {
+      const isClear = state.clear.has(company.id);
+      const isNew = state.recentUnlock === company.id;
+      return `
+        <article class="hero-slot ${isClear ? "is-unlocked" : "is-locked"} ${isNew ? "is-new" : ""}" style="--accent:${company.accent}">
+          <div class="hero-slot-visual">
+            ${isClear ? characterSvg(company.character, "hero-slot-character") : `<span class="hero-slot-lock">?</span>`}
+          </div>
+          <div class="hero-slot-body">
+            <span class="tag status ${isClear ? "clear" : ""}">${isClear ? "仲間" : "未解放"}</span>
+            <h3>${isClear ? company.allyName : "???"}</h3>
+            <p>${isClear ? company.name : "謎を解くと解放"}</p>
+            ${mode === "mini" ? "" : `<small>${isClear ? company.role : "企業ヒーローの力はまだ眠っている"}</small>`}
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderMissionRoster() {
+  const roster = document.querySelector("#mission-roster");
+  if (!roster) return;
+  roster.innerHTML = heroCollectionHtml("mini");
+}
+
+function renderFinalBattle(completed) {
+  const stage = document.querySelector("#battle-stage");
+  if (!stage) return;
+  const clearedHeroes = companies.filter((company) => state.clear.has(company.id));
+  const activeStep = battleState.stepIndex >= 0 ? getBattleStep(battleState.stepIndex) : null;
+  const activeCompany = activeStep?.company || null;
+  const status = completed ? battleState.status : "locked";
+  const displayedHp = completed ? battleState.hp : 100;
+  const message = getBattleMessage(status, activeStep, clearedHeroes.length);
+
+  stage.innerHTML = `
+    <section class="final-battle ${status === "victory" ? "is-victory" : ""} ${status === "locked" ? "is-locked" : ""}">
+      <div class="final-battle-copy">
+        <p class="eyebrow dark">FINAL BATTLE</p>
+        <h2>${completed ? "ヒーロー集結。最終決戦へ。" : "ヒーローを全員集めよう"}</h2>
+        <p>${message}</p>
+      </div>
+      <div class="battle-hp" aria-label="怪獣HP ${displayedHp}">
+        <span>ナゾゴラ HP</span>
+        <strong>${displayedHp}</strong>
+        <div><i style="width:${displayedHp}%"></i></div>
+      </div>
+      <div class="battle-arena ${activeCompany ? activeCompany.attackClass : ""}" data-status="${status}">
+        <div class="battle-effect" aria-hidden="true"></div>
+        <svg class="final-kaiju" viewBox="0 0 220 240" aria-label="怪獣ナゾゴラ">
+          <use href="assets/characters.svg#kaiju-nazogora"></use>
+        </svg>
+        <div class="final-heroes" aria-label="最終決戦のヒーロー">
+          ${
+            companies
+              .map((company, index) => {
+                const unlocked = state.clear.has(company.id);
+                const active = activeCompany?.id === company.id;
+                const done = status === "victory" || battleState.stepIndex > index;
+                return `
+                  <span class="final-hero ${unlocked ? "is-unlocked" : "is-locked"} ${active ? "is-active" : ""} ${done ? "is-done" : ""}" style="--accent:${company.accent}">
+                    ${unlocked ? characterSvg(company.character, "final-hero-character") : `<span>?</span>`}
+                  </span>
+                `;
+              })
+              .join("")
+          }
+        </div>
+        <p class="battle-action-text">${activeStep?.text || (completed ? "準備ができたら最終決戦を開始しよう。" : "全ヒーロー収集後に解放されます。")}</p>
+      </div>
+      <div class="battle-controls">
+        ${
+          completed && status !== "playing"
+            ? `<button class="button primary" data-action="${status === "victory" ? "replay-battle" : "start-battle"}">${status === "victory" ? "もう一度見る" : "最終決戦を始める"}</button>`
+            : ""
+        }
+        ${completed && status === "playing" ? `<button class="button ghost" data-action="skip-battle">スキップ</button>` : ""}
+        <a class="button ghost" href="#companies">企業一覧へ</a>
+      </div>
+    </section>
+  `;
+}
+
+function getBattleStep(index) {
+  if (index < companies.length) {
+    const company = companies[index];
+    return {
+      company,
+      hp: Math.max(18, 100 - Math.round(((index + 1) / companies.length) * 72)),
+      text: `${company.allyName}: ${company.attackText}`,
+    };
+  }
+  const company = findCompany("toko");
+  return {
+    company: { ...company, attackClass: "attack-final" },
+    hp: 0,
+    text: "トウコウが全ヒーローの力を接続。合体エネルギーがナゾゴラを包み込む。",
+  };
+}
+
+function getBattleMessage(status, activeStep, clearCount) {
+  if (status === "locked") return `現在 ${clearCount} / ${companies.length} 人。全員集まると最終決戦に進めます。`;
+  if (status === "victory") return "函館の街は救われた。気になった企業を見つけて、次はブースで話してみよう。";
+  if (status === "playing") return activeStep?.company.attackName || "ヒーローたちが力を合わせている。";
+  return "全員の力を順番につなぎ、10秒ほどでナゾゴラを撃退します。";
+}
+
+function startFinalBattle() {
+  battleState.status = "playing";
+  battleState.stepIndex = 0;
+  battleState.hp = 100;
+  playBattleStep();
+}
+
+function playBattleStep() {
+  const step = getBattleStep(battleState.stepIndex);
+  battleState.hp = step.hp;
+  renderFinalBattle(true);
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const delay = reducedMotion ? 550 : 1650;
+  clearBattleTimer();
+  battleState.timer = window.setTimeout(() => {
+    if (battleState.stepIndex >= companies.length) {
+      finishBattle();
+      return;
+    }
+    battleState.stepIndex += 1;
+    playBattleStep();
+  }, delay);
+}
+
+function finishBattle() {
+  clearBattleTimer();
+  battleState.status = "victory";
+  battleState.stepIndex = companies.length;
+  battleState.hp = 0;
+  renderFinalBattle(true);
+}
+
+function clearBattleTimer() {
+  if (!battleState.timer) return;
+  window.clearTimeout(battleState.timer);
+  battleState.timer = null;
+}
+
 function handleDocumentClick(event) {
   const target = event.target.closest("[data-action]");
   if (!target) return;
@@ -498,8 +708,22 @@ function handleDocumentClick(event) {
   if (action === "reset") {
     state.clear.clear();
     state.interests.clear();
+    state.recentUnlock = null;
+    battleState.status = "ready";
+    battleState.stepIndex = -1;
+    battleState.hp = 100;
+    clearBattleTimer();
     saveState();
     renderMissions();
+  }
+  if (action === "close-unlock") {
+    closeHeroUnlock(target.dataset.id);
+  }
+  if (action === "start-battle" || action === "replay-battle") {
+    startFinalBattle();
+  }
+  if (action === "skip-battle") {
+    finishBattle();
   }
   if (action === "edit-profile") {
     document.querySelector("#profile-view").innerHTML = registrationFormHtml(state.participant);
@@ -564,6 +788,7 @@ function checkAnswer(id) {
   const profile = document.querySelector("#company-profile");
   const value = normalize(input.value);
   const ok = company.answer.some((answer) => normalize(answer) === value);
+  const wasClear = state.clear.has(company.id);
 
   result.classList.toggle("ok", ok);
   result.classList.toggle("ng", !ok);
@@ -572,11 +797,60 @@ function checkAnswer(id) {
     : "まだ違うようです。企業の仕事や強みをもう一度見てみよう。";
 
   if (ok) {
-      state.clear.add(company.id);
-      saveState();
-      profile.classList.add("is-visible");
+    state.clear.add(company.id);
+    state.recentUnlock = company.id;
+    saveState();
+    profile.classList.add("is-visible");
+    renderMissionRoster();
+    if (!wasClear) {
+      showHeroUnlock(company);
+    } else {
       profile.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
+  }
+}
+
+function showHeroUnlock(company) {
+  document.querySelector(".unlock-modal")?.remove();
+  const modal = el("div", "unlock-modal");
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.innerHTML = `
+    <div class="unlock-energy" aria-hidden="true"></div>
+    <article class="unlock-card" style="--accent:${company.accent}">
+      <p class="eyebrow">HERO UNLOCKED</p>
+      <div class="unlock-character">
+        ${characterSvg(company.character, "unlock-character-svg")}
+      </div>
+      <h2>${company.allyName}が仲間になった！</h2>
+      <p>${company.powerDescription}</p>
+      <dl class="unlock-facts">
+        <div>
+          <dt>企業</dt>
+          <dd>${company.name}</dd>
+        </div>
+        <div>
+          <dt>役割</dt>
+          <dd>${company.role}</dd>
+        </div>
+      </dl>
+      <button class="button primary" data-action="close-unlock" data-id="${company.id}">仲間にする</button>
+    </article>
+  `;
+  document.body.append(modal);
+  modal.querySelector("button")?.focus();
+}
+
+function closeHeroUnlock(id) {
+  const modal = document.querySelector(".unlock-modal");
+  if (!modal) return;
+  modal.classList.add("is-closing");
+  window.setTimeout(() => {
+    modal.remove();
+    state.recentUnlock = id;
+    renderMissionRoster();
+    document.querySelector("#mission-roster")?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, 320);
 }
 
 function toggleInterest(id) {
@@ -630,6 +904,14 @@ function normalize(value) {
 
 function findCompany(id) {
   return companies.find((company) => company.id === id);
+}
+
+function characterSvg(id, className = "character-icon") {
+  return `
+    <svg class="${className}" viewBox="0 0 200 220" aria-hidden="true" focusable="false">
+      <use href="assets/characters.svg#${id}"></use>
+    </svg>
+  `;
 }
 
 function el(tag, className) {

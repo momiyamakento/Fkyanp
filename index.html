@@ -153,8 +153,16 @@
             </p>
             <a class="button primary" href="#missions">ミッションを開始する</a>
           </div>
-          <div class="signal-panel" aria-label="ヒーロー信号">
+          <div class="signal-panel character-signal" aria-label="ヒーロー信号">
+            <svg class="signal-kaiju" viewBox="0 0 220 240" aria-hidden="true">
+              <use href="assets/characters.svg#kaiju-nazogora"></use>
+            </svg>
             <div class="signal-ring"></div>
+            <div class="signal-heroes" aria-hidden="true">
+              <svg viewBox="0 0 200 220"><use href="assets/characters.svg#hero-steel"></use></svg>
+              <svg viewBox="0 0 200 220"><use href="assets/characters.svg#hero-health"></use></svg>
+              <svg viewBox="0 0 200 220"><use href="assets/characters.svg#hero-city"></use></svg>
+            </div>
             <div class="signal-core">HERO<br />CALL</div>
           </div>
         </div>
@@ -222,6 +230,7 @@
       <section class="section">
         <div class="section-inner">
           <div id="hero-collection" class="hero-collection"></div>
+          <div id="battle-stage" class="battle-stage"></div>
           <form class="match-form" id="match-form">
             <div class="section-heading">
               <p class="eyebrow dark">NEXT ACTION</p>
