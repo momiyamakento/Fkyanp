@@ -67,6 +67,13 @@ img {
   max-width: 100%;
 }
 
+.character-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 .scroll-meter {
   position: fixed;
   inset: 0 0 auto;
@@ -414,6 +421,12 @@ h3 {
 .hero-collection {
   display: grid;
   gap: 14px;
+}
+
+.hero-collection {
+  grid-template-columns: 1fr;
+  width: 100%;
+  min-width: 0;
 }
 
 .flow article,
@@ -1137,7 +1150,13 @@ h3 {
 .collection-panel {
   display: grid;
   gap: 14px;
+  width: 100%;
+  min-width: 0;
   margin: 0 0 22px;
+}
+
+.hero-collection > .collection-panel {
+  grid-column: 1 / -1;
 }
 
 .collection-panel.is-compact .section-heading {
@@ -1146,6 +1165,15 @@ h3 {
 
 .collection-panel.is-compact .section-heading h2 {
   font-size: 25px;
+}
+
+.collection-panel .section-heading {
+  max-width: 42rem;
+}
+
+.collection-panel .section-heading h2 {
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 .mission-roster {
@@ -1163,8 +1191,10 @@ h3 {
 
 .hero-collection-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 12px;
+  width: 100%;
+  min-width: 0;
 }
 
 .hero-slot {
@@ -2326,6 +2356,10 @@ h3 {
     grid-template-columns: repeat(6, 1fr);
   }
 
+  .hero-collection {
+    grid-template-columns: 1fr;
+  }
+
   .mission-card,
   .company-card,
   .collection-card {
@@ -2413,16 +2447,19 @@ h3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .collection-panel.is-compact .hero-collection-grid,
+  .collection-panel.is-compact .hero-collection-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
   .mission-roster .hero-collection-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 
   .collection-panel.is-compact .hero-slot,
   .mission-roster .hero-slot {
-    grid-template-columns: 1fr;
-    min-height: 182px;
-    text-align: center;
+    grid-template-columns: 82px minmax(0, 1fr);
+    min-height: 126px;
+    text-align: left;
   }
 
   .collection-panel.is-compact .hero-slot small,
@@ -2463,5 +2500,212 @@ h3 {
 
   .phone-only {
     display: none;
+  }
+}
+
+.emergency-log {
+  max-width: 36em;
+  margin: 16px 0 0;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: rgba(255, 253, 242, 0.9);
+  border: 2px dashed var(--whistle);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.success-note,
+.unlock-line {
+  padding: 12px;
+  background: #fff2b9;
+  border: 2px dashed var(--ink);
+  font-weight: 950;
+}
+
+.flow {
+  grid-template-columns: 1fr;
+}
+
+.flow article {
+  min-height: 190px;
+}
+
+.mission-card.is-locked-card .mission-character {
+  filter: grayscale(1) brightness(0.45) drop-shadow(4px 5px 0 rgba(23, 48, 35, 0.14));
+  opacity: 0.72;
+}
+
+.mission-card.is-clear {
+  background:
+    linear-gradient(135deg, rgba(255, 211, 77, 0.18), transparent 42%),
+    #fffefa;
+}
+
+.locked-copy {
+  min-height: 4.8em;
+}
+
+.booth-link {
+  margin-top: 16px;
+}
+
+.quiz-box.unlocking {
+  animation: cardShake 500ms ease-in-out;
+}
+
+.hint-panel {
+  margin-top: 16px;
+}
+
+.hint-empty,
+.hint-meter {
+  margin: 0;
+  padding: 12px;
+  color: var(--muted);
+  background: #e7f3e4;
+  border: 2px dashed var(--ink);
+  font-weight: 900;
+}
+
+.hint-meter {
+  display: inline-flex;
+  margin-bottom: 8px;
+  color: var(--ink);
+  background: var(--whistle);
+  border-style: solid;
+}
+
+.booth-questions {
+  margin: 18px 0;
+  padding: 16px;
+  background: #e7f3e4;
+  border: 2px dashed var(--ink);
+}
+
+.booth-questions h3 {
+  font-size: 20px;
+}
+
+.booth-questions ul {
+  margin: 10px 0 0;
+  padding-left: 1.2em;
+  font-weight: 850;
+}
+
+.ending-panel,
+.ending-actions {
+  background: #fffefa;
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.ending-panel {
+  grid-column: 1 / -1;
+  padding: 18px;
+}
+
+.ending-panel h2 {
+  font-size: 28px;
+}
+
+.ending-panel p:not(.eyebrow) {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.ending-actions {
+  padding: 18px;
+}
+
+.fixed-progress {
+  position: fixed;
+  right: 10px;
+  bottom: calc(66px + env(safe-area-inset-bottom));
+  left: 10px;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 42px;
+  max-height: 58px;
+  padding: 8px 10px;
+  color: var(--ink);
+  background: #fffefa;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.fixed-progress span {
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fixed-progress strong {
+  flex: 0 0 auto;
+}
+
+.register-form > label {
+  display: block;
+  margin: 18px 0 6px;
+  line-height: 1.4;
+}
+
+.register-form > input,
+.register-form > select {
+  margin-top: 0;
+}
+
+.battle-arena[data-status="locked"] .final-kaiju,
+.battle-arena[data-status="locked"] .final-hero {
+  filter: grayscale(1) brightness(0.65);
+}
+
+@keyframes cardShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+@media (min-width: 760px) {
+  .flow {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .flow article:nth-child(2),
+  .flow article:nth-child(3),
+  .flow article:nth-child(4),
+  .flow article:nth-child(5) {
+    margin-top: 0;
+  }
+
+  .flow article:nth-child(even) {
+    margin-top: 34px;
+  }
+
+  .fixed-progress {
+    right: 24px;
+    bottom: 24px;
+    left: auto;
+    width: min(420px, calc(100vw - 48px));
+  }
+
+  .ending-panel,
+  .ending-actions {
+    padding: 24px;
   }
 }
