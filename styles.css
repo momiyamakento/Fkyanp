@@ -605,6 +605,7 @@ h3 {
   color: #385447;
   font-weight: 900;
   line-height: 1.85;
+  overflow-wrap: anywhere;
 }
 
 .story-hero-actions {
@@ -827,6 +828,7 @@ h3 {
   margin: 0 0 12px;
   font-weight: 850;
   line-height: 1.85;
+  overflow-wrap: anywhere;
 }
 
 .partner-message p:last-child {
@@ -900,6 +902,7 @@ h3 {
   font-size: 14px;
   font-weight: 850;
   line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .operation-card {
@@ -3118,6 +3121,14 @@ h3 {
   filter: grayscale(1) brightness(0.65);
 }
 
+.battle-arena[data-status="locked"] {
+  min-height: 300px;
+}
+
+.battle-arena[data-status="locked"]::before {
+  height: 18%;
+}
+
 @keyframes cardShake {
   0%,
   100% {
@@ -3160,5 +3171,818 @@ h3 {
   .ending-panel,
   .ending-actions {
     padding: 24px;
+  }
+}
+
+/* Realistic manga branch skin */
+:root {
+  --paper: #eee7cf;
+  --paper-deep: #d9ddc4;
+  --ink: #101513;
+  --muted: #4e5b52;
+  --line: #a7ad94;
+  --grass: #1d4a38;
+  --grass-dark: #0f281f;
+  --chalk: #f7f1dc;
+  --whistle: #d8b64a;
+  --red: #b82427;
+  --harbor: #195866;
+  --sky: #8aa9a8;
+  --trust: #20323a;
+  --shadow: 9px 9px 0 rgba(16, 21, 19, 0.18);
+}
+
+body {
+  background:
+    linear-gradient(90deg, rgba(16, 21, 19, 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(0deg, rgba(16, 21, 19, 0.045) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(135deg, rgba(184, 36, 39, 0.16), transparent 28%),
+    var(--paper);
+}
+
+body::before {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(184, 36, 39, 0.18), transparent 24%),
+    radial-gradient(circle at 82% 22%, rgba(16, 21, 19, 0.12), transparent 30%),
+    repeating-radial-gradient(circle at 50% 50%, rgba(16, 21, 19, 0.055) 0 1px, transparent 1px 8px);
+}
+
+.site-header {
+  color: var(--chalk);
+  background:
+    linear-gradient(90deg, rgba(184, 36, 39, 0.26), transparent 42%),
+    #101513;
+  border-bottom: 3px solid var(--red);
+}
+
+.brand-mark {
+  background: var(--red);
+  border-color: var(--chalk);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #000;
+  clip-path: polygon(0 0, 88% 0, 100% 18%, 100% 100%, 12% 100%, 0 82%);
+}
+
+.brand small {
+  color: rgba(247, 241, 220, 0.72);
+}
+
+.main-nav {
+  background: #101513;
+  border-color: #000;
+}
+
+.main-nav a {
+  color: var(--chalk);
+}
+
+.main-nav a[aria-current="page"] {
+  color: #101513;
+  background: var(--whistle);
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(0deg, rgba(16, 21, 19, 0.94), rgba(16, 21, 19, 0.5) 50%, rgba(16, 21, 19, 0.1)),
+    linear-gradient(90deg, rgba(184, 36, 39, 0.54), rgba(16, 21, 19, 0.14));
+}
+
+.hero h1,
+.page-hero h1,
+.story-prologue-copy h1 {
+  letter-spacing: 0;
+  text-transform: none;
+  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.18);
+}
+
+.button,
+.flow article,
+.mission-card,
+.company-card,
+.collection-card,
+.quiz-box,
+.company-profile,
+.match-form,
+.register-form,
+.ticket-profile,
+.member-notice,
+.collection-panel,
+.final-battle,
+.ending-panel,
+.ending-actions,
+.crisis-board,
+.partner-terminal,
+.story-scene,
+.scout-card,
+.operation-card {
+  border-width: 3px;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+.button {
+  min-height: 54px;
+  box-shadow: 5px 5px 0 #000;
+}
+
+.button.primary {
+  background: var(--whistle);
+}
+
+.button.secondary {
+  background: var(--red);
+}
+
+.button.ghost {
+  background: var(--chalk);
+}
+
+.story-prologue {
+  background:
+    linear-gradient(90deg, rgba(16, 21, 19, 0.17) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(0deg, rgba(16, 21, 19, 0.09) 1px, transparent 1px) 0 0 / 22px 22px,
+    radial-gradient(circle at 75% 32%, rgba(184, 36, 39, 0.32), transparent 29%),
+    linear-gradient(130deg, #f2ecd7 0 56%, #c8c3a8 56% 100%);
+}
+
+.story-prologue::before {
+  content: "KAIJU INCIDENT REPORT";
+  top: 28px;
+  right: -68px;
+  padding-inline: 76px;
+  background: #101513;
+  border-color: var(--red);
+}
+
+.story-prologue::after {
+  content: "FILE_20XX";
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  color: rgba(16, 21, 19, 0.08);
+  font-size: clamp(52px, 12vw, 138px);
+  font-weight: 950;
+  line-height: 0.78;
+  pointer-events: none;
+  writing-mode: vertical-rl;
+}
+
+.story-prologue-copy .eyebrow,
+.story-chapter-heading .eyebrow,
+.partner-terminal .eyebrow,
+.operation-card .eyebrow {
+  color: var(--red);
+}
+
+.crisis-board,
+.terminal-screen,
+.battle-arena {
+  background:
+    linear-gradient(120deg, rgba(184, 36, 39, 0.12), transparent 42%),
+    repeating-linear-gradient(-12deg, transparent 0 12px, rgba(16, 21, 19, 0.045) 12px 14px),
+    #f7f1dc;
+}
+
+.crisis-kaiju,
+.final-kaiju {
+  filter: drop-shadow(8px 10px 0 rgba(16, 21, 19, 0.24)) contrast(1.08);
+}
+
+.character-art {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.crisis-kaiju.character-art {
+  width: min(74%, 360px);
+  height: auto;
+  right: -32px;
+  bottom: 22px;
+}
+
+.crisis-stamp {
+  background: var(--red);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.story-scenes {
+  padding: 10px;
+  background:
+    linear-gradient(135deg, rgba(184, 36, 39, 0.22), transparent 40%),
+    #101513;
+  border: 3px solid #101513;
+  gap: 10px;
+}
+
+.story-scene {
+  min-height: 220px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.94)),
+    repeating-linear-gradient(90deg, rgba(16, 21, 19, 0.06) 0 1px, transparent 1px 7px),
+    #f7f1dc;
+}
+
+.story-scene:nth-child(1) {
+  transform: rotate(-1deg);
+}
+
+.story-scene:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.story-scene:nth-child(3) {
+  transform: rotate(-0.5deg);
+}
+
+.story-scene span,
+.scout-card span {
+  border-radius: 0;
+  background: #101513;
+  clip-path: polygon(0 0, 84% 0, 100% 20%, 100% 100%, 16% 100%, 0 80%);
+}
+
+.terminal-screen {
+  color: var(--chalk);
+  background:
+    linear-gradient(180deg, rgba(15, 40, 31, 0.88), rgba(16, 21, 19, 0.98)),
+    #101513;
+  border-width: 3px;
+}
+
+.terminal-status {
+  background: #050706;
+  border-bottom: 2px dashed rgba(216, 182, 74, 0.55);
+}
+
+.partner-avatar {
+  background: var(--red);
+  color: var(--chalk);
+  border-radius: 0;
+  clip-path: polygon(0 0, 80% 0, 100% 20%, 100% 100%, 20% 100%, 0 80%);
+}
+
+.partner-message blockquote {
+  position: relative;
+  padding-left: 14px;
+  border-left: 4px solid var(--whistle);
+}
+
+.signal-panel {
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(247, 241, 220, 0.92), transparent 22%),
+    conic-gradient(from 0deg, rgba(184, 36, 39, 0.9), rgba(25, 88, 102, 0.78), rgba(216, 182, 74, 0.7), rgba(184, 36, 39, 0.9));
+  clip-path: polygon(50% 0, 100% 18%, 100% 82%, 50% 100%, 0 82%, 0 18%);
+}
+
+.signal-core {
+  color: #101513;
+}
+
+.story-signal {
+  width: min(340px, 100%);
+  aspect-ratio: 1.18;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(247, 241, 220, 0.94), transparent 26%),
+    repeating-radial-gradient(circle at 50% 50%, rgba(16, 21, 19, 0.16) 0 2px, transparent 2px 24px),
+    linear-gradient(140deg, rgba(184, 36, 39, 0.82), rgba(216, 182, 74, 0.66) 54%, rgba(25, 88, 102, 0.78));
+}
+
+.story-signal .signal-ring {
+  inset: 22px;
+  border-width: 2px;
+  opacity: 0.58;
+}
+
+.story-signal .signal-core {
+  color: #101513;
+  font-size: clamp(42px, 12vw, 64px);
+  line-height: 0.88;
+  text-align: center;
+  text-shadow: 3px 3px 0 rgba(247, 241, 220, 0.56);
+  transform: rotate(-2deg);
+}
+
+.scout-section {
+  background:
+    linear-gradient(90deg, rgba(16, 21, 19, 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
+    repeating-radial-gradient(circle at 40% 45%, rgba(16, 21, 19, 0.05) 0 1px, transparent 1px 8px),
+    #eee7cf;
+}
+
+.scout-order {
+  padding: 10px;
+  background: #101513;
+  border: 3px solid #101513;
+}
+
+.scout-card {
+  min-height: 240px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent 35%),
+    #f7f1dc;
+  border-left-width: 12px;
+}
+
+.scout-card::after {
+  content: "NEXT KEEPER FILE";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: rgba(16, 21, 19, 0.44);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0;
+  writing-mode: vertical-rl;
+}
+
+.scout-card .character-art,
+.mission-character,
+.hero-slot-character,
+.unlock-character-svg,
+.final-hero-character {
+  filter: drop-shadow(5px 7px 0 rgba(16, 21, 19, 0.2)) contrast(1.08);
+}
+
+.signal-kaiju.character-art {
+  width: min(68%, 230px);
+  height: auto;
+  opacity: 0.9;
+  transform: translateX(-50%) rotate(-4deg);
+}
+
+.signal-heroes img {
+  width: 30%;
+  max-width: 78px;
+  filter: drop-shadow(0 0 10px rgba(255, 211, 77, 0.72)) drop-shadow(3px 5px 0 rgba(23, 48, 35, 0.18));
+  animation: signalPulse 2.8s ease-in-out infinite;
+}
+
+.signal-heroes img:nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.signal-heroes img:nth-child(3) {
+  animation-delay: 360ms;
+}
+
+.scout-card .character-art {
+  position: relative;
+  z-index: 1;
+  grid-row: 2 / span 2;
+  width: 102px;
+  max-height: 168px;
+  align-self: end;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+img.mission-character {
+  width: 132px;
+  height: 168px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+img.hero-slot-character {
+  width: 84px;
+  height: 112px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+img.unlock-character-svg {
+  width: min(240px, 76vw);
+  max-width: 76%;
+  max-height: 360px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+img.final-kaiju {
+  width: min(72%, 520px);
+  max-height: 70%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+img.final-hero-character {
+  width: min(74px, 100%);
+  height: 104px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.scout-card h3 {
+  font-size: 25px;
+  letter-spacing: 0;
+}
+
+.mission-card {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 38%),
+    repeating-linear-gradient(-10deg, transparent 0 16px, rgba(16, 21, 19, 0.035) 16px 18px),
+    #f7f1dc;
+}
+
+.mission-card::after,
+.collection-card::after {
+  border-radius: 0;
+}
+
+.mission-card.is-locked-card .mission-character {
+  filter: grayscale(1) brightness(0.24) drop-shadow(5px 7px 0 rgba(16, 21, 19, 0.28));
+  opacity: 0.72;
+}
+
+.page-hero,
+.page-hero.compact,
+.page-hero.trusted,
+.clear-hero,
+.register-hero {
+  background:
+    linear-gradient(90deg, rgba(16, 21, 19, 0.1) 1px, transparent 1px) 0 0 / 26px 26px,
+    linear-gradient(135deg, rgba(184, 36, 39, 0.18), transparent 46%),
+    #eee7cf;
+}
+
+.fixed-progress {
+  color: var(--chalk);
+  background: #101513;
+  border-color: var(--red);
+}
+
+.fixed-progress span {
+  color: rgba(247, 241, 220, 0.74);
+}
+
+@media (min-width: 760px) {
+  .scout-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  .scout-card svg {
+    width: 104px;
+    transform: translateX(-14px);
+  }
+
+  .scout-card .character-art {
+    width: 128px;
+    max-height: 200px;
+    transform: translateX(-18px);
+  }
+
+  img.mission-character {
+    width: 156px;
+    height: 196px;
+  }
+
+  .story-scenes {
+    transform: rotate(-0.35deg);
+  }
+}
+
+.manga-strip {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 12px;
+  background:
+    linear-gradient(135deg, rgba(184, 36, 39, 0.24), transparent 42%),
+    #101513;
+  border: 3px solid #101513;
+  transform: rotate(-0.25deg);
+}
+
+.manga-panel {
+  position: relative;
+  min-height: 330px;
+  padding: 18px;
+  overflow: hidden;
+  color: #101513;
+  background:
+    radial-gradient(circle at 82% 26%, rgba(184, 36, 39, 0.14), transparent 24%),
+    repeating-linear-gradient(-14deg, transparent 0 18px, rgba(16, 21, 19, 0.045) 18px 20px),
+    #f7f1dc;
+  border: 3px solid #101513;
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.26);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+.manga-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 24% 22%, rgba(16, 21, 19, 0.08) 0 1px, transparent 1px 9px),
+    linear-gradient(118deg, transparent 0 42%, rgba(255, 255, 255, 0.6) 42% 46%, transparent 46% 100%);
+  pointer-events: none;
+}
+
+.manga-page {
+  position: relative;
+  z-index: 5;
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: #f7f1dc;
+  background: #101513;
+  border: 2px solid #101513;
+  font-size: 16px;
+  font-weight: 950;
+  clip-path: polygon(0 0, 84% 0, 100% 20%, 100% 100%, 16% 100%, 0 80%);
+}
+
+.manga-art {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+  user-select: none;
+}
+
+.manga-kaiju-art {
+  right: -11%;
+  bottom: -14%;
+  width: min(86%, 760px);
+  height: auto;
+  filter: contrast(1.08) saturate(0.82) drop-shadow(12px 16px 0 rgba(16, 21, 19, 0.22));
+}
+
+.manga-caption {
+  position: relative;
+  z-index: 5;
+  width: min(100%, 470px);
+  margin-top: 34px;
+  padding: 14px;
+  background: rgba(255, 253, 242, 0.92);
+  border: 3px solid #101513;
+  box-shadow: 5px 5px 0 #101513;
+}
+
+.manga-caption h3 {
+  margin: 0;
+  font-size: clamp(22px, 6vw, 34px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.manga-caption p {
+  margin: 10px 0 0;
+  color: #30453b;
+  font-weight: 900;
+  line-height: 1.75;
+}
+
+.manga-sfx {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  margin: 0;
+  color: rgba(16, 21, 19, 0.14);
+  font-size: clamp(64px, 18vw, 150px);
+  font-weight: 950;
+  line-height: 0.9;
+  letter-spacing: 0;
+  transform: rotate(-10deg);
+}
+
+.manga-bubble {
+  position: relative;
+  z-index: 5;
+  width: fit-content;
+  max-width: min(100%, 360px);
+  margin: 18px 0 0;
+  padding: 12px 16px;
+  color: #101513;
+  background: #fffefa;
+  border: 3px solid #101513;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1.55;
+  box-shadow: 5px 5px 0 rgba(16, 21, 19, 0.22);
+}
+
+.manga-bubble::after {
+  content: "";
+  position: absolute;
+  right: 28px;
+  bottom: -17px;
+  width: 24px;
+  height: 24px;
+  background: #fffefa;
+  border-right: 3px solid #101513;
+  border-bottom: 3px solid #101513;
+  transform: rotate(45deg);
+}
+
+.manga-roster {
+  position: absolute;
+  right: 10px;
+  bottom: -8px;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(44px, 72px));
+  gap: 6px;
+  align-items: end;
+  justify-content: end;
+  width: min(58%, 280px);
+}
+
+.manga-roster img {
+  width: 100%;
+  height: 146px;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: grayscale(1) brightness(0.3) contrast(1.1) drop-shadow(4px 6px 0 rgba(16, 21, 19, 0.24));
+  opacity: 0.7;
+}
+
+.manga-panel-memory .manga-caption {
+  width: min(100%, 430px);
+}
+
+.manga-phone {
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  z-index: 1;
+  width: min(42%, 230px);
+  aspect-ratio: 0.58;
+  padding: 10px;
+  background: #101513;
+  border: 3px solid #101513;
+  box-shadow: 8px 8px 0 rgba(16, 21, 19, 0.24);
+  transform: rotate(4deg);
+}
+
+.manga-phone-screen {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  padding: 18px 10px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 211, 77, 0.38), transparent 26%),
+    repeating-linear-gradient(0deg, rgba(128, 207, 238, 0.12) 0 2px, transparent 2px 7px),
+    #173a35;
+  border: 2px solid #f7f1dc;
+}
+
+.manga-phone-screen span,
+.manga-phone-screen em {
+  color: rgba(247, 241, 220, 0.78);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 950;
+}
+
+.manga-phone-screen strong {
+  color: #ffd34d;
+  font-size: clamp(28px, 6vw, 46px);
+  line-height: 0.9;
+  letter-spacing: 0;
+}
+
+.manga-panel-call {
+  background:
+    radial-gradient(circle at 78% 30%, rgba(25, 88, 102, 0.24), transparent 28%),
+    repeating-linear-gradient(-18deg, transparent 0 14px, rgba(16, 21, 19, 0.055) 14px 16px),
+    #f7f1dc;
+}
+
+@media (min-width: 561px) {
+  .manga-panel-call .manga-bubble {
+    max-width: min(50%, 320px);
+  }
+
+  .manga-panel-call .manga-caption {
+    width: min(50%, 320px);
+  }
+
+  .manga-panel-call .manga-phone {
+    top: 74px;
+    right: 18px;
+    bottom: auto;
+    width: min(36%, 210px);
+  }
+}
+
+@media (max-width: 560px) {
+  .manga-strip {
+    gap: 10px;
+    margin-top: 22px;
+    padding: 8px;
+    transform: none;
+  }
+
+  .manga-panel {
+    min-height: 380px;
+    padding: 14px;
+  }
+
+  .manga-panel-kaiju {
+    min-height: 410px;
+  }
+
+  .manga-kaiju-art {
+    right: -34%;
+    bottom: -6%;
+    width: 124%;
+    opacity: 0.82;
+  }
+
+  .manga-caption {
+    width: min(100%, 330px);
+    margin-top: 26px;
+    padding: 12px;
+  }
+
+  .manga-caption p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .manga-bubble {
+    max-width: calc(100% - 18px);
+    font-size: 15px;
+  }
+
+  .manga-roster {
+    right: -4px;
+    bottom: -10px;
+    grid-template-columns: repeat(3, minmax(42px, 64px));
+    width: 64%;
+  }
+
+  .manga-roster img {
+    height: 126px;
+  }
+
+  .manga-phone {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(45%, 170px);
+    margin: 14px auto 0;
+    opacity: 0.88;
+    transform: rotate(2deg);
+  }
+
+  .manga-panel-call .manga-caption {
+    margin-top: 26px;
+  }
+}
+
+@media (min-width: 760px) {
+  .manga-strip {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  }
+
+  .manga-panel-wide {
+    grid-column: 1 / -1;
+    min-height: 430px;
+  }
+
+  .manga-panel-memory,
+  .manga-panel-call {
+    min-height: 390px;
+  }
+
+  .manga-panel-memory {
+    transform: rotate(0.7deg);
+  }
+
+  .manga-panel-call {
+    transform: rotate(-0.45deg);
+  }
+
+  .manga-panel-wide .manga-caption {
+    margin-top: 92px;
+    margin-left: 12px;
+  }
+
+  .manga-panel-memory .manga-caption,
+  .manga-panel-call .manga-caption {
+    margin-top: 58px;
+  }
+
+  .manga-roster {
+    grid-template-columns: repeat(3, minmax(56px, 86px));
+    width: min(62%, 330px);
+  }
+
+  .manga-roster img {
+    height: 172px;
   }
 }
