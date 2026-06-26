@@ -555,6 +555,385 @@ h3 {
   margin-top: 14px;
 }
 
+.story-prologue {
+  position: relative;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(23, 48, 35, 0.08) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(0deg, rgba(23, 48, 35, 0.045) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(135deg, rgba(233, 91, 60, 0.26), transparent 34%),
+    linear-gradient(225deg, rgba(22, 140, 154, 0.2), transparent 42%),
+    #f7f0d2;
+  border-bottom: 2px solid var(--ink);
+}
+
+.story-prologue::before {
+  content: "EMERGENCY";
+  position: absolute;
+  top: 34px;
+  right: -44px;
+  padding: 6px 52px;
+  color: var(--chalk);
+  background: var(--red);
+  border-block: 2px solid var(--ink);
+  font-size: 12px;
+  font-weight: 950;
+  transform: rotate(18deg);
+}
+
+.story-prologue-grid {
+  display: grid;
+  gap: 22px;
+  padding: 46px 0;
+}
+
+.story-prologue-copy {
+  display: grid;
+  gap: 14px;
+}
+
+.story-prologue-copy h1 {
+  max-width: 10em;
+  font-size: clamp(38px, 12vw, 58px);
+  font-weight: 950;
+}
+
+.story-prologue-copy p:not(.eyebrow) {
+  max-width: 40em;
+  margin: 0;
+  color: #385447;
+  font-weight: 900;
+  line-height: 1.85;
+}
+
+.story-hero-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.crisis-board,
+.partner-terminal,
+.story-scene,
+.scout-card,
+.operation-card {
+  position: relative;
+  background: #fffefa;
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.crisis-board {
+  min-height: 420px;
+  padding: 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 68% 28%, rgba(233, 91, 60, 0.28), transparent 26%),
+    linear-gradient(180deg, rgba(255, 253, 242, 0.96), rgba(221, 237, 216, 0.9));
+}
+
+.crisis-board::before {
+  content: "";
+  position: absolute;
+  inset: auto -10% 0;
+  height: 32%;
+  background:
+    linear-gradient(90deg, rgba(20, 55, 40, 0.18) 1px, transparent 1px) 0 0 / 22px 22px,
+    #ddebd3;
+  border-top: 2px solid var(--ink);
+}
+
+.crisis-stamp {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  padding: 7px 10px;
+  color: var(--chalk);
+  background: var(--red);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  font-size: 12px;
+  font-weight: 950;
+  transform: rotate(-4deg);
+}
+
+.crisis-kaiju {
+  position: absolute;
+  right: 8px;
+  bottom: 44px;
+  z-index: 2;
+  width: min(58%, 230px);
+  filter: drop-shadow(5px 7px 0 rgba(23, 48, 35, 0.16));
+  animation: kaijuNudge 850ms ease-in-out infinite;
+}
+
+.crisis-board dl {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  gap: 10px;
+  max-width: 220px;
+  margin: 26px 0 0;
+}
+
+.crisis-board div {
+  padding: 10px 12px;
+  background: rgba(255, 253, 242, 0.9);
+  border: 2px dashed var(--ink);
+}
+
+.crisis-board dt {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.crisis-board dd {
+  margin: 3px 0 0;
+  font-weight: 950;
+}
+
+.story-chapter-band {
+  border-bottom: 2px solid var(--ink);
+}
+
+.story-chapter-heading {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+  margin-bottom: 22px;
+}
+
+.story-chapter-heading h2 {
+  font-size: clamp(30px, 8vw, 48px);
+}
+
+.story-chapter-heading p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 850;
+  line-height: 1.85;
+}
+
+.story-scenes {
+  display: grid;
+  gap: 14px;
+}
+
+.story-scene {
+  padding: 18px;
+}
+
+.story-scene span,
+.scout-card span {
+  display: inline-grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: var(--chalk);
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-weight: 950;
+}
+
+.story-scene h3 {
+  margin-top: 14px;
+  font-size: 24px;
+}
+
+.story-scene p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.story-call-layout {
+  align-items: center;
+}
+
+.partner-terminal {
+  padding: 18px;
+}
+
+.partner-terminal h2 {
+  font-size: clamp(30px, 8vw, 46px);
+}
+
+.terminal-screen {
+  margin-top: 18px;
+  overflow: hidden;
+  background: #143728;
+  border: 2px solid var(--ink);
+  box-shadow: inset 0 0 0 2px rgba(255, 253, 242, 0.08);
+}
+
+.terminal-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  color: var(--chalk);
+  background: #0e261c;
+  border-bottom: 1px dashed rgba(255, 253, 242, 0.35);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.terminal-status span {
+  width: 10px;
+  height: 10px;
+  background: var(--whistle);
+  border: 1px solid var(--chalk);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--whistle);
+  animation: signalPulseDot 1.1s ease-in-out infinite;
+}
+
+.terminal-status em {
+  color: #ffd34d;
+  font-style: normal;
+}
+
+.partner-message {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.partner-avatar {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  color: var(--ink);
+  background: var(--whistle);
+  border: 2px solid var(--chalk);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.24);
+  font-size: 28px;
+  font-weight: 950;
+}
+
+.partner-message blockquote {
+  margin: 0;
+  color: var(--chalk);
+}
+
+.partner-message p {
+  margin: 0 0 12px;
+  font-weight: 850;
+  line-height: 1.85;
+}
+
+.partner-message p:last-child {
+  margin-bottom: 0;
+}
+
+.story-signal {
+  width: min(360px, 100%);
+}
+
+.scout-section {
+  background:
+    linear-gradient(90deg, rgba(34, 166, 90, 0.06) 1px, transparent 1px) 0 0 / 28px 28px,
+    #fffdf2;
+  border-top: 2px solid var(--ink);
+}
+
+.scout-order {
+  display: grid;
+  gap: 14px;
+}
+
+.scout-card {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 10px 14px;
+  align-items: center;
+  min-height: 178px;
+  padding: 14px;
+  overflow: hidden;
+  border-left: 10px solid var(--accent, var(--grass));
+}
+
+.scout-card::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  border: 1px dashed rgba(23, 48, 35, 0.16);
+}
+
+.scout-card span {
+  position: relative;
+  z-index: 1;
+  background: var(--accent, var(--grass));
+}
+
+.scout-card svg {
+  position: relative;
+  z-index: 1;
+  grid-row: 2 / span 2;
+  width: 64px;
+  filter: drop-shadow(3px 4px 0 rgba(23, 48, 35, 0.12));
+}
+
+.scout-card h3,
+.scout-card p {
+  position: relative;
+  z-index: 1;
+}
+
+.scout-card h3 {
+  align-self: end;
+  font-size: 23px;
+}
+
+.scout-card p {
+  align-self: start;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.55;
+}
+
+.operation-card {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 211, 77, 0.3), transparent 44%),
+    #fffefa;
+}
+
+.operation-card h2 {
+  font-size: clamp(28px, 8vw, 42px);
+}
+
+.operation-card p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+@keyframes signalPulseDot {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.86);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
 .signal-panel {
   position: relative;
   display: grid;
@@ -2342,6 +2721,80 @@ h3 {
 
   .page-hero h1 {
     font-size: 64px;
+  }
+
+  .story-prologue-grid {
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 64px;
+    align-items: center;
+    padding: 88px 0;
+  }
+
+  .story-prologue-copy h1 {
+    max-width: 12em;
+    font-size: clamp(64px, 7vw, 92px);
+  }
+
+  .story-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .crisis-board {
+    min-height: 500px;
+  }
+
+  .story-scenes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .story-scene:nth-child(2) {
+    margin-top: 36px;
+  }
+
+  .story-scene:nth-child(3) {
+    margin-top: 12px;
+  }
+
+  .partner-terminal {
+    padding: 28px;
+  }
+
+  .partner-message {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .partner-avatar {
+    width: 72px;
+    height: 72px;
+    font-size: 34px;
+  }
+
+  .scout-order {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .scout-card {
+    grid-template-columns: 76px minmax(0, 1fr);
+    min-height: 210px;
+    padding: 18px;
+  }
+
+  .scout-card svg {
+    width: 76px;
+  }
+
+  .operation-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    padding: 26px;
+  }
+
+  .operation-card .button {
+    grid-row: 1 / span 3;
+    grid-column: 2;
   }
 
   .story-layout {

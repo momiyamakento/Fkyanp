@@ -252,30 +252,101 @@
     </template>
 
     <template id="story-template">
-      <section class="page-hero story-hero">
-        <div class="page-hero-inner">
-          <p class="eyebrow">STORY</p>
-          <h1>忘れられた企業ヒーローを、もう一度フィールドへ。</h1>
-          <p>
-            西暦20XX年、未来の函館に巨大怪獣ナゾゴラが出現。街を守っていた企業ヒーローたちは、名前も仕事も忘れられ、力を失っていた。
-          </p>
+      <section class="story-prologue">
+        <div class="section-inner story-prologue-grid">
+          <div class="story-prologue-copy">
+            <p class="eyebrow">PROLOGUE / HAKODATE 20XX</p>
+            <h1>西暦20XX年、未来の函館に警報が鳴る。</h1>
+            <p>
+              かつて平和だった街は、突如として現れた巨大怪獣によって破壊され、絶望の淵に立たされていた。
+              建物はなぎ倒され、五稜郭も、函館山もピンチに陥っている。
+            </p>
+            <div class="story-hero-actions">
+              <a class="button primary" href="#missions">ヒーロー捜索を開始する</a>
+              <a class="button secondary" href="#story-call">緊急通信を読む</a>
+            </div>
+          </div>
+          <aside class="crisis-board" aria-label="函館危機状況">
+            <div class="crisis-stamp">CITY ALERT</div>
+            <svg class="crisis-kaiju" viewBox="0 0 220 240" aria-hidden="true">
+              <use href="#kaiju-nazogora"></use>
+            </svg>
+            <dl>
+              <div>
+                <dt>五稜郭</dt>
+                <dd>防衛線、崩壊寸前</dd>
+              </div>
+              <div>
+                <dt>函館山</dt>
+                <dd>通信塔にノイズ発生</dd>
+              </div>
+              <div>
+                <dt>市街地</dt>
+                <dd>建物・ライフライン停止</dd>
+              </div>
+            </dl>
+          </aside>
         </div>
       </section>
-      <section class="section story-section">
-        <div class="section-inner story-layout">
-          <div class="story-copy">
-            <h2>君のスマホと知恵が、街の力になる。</h2>
+
+      <section class="section story-section story-chapter-band">
+        <div class="section-inner">
+          <div class="story-chapter-heading">
+            <p class="eyebrow dark">STORY 01</p>
+            <h2>街は、ヒーローの名前を忘れていた。</h2>
             <p>
-              「聞こえるか！？ 街を救うには、忘れられた企業ヒーローたちの力が必要だ。」
-              参加者のスマホに、ヒーローの相方から緊急通信が届いた。
+              最新鋭の兵器すら通用しない状況の中で、街の人々は怯えるしかなかった。
+              本当に必要だった力は、ずっと前から函館を支えていた。
             </p>
-            <p>
-              企業HP、会場ブース、ヒントカードを調べ、事業・技術・理念・街との関わりを解き明かそう。
-              全てのヒーローが集まったとき、フィールド中央に最後の光が灯る。
-            </p>
-            <a class="button primary" href="#missions">ミッションを開始する</a>
           </div>
-          <div class="signal-panel character-signal" aria-label="ヒーロー信号">
+          <div class="story-scenes">
+            <article class="story-scene reveal">
+              <span>01</span>
+              <h3>巨大怪獣、出現</h3>
+              <p>ナゾゴラの一撃で街の機能が止まる。建物、道路、港、ライフラインが次々と沈黙していく。</p>
+            </article>
+            <article class="story-scene reveal">
+              <span>02</span>
+              <h3>忘れられた伝説</h3>
+              <p>かつて函館には、街の命、建物、健康を影から支え続けてきた伝説のヒーローたちがいた。</p>
+            </article>
+            <article class="story-scene reveal">
+              <span>03</span>
+              <h3>失われたエネルギー</h3>
+              <p>ヒーローの力の源は、人々の記憶と感謝の絆。忘れ去られた彼らは、街のどこかで眠っている。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section story-section" id="story-call">
+        <div class="section-inner story-layout story-call-layout">
+          <article class="partner-terminal">
+            <p class="eyebrow dark">STORY 02 / ENCRYPTED CALL</p>
+            <h2>謎の暗号通信が、君のスマホに届いた。</h2>
+            <div class="terminal-screen">
+              <div class="terminal-status">
+                <span></span>
+                <strong>PARTNER SIGNAL</strong>
+                <em>解析中...</em>
+              </div>
+              <div class="partner-message">
+                <div class="partner-avatar" aria-hidden="true">P</div>
+                <blockquote>
+                  <p>おい、そこのお前たち！聞こえるか！？</p>
+                  <p>
+                    街の奴らはみんな忘れちまったが、俺だけは覚えている。
+                    かつてこの函館には、街の命を、建物を、健康を支えてくれた本物のヒーローたちがいたんだ！
+                  </p>
+                  <p>
+                    怪獣を倒すには、奴らの力が必要だ。お前たちの知恵とスマホの力で、
+                    失われたヒーローの本当の姿を突き止め、もう一度この街にスカウトしてくれ！
+                  </p>
+                </blockquote>
+              </div>
+            </div>
+          </article>
+          <div class="signal-panel character-signal story-signal" aria-label="ヒーロー信号">
             <svg class="signal-kaiju" viewBox="0 0 220 240" aria-hidden="true">
               <use href="#kaiju-nazogora"></use>
             </svg>
@@ -286,6 +357,65 @@
               <svg viewBox="0 0 200 220"><use href="#hero-city"></use></svg>
             </div>
             <div class="signal-core">HERO<br />CALL</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section scout-section">
+        <div class="section-inner">
+          <div class="story-chapter-heading">
+            <p class="eyebrow dark">STORY 03 / SCOUT ORDER</p>
+            <h2>6人の企業ヒーローを、この順番で仲間に入れろ。</h2>
+            <p>
+              企業HPや会場ブースを調べ、ヒーローの本当の姿を復元する。
+              全員がそろった時、最後のエネルギー砲が起動する。
+            </p>
+          </div>
+          <div class="scout-order" aria-label="ヒーロースカウト順">
+            <article class="scout-card reveal" style="--accent:#e95b3c">
+              <span>01</span>
+              <svg viewBox="0 0 200 220" aria-hidden="true"><use href="#hero-steel"></use></svg>
+              <h3>ショウダイ</h3>
+              <p>鉄筋・骨組みの力。怪獣の強烈な一撃を完全に防ぐ最強の盾。</p>
+            </article>
+            <article class="scout-card reveal" style="--accent:#168c9a">
+              <span>02</span>
+              <svg viewBox="0 0 200 220" aria-hidden="true"><use href="#hero-health"></use></svg>
+              <h3>チュウオウ</h3>
+              <p>医療・調剤・回復の力。街の人々とヒーローを癒やす聖なるヒーラー。</p>
+            </article>
+            <article class="scout-card reveal" style="--accent:#22a65a">
+              <span>03</span>
+              <svg viewBox="0 0 200 220" aria-hidden="true"><use href="#hero-city"></use></svg>
+              <h3>モリカワ</h3>
+              <p>土木・建築・土台の力。地盤を固め、怪獣の足元を崩すグラウンドマスター。</p>
+            </article>
+            <article class="scout-card reveal" style="--accent:#2676a6">
+              <span>04</span>
+              <svg viewBox="0 0 200 220" aria-hidden="true"><use href="#hero-harbor"></use></svg>
+              <h3>ハコダテドック</h3>
+              <p>造船・巨大メカの力。海から超巨大決戦兵器を起動する。</p>
+            </article>
+            <article class="scout-card reveal" style="--accent:#f5b82e">
+              <span>05</span>
+              <svg viewBox="0 0 200 220" aria-hidden="true"><use href="#hero-lifeline"></use></svg>
+              <h3>タイメイ</h3>
+              <p>管工事・水気の力。街の水と空気を操り、怪獣を翻弄する流体の魔術師。</p>
+            </article>
+            <article class="scout-card reveal" style="--accent:#ef7b2d">
+              <span>06</span>
+              <svg viewBox="0 0 200 220" aria-hidden="true"><use href="#hero-industrial"></use></svg>
+              <h3>トウコウ</h3>
+              <p>電気・通信・情報の力。全ヒーローをつなぐ超高出力エネルギー砲。</p>
+            </article>
+          </div>
+          <div class="operation-card">
+            <p class="eyebrow dark">MISSION START</p>
+            <h2>調べることが、街を救う力になる。</h2>
+            <p>
+              企業の仕事、技術、街との関わりを調査しよう。謎を解くたびに、忘れられたヒーローの記憶が戻っていく。
+            </p>
+            <a class="button primary" href="#missions">ミッション一覧へ進む</a>
           </div>
         </div>
       </section>
