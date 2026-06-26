@@ -267,18 +267,7 @@ render();
 updatePageMotion();
 
 function normalizeInitialRoute() {
-  const firstViewKey = "fcan.sessionStarted";
-  const isFirstView = !sessionStorage.getItem(firstViewKey);
-  sessionStorage.setItem(firstViewKey, "true");
-
-  if (!location.hash) {
-    history.replaceState(null, "", `${location.pathname}${location.search}#home`);
-    return;
-  }
-
-  if (isFirstView && location.hash !== "#home") {
-    history.replaceState(null, "", `${location.pathname}${location.search}#home`);
-  }
+  if (location.hash !== "#home") history.replaceState(null, "", `${location.pathname}${location.search}#home`);
 }
 
 function render() {
