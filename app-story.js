@@ -4,7 +4,7 @@ const missions = [
     companyName: "翔大鋼業",
     heroName: "スチールフレーム",
     allyName: "スチールフレーム",
-    character: "hero-steel",
+    character: "real-steel",
     role: "鉄筋・骨組みの力",
     category: "建設・鉄筋",
     industry: "鉄筋工事",
@@ -25,7 +25,7 @@ const missions = [
       "企業HPのこのあたりを見てみよう。職人の腕前や品質を表す言葉が、起動コードに近い。"
     ],
     heroDescription:
-      "強固な鉄の骨組みを操り、街の巨大な建物を支える守護者。怪獣の一撃を受け止める最強の盾を創り出す。",
+      "鉄骨と建築フレームをまとった重装防衛型ヒーロー。巨大な鋼鉄の盾で、怪獣の一撃を正面から受け止める。",
     unlockMessage: "街の骨組みは、俺が支える。ナゾゴラの一撃、受け止めてみせる！",
     attackName: "スチールシールド",
     attackText: "鉄の盾を組み上げ、ナゾゴラの一撃を受け止める。",
@@ -43,7 +43,7 @@ const missions = [
     companyName: "函館中央薬局",
     heroName: "ヘルスガーディアン",
     allyName: "ヘルスガーディアン",
-    character: "hero-health",
+    character: "real-health",
     role: "医療・調剤・回復の力",
     category: "医療・健康",
     industry: "調剤薬局",
@@ -63,7 +63,7 @@ const missions = [
       "ヒーローの記憶が少し復元された。薬の飲み方や体調の不安を話せる場所だ。",
       "企業HPのこのあたりを見てみよう。地域に寄り添う姿勢が答えにつながる。"
     ],
-    heroDescription: "薬と健康の知識で、人々とヒーローを回復する聖なるヒーラー。",
+    heroDescription: "白衣と戦闘スーツを融合した支援型ヒーロー。医療ユニットと治療ガントレットで人々と仲間を回復する。",
     unlockMessage: "無理は禁物。回復と準備も、戦いの大切な力です。",
     attackName: "リカバリーライト",
     attackText: "回復の光で仲間の力を整え、次の一撃につなげる。",
@@ -81,7 +81,7 @@ const missions = [
     companyName: "森川組",
     heroName: "シティビルダー",
     allyName: "シティビルダー",
-    character: "hero-city",
+    character: "real-city",
     role: "土木・建築・土台の力",
     category: "建設・まちづくり",
     industry: "総合建設",
@@ -102,7 +102,7 @@ const missions = [
       "企業HPのこのあたりを見てみよう。地域の未来を形にする言葉が答えだ。"
     ],
     heroDescription:
-      "街の地盤を整え、道路や施設をつくり、未来の景色を形にするグラウンドマスター。",
+      "現場装備と戦闘装甲を融合した職人型ヒーロー。地盤を固め、崩れた道路を直し、怪獣の足元を制御する。",
     unlockMessage: "街は一日ではできない。だが、積み重ねた仕事は必ず未来を支える。",
     attackName: "グラウンドリフト",
     attackText: "足場を固め、ナゾゴラの巨体を受け止める地面を作る。",
@@ -120,7 +120,7 @@ const missions = [
     companyName: "函館ドック",
     heroName: "ドックメカニック",
     allyName: "ドックメカニック",
-    character: "hero-harbor",
+    character: "real-harbor",
     role: "造船・修理・巨大メカの力",
     category: "造船・機械",
     industry: "造船・修繕",
@@ -140,7 +140,7 @@ const missions = [
       "ヒーローの記憶が少し復元された。船を造る、と書く言葉だ。",
       "企業HPのこのあたりを見てみよう。建造と修繕の両方が大きな手がかりになる。"
     ],
-    heroDescription: "船と巨大機械を操る海のエンジニア。決戦用メカの整備を担う。",
+    heroDescription: "造船所の技術と重装備を備えたメカニックヒーロー。クレーンアームとアンカー武器で海から決戦を支える。",
     unlockMessage: "海からの援護は任せろ。決戦兵器、起動準備完了だ！",
     attackName: "ハーバーカノン",
     attackText: "港の巨大メカを起動し、海側から援護射撃を放つ。",
@@ -158,7 +158,7 @@ const missions = [
     companyName: "大明工業",
     heroName: "ラインマスター",
     allyName: "ラインマスター",
-    character: "hero-lifeline",
+    character: "real-lifeline",
     role: "管工事・水・空気・ライフラインの力",
     category: "設備・ライフライン",
     industry: "設備工事",
@@ -178,7 +178,7 @@ const missions = [
       "ヒーローの記憶が少し復元された。水や空気の通り道を整える仕事だ。",
       "企業HPのこのあたりを見てみよう。管工事やライフラインという言葉が近い。"
     ],
-    heroDescription: "街の水・空気・設備を整え、見えない場所から暮らしを支える流体の魔術師。",
+    heroDescription: "配管、バルブ、圧力ラインをまとった流体系ヒーロー。水流、蒸気、空気圧を操り、街のライフラインを守る。",
     unlockMessage: "見えないところで街を動かす。それが俺たちの戦い方だ。",
     attackName: "フローバインド",
     attackText: "水と空気の流れを制御し、ナゾゴラの動きを止める。",
@@ -196,7 +196,7 @@ const missions = [
     companyName: "東興アイテック",
     heroName: "エナジーリンク",
     allyName: "エナジーリンク",
-    character: "hero-industrial",
+    character: "real-link",
     role: "電気・通信・情報の力",
     category: "電気・通信・情報",
     industry: "電気・通信・情報",
@@ -216,7 +216,7 @@ const missions = [
       "ヒーローの記憶が少し復元された。つながる力、伝える力が鍵だ。",
       "企業HPのこのあたりを見てみよう。通信、電気、情報の組み合わせが答えにつながる。"
     ],
-    heroDescription: "全ヒーローの力を電気と情報でつなぎ、最後の一撃を放つエネルギーリンク役。",
+    heroDescription: "黒い戦闘スーツに発光ラインを走らせる司令塔型ヒーロー。電気と情報で全員の力を接続し、最後の一撃を可能にする。",
     unlockMessage: "全員の力を接続する。これで最後の一撃が撃てる！",
     attackName: "コネクトブースト",
     attackText: "全ヒーローの力を接続し、最後の合体攻撃を準備する。",
@@ -230,6 +230,51 @@ const missions = [
     }
   }
 ];
+
+const characterAssets = {
+  "real-steel": {
+    src: "assets/characters/steel-frame-v2.png",
+    width: 887,
+    height: 1774,
+    alt: "スチールフレーム"
+  },
+  "real-health": {
+    src: "assets/characters/health-guardian-v2.png",
+    width: 887,
+    height: 1774,
+    alt: "ヘルスガーディアン"
+  },
+  "real-city": {
+    src: "assets/characters/city-builder-v2.png",
+    width: 887,
+    height: 1774,
+    alt: "シティビルダー"
+  },
+  "real-harbor": {
+    src: "assets/characters/dock-mechanic-v2.png",
+    width: 887,
+    height: 1774,
+    alt: "ドックメカニック"
+  },
+  "real-lifeline": {
+    src: "assets/characters/line-master-v2.png",
+    width: 887,
+    height: 1774,
+    alt: "ラインマスター"
+  },
+  "real-link": {
+    src: "assets/characters/energy-link-v2.png",
+    width: 887,
+    height: 1774,
+    alt: "エナジーリンク"
+  },
+  "real-kaiju": {
+    src: "assets/characters/nazogora-full-v2.png",
+    width: 1536,
+    height: 1024,
+    alt: "ナゾゴラ"
+  }
+};
 
 const STORAGE_KEYS = {
   participant: "fcan.participant",
@@ -257,7 +302,6 @@ const battleState = {
 
 const app = document.querySelector("#app");
 
-normalizeInitialRoute();
 window.addEventListener("hashchange", render);
 window.addEventListener("scroll", updatePageMotion, { passive: true });
 document.addEventListener("click", handleDocumentClick);
@@ -266,10 +310,6 @@ document.addEventListener("submit", handleSubmit);
 render();
 updatePageMotion();
 
-function normalizeInitialRoute() {
-  if (location.hash !== "#home") history.replaceState(null, "", `${location.pathname}${location.search}#home`);
-}
-
 function render() {
   const route = parseRoute();
   if (route.name !== "clear") clearBattleTimer();
@@ -277,7 +317,8 @@ function render() {
 
   if (route.name === "home") return renderTemplate("home-template");
   if (route.name === "profile") return renderProfile();
-  if (route.name === "story") return renderTemplate("story-template");
+  if (route.name === "story") return renderTemplate("story-template", storyAnchorId(route.id));
+  if (route.name === "story-call") return renderTemplate("story-template", "story-call");
   if (route.name === "missions") return renderMissions();
   if (route.name === "mission") return renderMission(route.id);
   if (route.name === "companies") return renderCompanies();
@@ -292,12 +333,30 @@ function parseRoute() {
   return { name, id };
 }
 
-function renderTemplate(templateId) {
+function renderTemplate(templateId, anchorId = "") {
   const template = document.querySelector(`#${templateId}`);
   app.replaceChildren(template.content.cloneNode(true));
-  window.scrollTo({ top: 0, behavior: "auto" });
+  if (anchorId) {
+    const scrollToAnchor = () => {
+      const anchor = document.getElementById(anchorId);
+      if (!anchor) return;
+      const headerOffset = document.querySelector(".site-header")?.offsetHeight || 0;
+      const top = Math.max(0, anchor.getBoundingClientRect().top + window.scrollY - headerOffset - 12);
+      window.scrollTo({ top, behavior: "auto" });
+    };
+    requestAnimationFrame(scrollToAnchor);
+    window.setTimeout(scrollToAnchor, 160);
+    window.setTimeout(scrollToAnchor, 620);
+  } else {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
   requestAnimationFrame(initPageMotion);
   renderFixedProgress();
+}
+
+function storyAnchorId(id) {
+  if (id === "call") return "story-call";
+  return "";
 }
 
 function renderProfile() {
@@ -566,17 +625,21 @@ function renderFinalBattle(completed) {
       </div>
       <div class="battle-arena ${active ? active.attackClass : ""}" data-status="${status}">
         <div class="battle-effect" aria-hidden="true"></div>
-        <svg class="final-kaiju" viewBox="0 0 220 240" aria-label="怪獣ナゾゴラ"><use href="#kaiju-nazogora"></use></svg>
-        <div class="final-heroes" aria-label="最終決戦のヒーロー">
-          ${missions
-            .map((mission, index) => {
-              const unlocked = state.unlocked.has(mission.id);
-              const isActive = active?.id === mission.id;
-              const done = status === "victory" || battleState.stepIndex > index;
-              return `<span class="final-hero ${unlocked ? "is-unlocked" : "is-locked"} ${isActive ? "is-active" : ""} ${done ? "is-done" : ""}" style="--accent:${mission.accent}">${unlocked ? characterSvg(mission.character, "final-hero-character", mission.heroName) : "<span>?</span>"}</span>`;
-            })
-            .join("")}
-        </div>
+        ${characterSvg("real-kaiju", "final-kaiju", "ナゾゴラ")}
+        ${
+          completed
+            ? `<div class="final-heroes" aria-label="最終決戦のヒーロー">
+                ${missions
+                  .map((mission, index) => {
+                    const unlocked = state.unlocked.has(mission.id);
+                    const isActive = active?.id === mission.id;
+                    const done = status === "victory" || battleState.stepIndex > index;
+                    return `<span class="final-hero ${unlocked ? "is-unlocked" : "is-locked"} ${isActive ? "is-active" : ""} ${done ? "is-done" : ""}" style="--accent:${mission.accent}">${unlocked ? characterSvg(mission.character, "final-hero-character", mission.heroName) : ""}</span>`;
+                  })
+                  .join("")}
+              </div>`
+            : ""
+        }
         <p class="battle-action-text">${activeStep?.text || (completed ? "最終決戦を開始する準備はできている。" : `現在 ${state.unlocked.size} / ${missions.length}人`)}</p>
       </div>
       ${status === "victory" ? endingStoryHtml() : ""}
@@ -875,8 +938,14 @@ function stars(difficulty) {
 }
 
 function characterSvg(id, className = "character-icon", label = "") {
+  const asset = characterAssets[id];
+  if (asset) {
+    const alt = label || asset.alt || "";
+    const hidden = alt ? "" : ' aria-hidden="true"';
+    return `<img class="${className} character-art" src="${escapeAttribute(asset.src)}" width="${asset.width}" height="${asset.height}" alt="${escapeAttribute(alt)}"${hidden} loading="lazy" decoding="async" />`;
+  }
   const aria = label ? `aria-label="${escapeAttribute(label)}"` : `aria-hidden="true"`;
-  return `<svg class="${className}" viewBox="0 0 200 220" ${aria} focusable="false"><use href="#${id}"></use></svg>`;
+  return `<svg class="${className}" viewBox="0 0 220 300" ${aria} focusable="false"><use href="#${id}"></use></svg>`;
 }
 
 function createParticipantId() {
@@ -909,7 +978,7 @@ function el(tag, className) {
 }
 
 function setCurrentNav(name) {
-  const group = name === "mission" ? "missions" : name === "company" ? "companies" : name;
+  const group = name === "mission" ? "missions" : name === "company" ? "companies" : name === "story-call" ? "story" : name;
   document.querySelectorAll(".main-nav a").forEach((link) => {
     link.toggleAttribute("aria-current", link.getAttribute("href") === `#${group}`);
   });

@@ -11,7 +11,23 @@ C:\Fkyanp
 ├─ styles.css
 ├─ app-story.js
 └─ assets
-   └─ hero-quest-map.jpg
+   ├─ hero-quest-map.jpg
+   └─ characters
+      ├─ steel-frame.png
+      ├─ steel-frame-v2.png
+      ├─ health-guardian.png
+      ├─ health-guardian-v2.png
+      ├─ city-builder.png
+      ├─ city-builder-v2.png
+      ├─ dock-mechanic.png
+      ├─ dock-mechanic-v2.png
+      ├─ line-master.png
+      ├─ line-master-v2.png
+      ├─ energy-link.png
+      ├─ energy-link-v2.png
+      ├─ nazogora-full.png
+      ├─ nazogora-full-v2.png
+      └─ nazogora-head.png
 ```
 
 ## 各ファイルの役割
@@ -26,7 +42,7 @@ C:\Fkyanp
 - ヘッダーとナビゲーション
 - トップページ、受付、物語、ミッション、企業一覧、最終決戦のテンプレート
 - トップページで使うメイン画像 `assets/hero-quest-map.jpg` の読み込み
-- キャラクターSVGの埋め込み
+- キャラクターSVGの埋め込みと、物語ページ用PNG立ち絵の読み込み
 - `app-story.js` の読み込み
 
 画面に出るセクション構成を大きく変えたい時は、このファイルを見ます。
@@ -43,6 +59,7 @@ C:\Fkyanp
 - カードUI
 - スマホ/PCのレスポンシブ対応
 - ヒーローカード、受付フォーム、ミッション画面、最終決戦画面のレイアウト
+- PNG立ち絵のサイズ、配置、影、最終決戦での見え方
 - 解放演出や最終決戦のCSSアニメーション
 
 文字がかぶる、カードが細い、スマホで崩れるなど、見た目の問題は基本的にこのファイルを直します。
@@ -54,6 +71,7 @@ C:\Fkyanp
 主に以下を担当しています。
 
 - 6社の企業ヒーローデータ
+- キャラクターIDとPNG画像の対応表
 - ミッション名、謎、ヒント、答え、企業紹介文
 - 受付情報の保存
 - 解放済みヒーローの保存
@@ -78,6 +96,20 @@ C:\Fkyanp
 - OGP画像指定
 
 この画像はサイト表示に必要なので削除しないでください。
+
+### `assets/characters`
+
+企業ヒーローと怪獣ナゾゴラの立ち絵画像です。
+
+現在、以下で使っています。
+
+- 物語ページのスカウトカード
+- ミッション一覧カード
+- ヒーロー解放モーダル
+- ヒーローコレクション
+- 最終決戦画面
+
+このフォルダのPNGは現在のキャラクター表示に必要なので削除しないでください。
 
 ## 補助フォルダ
 
@@ -132,6 +164,7 @@ Codexなどの作業補助用フォルダです。
 色・余白・カード・スマホ崩れ   -> styles.css
 企業/謎/答え/ヒントを変えたい  -> app-story.js
 トップ画像を差し替えたい       -> assets/hero-quest-map.jpg
+キャラクター画像を差し替えたい -> assets/characters + app-story.js
 仕様メモを確認したい           -> docs
 ```
 
@@ -142,6 +175,7 @@ index.html
 styles.css
 app-story.js
 assets/hero-quest-map.jpg
+assets/characters/*
 ```
 
 この4つは現在のサイト表示に必要です。
