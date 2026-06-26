@@ -11,7 +11,7 @@ const missions = [
     difficulty: 2,
     booth: "B-1",
     accent: "#e95b3c",
-    website: "https://example.com",
+    website: "http://www.syoudai.jp/",
     missionTitle: "鉄の骨組みを探せ",
     storyIntro:
       "最初の通信が示したのは、崩れかけたビルの影だった。そこには、かつて街の建物を支えた鉄のヒーローが眠っているらしい。彼を呼び覚ますには、翔大鋼業がどんな力で街を支えているのかを突き止める必要がある。",
@@ -50,7 +50,7 @@ const missions = [
     difficulty: 1,
     booth: "B-2",
     accent: "#168c9a",
-    website: "https://example.com",
+    website: "https://h-chuo-p.com/",
     missionTitle: "健康の合言葉",
     storyIntro:
       "次に届いた信号は、街の避難所からだった。傷ついた人々と、消耗したヒーローたち。戦いを続けるには、健康を守る知識が必要だ。薬と地域に寄り添うヒーローの記憶を取り戻そう。",
@@ -88,7 +88,7 @@ const missions = [
     difficulty: 2,
     booth: "C-1",
     accent: "#22a65a",
-    website: "https://example.com",
+    website: "http://morikawagumi.com/",
     missionTitle: "街を創る設計図",
     storyIntro:
       "地面が大きく揺れ、ナゾゴラの足音が近づいてくる。街を守るには、建物だけではなく、道路や土台を支える力が必要だ。森川組の仕事を調べ、街を創るヒーローを呼び覚ませ。",
@@ -127,7 +127,7 @@ const missions = [
     difficulty: 3,
     booth: "C-2",
     accent: "#2676a6",
-    website: "https://example.com",
+    website: "https://www.hakodate-dock.co.jp/",
     missionTitle: "港に眠る技術",
     storyIntro:
       "港から、古い無線信号が届いた。海には、決戦に必要な巨大な力が眠っている。船をつくり、直し、支える技術を調べ、海のヒーローを起動せよ。",
@@ -165,7 +165,7 @@ const missions = [
     difficulty: 2,
     booth: "D-1",
     accent: "#f5b82e",
-    website: "https://example.com",
+    website: "https://taimei-kk.com/",
     missionTitle: "流れる力の正体",
     storyIntro:
       "街の水と空気の流れが乱れ始めた。見えない場所で暮らしを支えていたライフラインの力が弱まっている。設備を支えるヒーローの正体を探れ。",
@@ -203,7 +203,7 @@ const missions = [
     difficulty: 3,
     booth: "D-2",
     accent: "#ef7b2d",
-    website: "https://example.com",
+    website: "https://tokoai.com/",
     missionTitle: "つながる力を探せ",
     storyIntro:
       "すべてのヒーローが集まりつつある。しかし、力がまだ一つにつながっていない。最後に必要なのは、電気と情報をつなぐエネルギーの力だ。東興アイテックの謎を解き、最終決戦の準備を完了せよ。",
@@ -257,6 +257,7 @@ const battleState = {
 
 const app = document.querySelector("#app");
 
+normalizeInitialRoute();
 window.addEventListener("hashchange", render);
 window.addEventListener("scroll", updatePageMotion, { passive: true });
 document.addEventListener("click", handleDocumentClick);
@@ -264,6 +265,21 @@ document.addEventListener("submit", handleSubmit);
 
 render();
 updatePageMotion();
+
+function normalizeInitialRoute() {
+  const firstViewKey = "fcan.sessionStarted";
+  const isFirstView = !sessionStorage.getItem(firstViewKey);
+  sessionStorage.setItem(firstViewKey, "true");
+
+  if (!location.hash) {
+    history.replaceState(null, "", `${location.pathname}${location.search}#home`);
+    return;
+  }
+
+  if (isFirstView && location.hash !== "#home") {
+    history.replaceState(null, "", `${location.pathname}${location.search}#home`);
+  }
+}
 
 function render() {
   const route = parseRoute();
@@ -430,7 +446,7 @@ function renderMission(id) {
         <div class="quiz-actions">
           <button class="button primary" type="submit" aria-label="回答する">回答する</button>
           <button class="button ghost" type="button" data-action="hint" data-id="${mission.id}" aria-label="ヒントを見る">ヒントを見る</button>
-          <a class="button ghost" href="${mission.website}" target="_blank" rel="noreferrer">企業HPを見る</a>
+          ${missionWebsiteLinkHtml(mission)}
         </div>
       </form>
       <div class="hint-panel" id="hint-panel">${hintPanelHtml(mission, hintCount)}</div>
@@ -521,6 +537,7 @@ function companyProfileHtml(mission) {
       </button>
       <a class="button ghost" href="#missions">次のヒーローを探す</a>
       <a class="button ghost" href="#companies">企業一覧へ</a>
+      ${missionWebsiteLinkHtml(mission)}
     </div>
   `;
 }
@@ -857,6 +874,11 @@ function findMission(id) {
 
 function getHintCount(id) {
   return Number(state.hints[id] || 0);
+}
+
+function missionWebsiteLinkHtml(mission) {
+  if (!mission.website || mission.website === "https://example.com") return "";
+  return `<a class="button ghost" href="${escapeAttribute(mission.website)}" target="_blank" rel="noreferrer">企業HPを見る</a>`;
 }
 
 function stars(difficulty) {

@@ -88,14 +88,20 @@ C:\Fkyanp
 ```txt
 docs
 ├─ character-design-guide.md
+├─ deployment.md
+├─ member-system-guide.md
 ├─ web-site-structure.md
+├─ system-architecture.md
 └─ project-structure.md
 ```
 
 各ファイルの役割は以下です。
 
 - `character-design-guide.md`: キャラクターデザイン方針のメモ
+- `deployment.md`: GitHub Pages で公開する手順
+- `member-system-guide.md`: メンバー共有用のシステム構成と今後の進め方
 - `web-site-structure.md`: 初期のサイト構成メモ
+- `system-architecture.md`: 個人情報・ログイン・管理画面を追加する時の構成案
 - `project-structure.md`: このファイル。現在のファイル構成説明
 
 サイト表示には直接使っていません。
@@ -147,4 +153,3 @@ C:\Fkyanp\index.html
 ```
 
 このファイルをブラウザで開くとサイトが表示されます。
-
