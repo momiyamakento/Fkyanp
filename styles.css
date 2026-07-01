@@ -1701,9 +1701,11 @@ h3 {
 .unlock-card {
   position: relative;
   display: grid;
-  width: min(420px, 100%);
-  gap: 12px;
-  padding: 22px;
+  width: min(520px, 100%);
+  max-height: min(88svh, 760px);
+  overflow: auto;
+  gap: 0;
+  padding: 0;
   color: var(--ink);
   background: #fffefa;
   border: 3px solid var(--ink);
@@ -1712,17 +1714,137 @@ h3 {
   animation: unlockCardIn 320ms ease-out both;
 }
 
+.unlock-cinematic {
+  position: relative;
+  min-height: clamp(220px, 52vw, 310px);
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--chalk);
+  background:
+    linear-gradient(90deg, rgba(16, 21, 19, 0.86), rgba(16, 21, 19, 0.36) 54%, rgba(16, 21, 19, 0.88)),
+    radial-gradient(circle at 78% 46%, color-mix(in srgb, var(--accent, var(--grass)) 72%, transparent), transparent 34%),
+    repeating-linear-gradient(-18deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 18px),
+    var(--ink);
+}
+
+.unlock-cinematic::before,
+.unlock-cinematic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.unlock-cinematic::before {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, transparent 0 34%, rgba(255, 253, 242, 0.88) 44%, transparent 56%),
+    linear-gradient(0deg, rgba(255, 253, 242, 0.18), transparent 22% 78%, rgba(255, 253, 242, 0.16));
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: translateX(-120%);
+  animation: unlockLightSweep 820ms ease-out 120ms both;
+}
+
+.unlock-cinematic::after {
+  z-index: 4;
+  background: repeating-linear-gradient(0deg, rgba(255, 253, 242, 0.12) 0 1px, transparent 1px 6px);
+  opacity: 0.38;
+}
+
+.unlock-speed-lines {
+  position: absolute;
+  inset: -18% -28%;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(100deg, transparent 0 20px, rgba(255, 253, 242, 0.18) 20px 24px, transparent 24px 42px),
+    repeating-linear-gradient(82deg, transparent 0 36px, color-mix(in srgb, var(--accent, var(--grass)) 44%, transparent) 36px 42px, transparent 42px 66px);
+  transform: translateX(-18%) skewX(-8deg);
+  animation: unlockSpeedLines 720ms linear both;
+}
+
+.unlock-burst {
+  position: absolute;
+  right: -10%;
+  bottom: -36%;
+  z-index: 0;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 253, 242, 0.86), color-mix(in srgb, var(--accent, var(--grass)) 58%, transparent) 26%, transparent 58%),
+    conic-gradient(from 18deg, transparent, rgba(255, 253, 242, 0.72), transparent 18%, color-mix(in srgb, var(--accent, var(--grass)) 68%, transparent), transparent 38%);
+  filter: blur(0.2px);
+  transform: scale(0.36);
+  opacity: 0;
+  animation: unlockBurst 760ms cubic-bezier(0.2, 0.9, 0.2, 1) 180ms both;
+}
+
+.unlock-call-sign {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 5;
+  margin: 0;
+  padding: 5px 9px;
+  color: var(--ink);
+  background: var(--whistle);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 #000;
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+  transform: translateX(-18px);
+  opacity: 0;
+  animation: unlockLabelIn 260ms ease-out 240ms both;
+}
+
 .unlock-character {
+  position: absolute;
+  right: 4%;
+  bottom: -8px;
+  z-index: 3;
   display: grid;
   place-items: center;
-  min-height: 176px;
+  width: min(44%, 210px);
+  height: 92%;
+  transform: translateX(78%) scale(0.84);
+  transform-origin: center bottom;
+  animation: unlockHeroEntrance 980ms cubic-bezier(0.18, 0.86, 0.22, 1) 120ms both;
 }
 
 .unlock-character-svg {
-  width: 156px;
-  max-width: 70%;
-  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--accent, var(--grass)) 46%, transparent)) drop-shadow(4px 5px 0 rgba(23, 48, 35, 0.14));
-  animation: unlockHero 1.8s ease-in-out infinite;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--accent, var(--grass)) 62%, transparent)) drop-shadow(7px 8px 0 rgba(0, 0, 0, 0.28));
+  animation: unlockHeroFloat 1.8s ease-in-out 1.1s infinite;
+}
+
+.unlock-name-plate {
+  position: absolute;
+  right: 16px;
+  bottom: 18px;
+  z-index: 5;
+  max-width: calc(100% - 32px);
+  padding: 8px 12px;
+  color: var(--chalk);
+  background: rgba(16, 21, 19, 0.9);
+  border: 2px solid var(--chalk);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--accent, var(--grass)) 80%, #000);
+  font-size: clamp(18px, 5vw, 30px);
+  font-weight: 950;
+  line-height: 1.05;
+  transform: translateX(28px);
+  opacity: 0;
+  animation: unlockNamePlate 360ms ease-out 640ms both;
+}
+
+.unlock-result {
+  display: grid;
+  gap: 12px;
+  padding: 20px 22px 22px;
+  animation: unlockResultIn 360ms ease-out 760ms both;
 }
 
 .unlock-card h2 {
@@ -1733,6 +1855,10 @@ h3 {
   margin: 0;
   color: var(--muted);
   font-weight: 900;
+}
+
+.unlock-card .eyebrow {
+  color: var(--red);
 }
 
 .unlock-facts {
@@ -2509,13 +2635,94 @@ h3 {
   }
 }
 
-@keyframes unlockHero {
+@keyframes unlockLightSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(-16deg);
+  }
+  18%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%) skewX(-16deg);
+  }
+}
+
+@keyframes unlockSpeedLines {
+  from {
+    transform: translateX(-18%) skewX(-8deg);
+  }
+  to {
+    transform: translateX(18%) skewX(-8deg);
+  }
+}
+
+@keyframes unlockBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0.36) rotate(-12deg);
+  }
+  42% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.72;
+    transform: scale(1) rotate(18deg);
+  }
+}
+
+@keyframes unlockLabelIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes unlockHeroEntrance {
+  0% {
+    opacity: 0;
+    transform: translateX(78%) scale(0.84) rotate(4deg);
+  }
+  58% {
+    opacity: 1;
+    transform: translateX(-7%) scale(1.08) rotate(-2deg);
+  }
+  76% {
+    transform: translateX(2%) scale(0.99) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes unlockHeroFloat {
   0%,
   100% {
     transform: translateY(0) scale(1);
   }
   50% {
     transform: translateY(-6px) scale(1.04);
+  }
+}
+
+@keyframes unlockNamePlate {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes unlockResultIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -2598,6 +2805,7 @@ h3 {
   *::before,
   *::after {
     animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
     scroll-behavior: auto !important;
     transition-duration: 1ms !important;
   }
@@ -3503,7 +3711,6 @@ body::before {
 .scout-card .character-art,
 .mission-character,
 .hero-slot-character,
-.unlock-character-svg,
 .final-hero-character {
   filter: drop-shadow(5px 7px 0 rgba(16, 21, 19, 0.2)) contrast(1.08);
 }
@@ -3555,10 +3762,11 @@ img.hero-slot-character {
   object-position: center bottom;
 }
 
-img.unlock-character-svg {
-  width: min(240px, 76vw);
-  max-width: 76%;
-  max-height: 360px;
+.unlock-character img.unlock-character-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   object-position: center bottom;
 }
@@ -3879,6 +4087,39 @@ img.final-hero-character {
 }
 
 @media (max-width: 560px) {
+  .unlock-modal {
+    padding: 14px;
+  }
+
+  .unlock-card {
+    max-height: min(90svh, 680px);
+    box-shadow: 5px 5px 0 var(--accent, var(--grass));
+  }
+
+  .unlock-cinematic {
+    min-height: 214px;
+  }
+
+  .unlock-character {
+    right: -2%;
+    width: min(52%, 190px);
+  }
+
+  .unlock-name-plate {
+    right: 10px;
+    bottom: 12px;
+    max-width: calc(100% - 20px);
+  }
+
+  .unlock-result {
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .unlock-card h2 {
+    font-size: 24px;
+  }
+
   .manga-strip {
     gap: 10px;
     margin-top: 22px;
