@@ -812,13 +812,21 @@ function showHeroUnlock(mission) {
   modal.innerHTML = `
     <div class="unlock-energy" aria-hidden="true"></div>
     <article class="unlock-card" style="--accent:${mission.accent}">
-      <p class="eyebrow">HERO CALL SUCCESS</p>
-      <div class="unlock-character">${characterSvg(mission.character, "unlock-character-svg", mission.heroName)}</div>
-      <h2>${escapeHtml(mission.heroName)}が仲間になった</h2>
-      <p>${escapeHtml(mission.heroDescription)}</p>
-      <p class="unlock-line">${escapeHtml(mission.unlockMessage)}</p>
-      <button class="button primary" type="button" data-action="close-unlock" aria-label="仲間に加える">仲間に加える</button>
-      <a class="button ghost" href="#missions">次のヒーローを探す</a>
+      <div class="unlock-cinematic" aria-hidden="true">
+        <div class="unlock-speed-lines"></div>
+        <div class="unlock-burst"></div>
+        <p class="unlock-call-sign">HERO ENTRY</p>
+        <div class="unlock-character">${characterSvg(mission.character, "unlock-character-svg", mission.heroName)}</div>
+        <span class="unlock-name-plate">${escapeHtml(mission.heroName)}</span>
+      </div>
+      <div class="unlock-result">
+        <p class="eyebrow">HERO CALL SUCCESS</p>
+        <h2>${escapeHtml(mission.heroName)}が仲間になった</h2>
+        <p>${escapeHtml(mission.heroDescription)}</p>
+        <p class="unlock-line">${escapeHtml(mission.unlockMessage)}</p>
+        <button class="button primary" type="button" data-action="close-unlock" aria-label="仲間に加える">仲間に加える</button>
+        <a class="button ghost" href="#missions" data-action="close-unlock">次のヒーローを探す</a>
+      </div>
     </article>
   `;
   document.body.append(modal);
