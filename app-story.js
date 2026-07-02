@@ -12,6 +12,7 @@ const missions = [
     booth: "B-1",
     accent: "#e95b3c",
     website: "http://www.syoudai.jp/",
+    recruitUrl: "http://www.syoudai.jp/recruit.php",
     missionTitle: "鉄の骨組みを探せ",
     storyIntro:
       "最初の通信が示したのは、崩れかけたビルの影だった。そこには、かつて街の建物を支えた鉄のヒーローが眠っているらしい。彼を呼び覚ますには、翔大鋼業がどんな力で街を支えているのかを突き止める必要がある。",
@@ -89,6 +90,7 @@ const missions = [
     booth: "C-1",
     accent: "#22a65a",
     website: "http://morikawagumi.com/",
+    recruitUrl: "http://morikawagumi.com/recruit/requirements/",
     missionTitle: "街を創る設計図",
     storyIntro:
       "地面が大きく揺れ、ナゾゴラの足音が近づいてくる。街を守るには、建物だけではなく、道路や土台を支える力が必要だ。森川組の仕事を調べ、街を創るヒーローを呼び覚ませ。",
@@ -128,6 +130,7 @@ const missions = [
     booth: "C-2",
     accent: "#2676a6",
     website: "https://www.hakodate-dock.co.jp/",
+    recruitUrl: "https://www.hakodate-dock.co.jp/recruit/",
     missionTitle: "港に眠る技術",
     storyIntro:
       "港から、古い無線信号が届いた。海には、決戦に必要な巨大な力が眠っている。船をつくり、直し、支える技術を調べ、海のヒーローを起動せよ。",
@@ -166,6 +169,7 @@ const missions = [
     booth: "D-1",
     accent: "#f5b82e",
     website: "https://taimei-kk.com/",
+    recruitUrl: "https://taimei-kk.jbplt.jp",
     missionTitle: "流れる力の正体",
     storyIntro:
       "街の水と空気の流れが乱れ始めた。見えない場所で暮らしを支えていたライフラインの力が弱まっている。設備を支えるヒーローの正体を探れ。",
@@ -204,6 +208,7 @@ const missions = [
     booth: "D-2",
     accent: "#ef7b2d",
     website: "https://tokoai.com/",
+    recruitUrl: "https://tokoai.com/recruit.html",
     missionTitle: "つながる力を探せ",
     storyIntro:
       "すべてのヒーローが集まりつつある。しかし、力がまだ一つにつながっていない。最後に必要なのは、電気と情報をつなぐエネルギーの力だ。東興アイテックの謎を解き、最終決戦の準備を完了せよ。",
@@ -367,7 +372,7 @@ function renderProfile() {
     return;
   }
 
-  const interested = missions.filter((mission) => state.interests.has(mission.id));
+  const followed = missions.filter((mission) => state.interests.has(mission.id));
   view.innerHTML = `
     <article class="ticket-profile">
       <p class="eyebrow dark">MISSION PASS</p>
@@ -384,8 +389,8 @@ function renderProfile() {
         <span>企業ヒーロー解放</span>
       </div>
       <div class="profile-list">
-        <h3>気になる企業</h3>
-        <p>${interested.length ? interested.map((mission) => escapeHtml(mission.companyName)).join("、") : "まだありません"}</p>
+        <h3>フォローした会社</h3>
+        <p>${followed.length ? followed.map((mission) => escapeHtml(mission.companyName)).join("、") : "まだありません"}</p>
       </div>
       <div class="interest-row">
         <a class="button primary" href="#missions">謎解きを始める</a>
@@ -525,7 +530,7 @@ function renderCompanies() {
   const list = document.querySelector("#company-list");
   list.replaceChildren(
     ...missions.map((mission) => {
-      const interested = state.interests.has(mission.id);
+      const followed = state.interests.has(mission.id);
       const card = el("article", "company-card reveal");
       card.style.setProperty("--accent", mission.accent);
       card.innerHTML = `
@@ -538,7 +543,7 @@ function renderCompanies() {
         </div>
         <div class="tag-row">
           <span class="tag">ブース ${escapeHtml(mission.booth)}</span>
-          <span class="tag">${interested ? "気になる登録済み" : "未チェック"}</span>
+          <span class="tag">${followed ? "フォロー中" : "未フォロー"}</span>
         </div>
         <p>${escapeHtml(mission.companyIntro.catch)}。${escapeHtml(mission.companyIntro.work)}</p>
         <a class="button primary" href="#company/${mission.id}">企業紹介を見る</a>
@@ -551,22 +556,31 @@ function renderCompanies() {
 function renderCompany(id) {
   const mission = findMission(id);
   if (!mission) return (location.hash = "#companies");
+  const followed = state.interests.has(mission.id);
   renderTemplate("company-template");
   document.querySelector("#company-detail").innerHTML = `
     <aside class="mission-brief" style="--accent:${mission.accent}">
       <p class="eyebrow">HERO PROFILE / BOOTH ${escapeHtml(mission.booth)}</p>
       <h1>${escapeHtml(mission.heroName)}</h1>
       <p>${escapeHtml(mission.companyName)}。${escapeHtml(mission.heroDescription)}</p>
-      <div class="tag-row"><span class="tag">${escapeHtml(mission.category)}</span><span class="tag">${stars(mission.difficulty)}</span></div>
+      <div class="tag-row">
+        <span class="tag">${escapeHtml(mission.category)}</span>
+        <span class="tag">${stars(mission.difficulty)}</span>
+        <span class="tag follow-status ${followed ? "is-followed" : ""}">${followed ? "フォロー中" : "未フォロー"}</span>
+      </div>
     </aside>
     <article class="company-profile is-visible">${companyProfileHtml(mission)}</article>
   `;
 }
 
 function companyProfileHtml(mission) {
-  const interested = state.interests.has(mission.id);
+  const followed = state.interests.has(mission.id);
   return `
     <p class="eyebrow dark">HERO PROFILE</p>
+    <div class="company-follow-state ${followed ? "is-followed" : ""}" aria-label="${escapeAttribute(mission.companyName)}のフォロー状態">
+      <span>${followed ? "フォロー中" : "未フォロー"}</span>
+      <small>${followed ? "マイページに保存されています" : "エントリーではなく、この端末に保存されます"}</small>
+    </div>
     <h2>${escapeHtml(mission.heroName)}</h2>
     <p><strong>${escapeHtml(mission.companyName)}</strong> / ${escapeHtml(mission.category)}</p>
     <dl class="company-profile-grid">
@@ -579,10 +593,20 @@ function companyProfileHtml(mission) {
       <ul>${mission.companyIntro.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul>
     </div>
     <p class="unlock-line">${escapeHtml(mission.unlockMessage)}</p>
+    <div class="follow-panel">
+      <div>
+        <p class="eyebrow dark">FOLLOW COMPANY</p>
+        <h3>${escapeHtml(mission.companyName)}をフォローする</h3>
+        <p>あとで見返したり、会場で話を聞きに行く会社としてこの端末に保存します。</p>
+      </div>
+      <div class="interest-row follow-actions">
+        <button class="button ${followed ? "interested" : "primary"}" type="button" data-action="interest" data-id="${mission.id}" aria-label="${escapeAttribute(mission.companyName)}をフォロー">
+          ${followed ? "フォロー中" : "会社をフォローする"}
+        </button>
+        ${recruitmentLinkHtml(mission)}
+      </div>
+    </div>
     <div class="interest-row">
-      <button class="button ${interested ? "interested" : "primary"}" type="button" data-action="interest" data-id="${mission.id}" aria-label="${escapeAttribute(mission.companyName)}を気になる企業に登録">
-        ${interested ? "気になる登録済み" : "気になる企業にする"}
-      </button>
       <a class="button ghost" href="#missions">次のヒーローを探す</a>
       <a class="button ghost" href="#companies">企業一覧へ</a>
       ${missionWebsiteLinkHtml(mission)}
@@ -612,9 +636,11 @@ function renderFinalBattle(completed) {
   const status = completed ? battleState.status : "locked";
   const activeStep = battleState.stepIndex >= 0 ? getBattleStep(battleState.stepIndex) : null;
   const active = activeStep?.mission;
+  const activeIndex = active ? missions.findIndex((mission) => mission.id === active.id) : -1;
+  const finalStrike = status === "playing" && battleState.stepIndex >= missions.length;
   const hp = completed ? battleState.hp : 100;
   stage.innerHTML = `
-    <section class="final-battle ${status === "victory" ? "is-victory" : ""} ${status === "locked" ? "is-locked" : ""}">
+    <section class="final-battle cinematic-battle ${status === "victory" ? "is-victory" : ""} ${status === "locked" ? "is-locked" : ""} ${status === "playing" ? "is-playing" : ""} ${finalStrike ? "is-final-strike" : ""}">
       <div class="final-battle-copy">
         <p class="eyebrow dark">FINAL BATTLE</p>
         <h2>${completed ? "6人の力を接続せよ" : "全ヒーロー収集後に解放されます"}</h2>
@@ -624,7 +650,36 @@ function renderFinalBattle(completed) {
         <span>ナゾゴラ HP</span><strong>${hp}</strong><div><i style="width:${hp}%"></i></div>
       </div>
       <div class="battle-arena ${active ? active.attackClass : ""}" data-status="${status}">
+        <div class="battle-bg" aria-hidden="true"></div>
+        <div class="battle-speed-lines" aria-hidden="true"></div>
+        <div class="battle-shockwave" aria-hidden="true"></div>
         <div class="battle-effect" aria-hidden="true"></div>
+        ${
+          active && status === "playing"
+            ? `<div class="motion-hero" style="--accent:${active.accent}; --active-index:${Math.max(activeIndex, 0)}" aria-hidden="true">
+                <span class="motion-ghost one">${characterSvg(active.character, "motion-hero-character", "")}</span>
+                <span class="motion-ghost two">${characterSvg(active.character, "motion-hero-character", "")}</span>
+                ${characterSvg(active.character, "motion-hero-character", active.heroName)}
+              </div>`
+            : ""
+        }
+        ${
+          status === "playing"
+            ? `<div class="combo-beams" aria-hidden="true">
+                ${missions.map((mission, index) => `<span style="--accent:${mission.accent}; --i:${index}"></span>`).join("")}
+              </div>`
+            : ""
+        }
+        <div class="impact-flash" aria-hidden="true"></div>
+        ${
+          active && status === "playing"
+            ? `<div class="active-hero-cutin" style="--accent:${active.accent}" aria-label="${escapeAttribute(active.heroName)}の攻撃">
+                <span>ATTACK ${String(activeIndex + 1).padStart(2, "0")}</span>
+                ${characterSvg(active.character, "active-hero-character", active.heroName)}
+                <strong>${escapeHtml(active.attackName)}</strong>
+              </div>`
+            : ""
+        }
         ${characterSvg("real-kaiju", "final-kaiju", "ナゾゴラ")}
         ${
           completed
@@ -634,12 +689,13 @@ function renderFinalBattle(completed) {
                     const unlocked = state.unlocked.has(mission.id);
                     const isActive = active?.id === mission.id;
                     const done = status === "victory" || battleState.stepIndex > index;
-                    return `<span class="final-hero ${unlocked ? "is-unlocked" : "is-locked"} ${isActive ? "is-active" : ""} ${done ? "is-done" : ""}" style="--accent:${mission.accent}">${unlocked ? characterSvg(mission.character, "final-hero-character", mission.heroName) : ""}</span>`;
+                    return `<span class="final-hero ${unlocked ? "is-unlocked" : "is-locked"} ${isActive ? "is-active" : ""} ${done ? "is-done" : ""}" style="--accent:${mission.accent}; --i:${index}">${unlocked ? characterSvg(mission.character, "final-hero-character", mission.heroName) : ""}</span>`;
                   })
                   .join("")}
               </div>`
             : ""
         }
+        ${status === "victory" ? `<div class="victory-burst" aria-hidden="true"><span>HERO MATCH COMPLETE</span></div>` : ""}
         <p class="battle-action-text">${activeStep?.text || (completed ? "最終決戦を開始する準備はできている。" : `現在 ${state.unlocked.size} / ${missions.length}人`)}</p>
       </div>
       ${status === "victory" ? endingStoryHtml() : ""}
@@ -670,7 +726,7 @@ function endingActionsHtml(completed) {
         <h2>${completed ? "次はブースへ" : "作戦を続けよう"}</h2>
       </div>
       <div class="interest-row">
-        <a class="button primary" href="#companies">気になった企業を確認する</a>
+        <a class="button primary" href="#companies">フォローした会社を確認する</a>
         <a class="button ghost" href="#companies">ブースへ行く</a>
         <a class="button ghost" href="#home">もう一度遊ぶ</a>
         <button class="button ghost danger" type="button" data-action="reset">進行状況をリセット</button>
@@ -715,7 +771,7 @@ function playBattleStep() {
   battleState.hp = step.hp;
   renderFinalBattle(true);
   clearBattleTimer();
-  const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 500 : 1500;
+  const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 800 : 2700;
   battleState.timer = window.setTimeout(() => {
     if (battleState.stepIndex >= missions.length) return finishBattle();
     battleState.stepIndex += 1;
@@ -743,6 +799,7 @@ function handleDocumentClick(event) {
   const action = target.dataset.action;
   if (action === "hint") return revealHint(target.dataset.id);
   if (action === "interest") return toggleInterest(target.dataset.id);
+  if (action === "follow-company") return followCompany(target);
   if (action === "reset") return resetProgress();
   if (action === "close-unlock") return closeHeroUnlock();
   if (action === "start-battle" || action === "replay-battle") return startFinalBattle();
@@ -824,7 +881,11 @@ function showHeroUnlock(mission) {
         <h2>${escapeHtml(mission.heroName)}が仲間になった</h2>
         <p>${escapeHtml(mission.heroDescription)}</p>
         <p class="unlock-line">${escapeHtml(mission.unlockMessage)}</p>
-        <button class="button primary" type="button" data-action="close-unlock" aria-label="仲間に加える">仲間に加える</button>
+        <p class="unlock-follow-copy">${escapeHtml(mission.companyName)}をフォローすると、あとで見返したりブースで話を聞く候補として保存できます。</p>
+        <div class="unlock-next-actions">
+          <button class="button primary" type="button" data-action="follow-company" data-id="${mission.id}" aria-label="${escapeAttribute(mission.companyName)}をフォロー">会社をフォローする</button>
+          ${recruitmentLinkHtml(mission)}
+        </div>
         <a class="button ghost" href="#missions" data-action="close-unlock">次のヒーローを探す</a>
       </div>
     </article>
@@ -874,6 +935,18 @@ function toggleInterest(id) {
   render();
 }
 
+function followCompany(target) {
+  const id = target.dataset.id;
+  const mission = findMission(id);
+  if (!mission) return;
+  state.interests.add(id);
+  saveState();
+  target.classList.remove("primary");
+  target.classList.add("interested");
+  target.textContent = "フォロー中";
+  target.setAttribute("aria-label", `${mission.companyName}をフォロー中`);
+}
+
 function saveState() {
   localStorage.setItem(STORAGE_KEYS.unlocked, JSON.stringify([...state.unlocked]));
   localStorage.setItem(STORAGE_KEYS.interests, JSON.stringify([...state.interests]));
@@ -901,7 +974,13 @@ function heroCollectionHtml(mode = "full") {
       const unlocked = state.unlocked.has(mission.id);
       return `
         <article class="hero-slot ${unlocked ? "is-unlocked" : "is-locked"} ${state.recentUnlock === mission.id ? "is-new" : ""}" style="--accent:${mission.accent}">
-          <div class="hero-slot-visual">${unlocked ? characterSvg(mission.character, "hero-slot-character", mission.heroName) : `<span class="hero-slot-lock">?</span>`}</div>
+          <div class="hero-slot-visual">
+            ${
+              unlocked
+                ? characterSvg(mission.character, "hero-slot-character", mission.heroName)
+                : `${characterSvg(mission.character, "hero-slot-character is-locked-character", "")}<span class="hero-slot-lock">?</span>`
+            }
+          </div>
           <div class="hero-slot-body">
             <span class="tag status ${unlocked ? "clear" : ""}">${unlocked ? "仲間" : "未解放"}</span>
             <h3>${unlocked ? escapeHtml(mission.heroName) : "???"}</h3>
@@ -939,6 +1018,11 @@ function getHintCount(id) {
 function missionWebsiteLinkHtml(mission) {
   if (!mission.website || mission.website === "https://example.com") return "";
   return `<a class="button ghost" href="${escapeAttribute(mission.website)}" target="_blank" rel="noreferrer">企業HPを見る</a>`;
+}
+
+function recruitmentLinkHtml(mission) {
+  if (!mission.recruitUrl) return "";
+  return `<a class="button ghost" href="${escapeAttribute(mission.recruitUrl)}" target="_blank" rel="noreferrer">採用情報を見る</a>`;
 }
 
 function stars(difficulty) {
