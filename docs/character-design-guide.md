@@ -23,7 +23,6 @@
 | JS ID | 表示名 | 企業 | 役割 | 画像 |
 | --- | --- | --- | --- | --- |
 | `real-steel` | スチールフレーム | 翔大鋼業 | 鉄筋・骨組み・防御 | `assets/characters/steel-frame-v2.png` |
-| `real-health` | ヘルスガーディアン | 函館中央薬局 | 医療・調剤・回復 | `assets/characters/health-guardian-v2.png` |
 | `real-city` | シティビルダー | 森川組 | 土木・建築・まちづくり・地盤 | `assets/characters/city-builder-v2.png` |
 | `real-harbor` | ドックメカニック | 函館ドック | 造船・修理・海・巨大機械 | `assets/characters/dock-mechanic-v2.png` |
 | `real-lifeline` | ラインマスター | 大明工業 | 管工事・水・空気・ライフライン | `assets/characters/line-master-v2.png` |
@@ -36,10 +35,6 @@
 ### スチールフレーム
 
 翔大鋼業の鉄筋、骨組み、防御を表す重装防衛型ヒーロー。鉄骨、H鋼、建築フレームのような装甲と巨大な鋼鉄の盾を持つ。色はダークグレー、鋼色、黒、黄色。`steel-frame-v2.png` は切り抜き素材ではなく、単独立ち絵として作り直した本番候補。
-
-### ヘルスガーディアン
-
-函館中央薬局の医療、調剤、回復を表す支援型ヒーロー。白衣と戦闘スーツが融合し、薬液アンプル、調剤ポッド、治療用ガントレットを装備する。色は白、ミントグリーン、青緑、銀。
 
 ### シティビルダー
 

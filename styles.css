@@ -1165,6 +1165,11 @@ img.mission-character {
   background: var(--whistle);
 }
 
+.status.progress {
+  color: var(--ink);
+  background: #fff2b9;
+}
+
 .follow-status.is-followed {
   color: var(--chalk);
   background: var(--grass-dark);
@@ -1216,6 +1221,297 @@ img.mission-character {
 .quiz-box h2,
 .company-profile h2 {
   font-size: 28px;
+}
+
+.quest-progress {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 18px;
+}
+
+.quest-progress span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--muted);
+  background: #fffefa;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 rgba(23, 48, 35, 0.14);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.quest-progress span.is-current {
+  color: var(--chalk);
+  background: var(--accent, var(--grass));
+}
+
+.quest-progress span.is-complete {
+  color: var(--ink);
+  background: var(--whistle);
+}
+
+.puzzle-panel {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0;
+  padding: 16px;
+  color: var(--ink);
+  background: #fffefa;
+  border: 2px solid var(--ink);
+  box-shadow: 5px 5px 0 rgba(23, 48, 35, 0.16);
+}
+
+.puzzle-panel p {
+  margin: 0;
+  font-weight: 950;
+  word-break: normal;
+}
+
+.mission-shodai .puzzle-panel {
+  background:
+    linear-gradient(90deg, rgba(233, 91, 60, 0.1) 1px, transparent 1px) 0 0 / 18px 18px,
+    linear-gradient(0deg, rgba(23, 48, 35, 0.08) 1px, transparent 1px) 0 0 / 18px 18px,
+    #fffefa;
+}
+
+.mission-morikawa .puzzle-panel {
+  background:
+    linear-gradient(135deg, rgba(34, 166, 90, 0.12), rgba(128, 207, 238, 0.12)),
+    #fffefa;
+}
+
+.blueprint-title {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent, var(--red));
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.blueprint-title span {
+  height: 2px;
+  background: currentColor;
+}
+
+.trade-code {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 28px;
+  font-weight: 950;
+}
+
+.trade-code span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  background: #f4f6f4;
+  border: 2px solid var(--ink);
+}
+
+.steel-grid-guide {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--chalk);
+  background: var(--ink);
+  padding: 10px 12px;
+  font-weight: 950;
+}
+
+.steel-grid-guide p {
+  color: var(--whistle);
+}
+
+.clue-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 22px;
+  font-weight: 900;
+}
+
+.steel-crossword {
+  display: grid;
+  gap: 0;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.steel-row {
+  display: grid;
+  grid-template-columns: 42px repeat(7, minmax(42px, 1fr));
+  min-width: 356px;
+}
+
+.steel-row b,
+.steel-row span {
+  display: grid;
+  min-height: 42px;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid #6f7d76;
+  font-weight: 950;
+}
+
+.steel-row b {
+  color: var(--accent, var(--red));
+  background: #f4f6f4;
+}
+
+.answer-runes {
+  justify-self: center;
+  padding: 6px 10px;
+  background: var(--whistle);
+  border: 2px solid var(--ink);
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.morikawa-identity {
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.identity-visuals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.helmet-clue,
+.morikawa-emblem {
+  display: block;
+  width: min(100%, 190px);
+  height: auto;
+  justify-self: center;
+  overflow: visible;
+  filter: drop-shadow(3px 4px 0 rgba(23, 48, 35, 0.12));
+}
+
+.helmet-brim,
+.helmet-cap,
+.helmet-neck {
+  fill: #fffefa;
+  stroke: #8b623b;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.helmet-cap {
+  fill: #fffdf2;
+}
+
+.helmet-mark {
+  fill: #f42322;
+  stroke: var(--ink);
+  stroke-width: 5;
+}
+
+.emblem-side,
+.emblem-base {
+  fill: #1296a2;
+}
+
+.emblem-side.right {
+  fill: #0f8795;
+}
+
+.emblem-center {
+  fill: #fffefa;
+}
+
+.emblem-shine {
+  fill: #dff7fb;
+}
+
+.shape-expression {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 32px;
+  font-weight: 950;
+}
+
+.shape {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border: 2px solid var(--ink);
+  vertical-align: middle;
+}
+
+.shape.square.red {
+  background: #f42322;
+}
+
+.shape.circle.blue {
+  background: #137bbd;
+  border-radius: 50%;
+}
+
+.shape.triangle.yellow {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-top: 0;
+  border-right: 21px solid transparent;
+  border-bottom: 36px solid #ffeb2d;
+  border-left: 21px solid transparent;
+}
+
+.seal-hints {
+  display: grid;
+  gap: 8px;
+}
+
+.seal-hints p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: rgba(255, 253, 242, 0.78);
+  border-left: 6px solid var(--accent, var(--grass));
+}
+
+.seal-hints .shape {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+}
+
+.seal-hints .shape.triangle.yellow {
+  width: 0;
+  height: 0;
+  border-right-width: 15px;
+  border-bottom-width: 26px;
+  border-left-width: 15px;
+}
+
+.kanji-cross {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.kanji-cross span {
+  padding: 10px;
+  background: #fffefa;
+  border: 2px solid rgba(23, 48, 35, 0.74);
+  font-weight: 950;
 }
 
 .quiz-box label,
@@ -2170,18 +2466,6 @@ img.mission-character {
   animation: effectPop 900ms ease-in-out infinite;
 }
 
-.attack-heal .battle-effect::before {
-  content: "+";
-  position: absolute;
-  left: 36%;
-  bottom: 34%;
-  color: #12a7b0;
-  font-size: 92px;
-  font-weight: 950;
-  text-shadow: 0 0 18px rgba(18, 167, 176, 0.8);
-  animation: effectRise 900ms ease-in-out infinite;
-}
-
 .attack-ground .battle-effect::before {
   content: "";
   position: absolute;
@@ -2725,12 +3009,6 @@ img.mission-character {
   height: 180px;
   border-width: 14px;
   box-shadow: 0 0 36px #80cfee;
-}
-
-.cinematic-battle .battle-arena.attack-heal .battle-effect::before {
-  left: 35%;
-  bottom: 28%;
-  font-size: 160px;
 }
 
 .cinematic-battle .battle-arena.attack-ground .battle-effect::before {

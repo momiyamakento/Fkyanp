@@ -15,8 +15,6 @@ C:\Fkyanp
    └─ characters
       ├─ steel-frame.png
       ├─ steel-frame-v2.png
-      ├─ health-guardian.png
-      ├─ health-guardian-v2.png
       ├─ city-builder.png
       ├─ city-builder-v2.png
       ├─ dock-mechanic.png

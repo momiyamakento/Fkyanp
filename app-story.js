@@ -8,22 +8,50 @@ const missions = [
     role: "鉄筋・骨組みの力",
     category: "建設・鉄筋",
     industry: "鉄筋工事",
-    difficulty: 2,
+    difficulty: 3,
     booth: "B-1",
     accent: "#e95b3c",
     website: "http://www.syoudai.jp/",
     recruitUrl: "http://www.syoudai.jp/recruit.php",
-    missionTitle: "鉄の骨組みを探せ",
+    missionTitle: "鉄骨ロック解除コード",
     storyIntro:
-      "最初の通信が示したのは、崩れかけたビルの影だった。そこには、かつて街の建物を支えた鉄のヒーローが眠っているらしい。彼を呼び覚ますには、翔大鋼業がどんな力で街を支えているのかを突き止める必要がある。",
-    questionTitle: "骨組み通信ログ",
-    questionLead: "通信ログに残された手がかりを追え。建物の中で強さを支える仕事の正体が、起動コードにつながっている。",
-    questionBody: "鉄を組み、建物の強さを支える仕事。翔大鋼業のヒーローが誇る力を4文字で答えよう。",
+      "強固な鉄の骨組みを操り、街の巨大な建物を支えるヒーロー「ショウダイ」の拠点にたどり着いた。ロック解除コードを得るには、翔大鋼業のホームページと暗号の骨組みを順番に解析する必要がある。",
+    questionTitle: "暗号の骨組み",
+    questionLead: "翔大鋼業の仕事を調べ、骨組み表に言葉を入れて最終コードを復元しよう。",
+    questionBody: "鉄筋工事の手がかりから暗号表を完成させ、①から⑦を順番に読もう。",
     acceptedAnswers: ["技術力", "ぎじゅつりょく", "ギジュツリョク"],
     hints: [
       "相方から追加通信が届いた。まずは企業HPで、どんな工事を得意としているか探そう。",
       "ヒーローの記憶が少し復元された。鉄筋工事という言葉が手がかりになる。",
       "企業HPのこのあたりを見てみよう。職人の腕前や品質を表す言葉が、起動コードに近い。"
+    ],
+    steps: [
+      {
+        title: "第1問 得意技を探せ",
+        lead:
+          "まずは翔大鋼業のホームページを調査せよ。街の建物を頑丈に支えるために行っている、工事の名前が最初のコードになる。",
+        body: "漢字2文字の得意技を見つけよう。【 〇〇工事 】",
+        acceptedAnswers: ["鉄筋", "鉄筋工事", "てっきん", "てっきんこうじ", "テッキン", "テッキンコウジ"],
+        hints: [
+          "企業HPで、翔大鋼業が得意としている工事名を探そう。",
+          "建物の頑丈な骨組みを創り出す仕事だ。",
+          "【〇〇工事】の〇〇は、鉄と筋でできた言葉。"
+        ],
+        clearMessage: "鉄筋工事を確認。暗号の骨組みが開いた。",
+        puzzleType: "shodai-trade"
+      },
+      {
+        title: "第2問 暗号の骨組み",
+        lead: "鉄筋工事とは、建物の頑丈な骨組みを創り出す仕事だ。5つの答えを骨組み表に入れ、①から⑦を順番に読もう。",
+        body: "1から5の言葉を入れて、翔大鋼業自慢の安心安全の力を答えよう。",
+        acceptedAnswers: ["技術力", "ぎじゅつりょく", "ギジュツリョク"],
+        hints: [
+          "5つの答えは、キュウリ、ギンコウ、コック、コウツウ、ジョーカー。",
+          "中央の縦列には「テッキンコウジ」が入っている。",
+          "①②③④⑤⑥⑦を順番に読むと、翔大鋼業がお客さんのニーズに応える力になる。"
+        ],
+        puzzleType: "steel-grid"
+      }
     ],
     heroDescription:
       "鉄骨と建築フレームをまとった重装防衛型ヒーロー。巨大な鋼鉄の盾で、怪獣の一撃を正面から受け止める。",
@@ -40,44 +68,6 @@ const missions = [
     }
   },
   {
-    id: "pharmacy",
-    companyName: "函館中央薬局",
-    heroName: "ヘルスガーディアン",
-    allyName: "ヘルスガーディアン",
-    character: "real-health",
-    role: "医療・調剤・回復の力",
-    category: "医療・健康",
-    industry: "調剤薬局",
-    difficulty: 1,
-    booth: "B-2",
-    accent: "#168c9a",
-    website: "https://h-chuo-p.com/",
-    missionTitle: "健康の合言葉",
-    storyIntro:
-      "次に届いた信号は、街の避難所からだった。傷ついた人々と、消耗したヒーローたち。戦いを続けるには、健康を守る知識が必要だ。薬と地域に寄り添うヒーローの記憶を取り戻そう。",
-    questionTitle: "避難所からの合言葉",
-    questionLead: "薬を渡すだけではない。暮らしの近くで健康を守る仕事に、回復の起動コードが残されている。",
-    questionBody: "病気になる前から、暮らしのそばで健康を支える考え方。答えは4文字以上。",
-    acceptedAnswers: ["健康相談", "けんこうそうだん", "ケンコウソウダン"],
-    hints: [
-      "相方から追加通信が届いた。薬局で相談できることを思い浮かべよう。",
-      "ヒーローの記憶が少し復元された。薬の飲み方や体調の不安を話せる場所だ。",
-      "企業HPのこのあたりを見てみよう。地域に寄り添う姿勢が答えにつながる。"
-    ],
-    heroDescription: "白衣と戦闘スーツを融合した支援型ヒーロー。医療ユニットと治療ガントレットで人々と仲間を回復する。",
-    unlockMessage: "無理は禁物。回復と準備も、戦いの大切な力です。",
-    attackName: "リカバリーライト",
-    attackText: "回復の光で仲間の力を整え、次の一撃につなげる。",
-    attackClass: "attack-heal",
-    companyIntro: {
-      catch: "ヘルスガーディアンの力の正体",
-      power: "薬と健康相談を通じて、地域の安心を支える知識。",
-      work: "調剤、服薬サポート、健康相談など、人の暮らしに近い医療の仕事。",
-      town: "困った時に相談できる場所があることは、街の安心につながります。",
-      points: ["薬剤師の仕事で大切なことは？", "地域の人とどう関わっていますか？", "医療職を目指す学生に伝えたいことは？"]
-    }
-  },
-  {
     id: "morikawa",
     companyName: "森川組",
     heroName: "シティビルダー",
@@ -86,22 +76,49 @@ const missions = [
     role: "土木・建築・土台の力",
     category: "建設・まちづくり",
     industry: "総合建設",
-    difficulty: 2,
+    difficulty: 3,
     booth: "C-1",
     accent: "#22a65a",
     website: "http://morikawagumi.com/",
     recruitUrl: "http://morikawagumi.com/recruit/requirements/",
-    missionTitle: "街を創る設計図",
+    missionTitle: "封印されたグランドマスター",
     storyIntro:
-      "地面が大きく揺れ、ナゾゴラの足音が近づいてくる。街を守るには、建物だけではなく、道路や土台を支える力が必要だ。森川組の仕事を調べ、街を創るヒーローを呼び覚ませ。",
-    questionTitle: "設計図に残る言葉",
-    questionLead: "建物、道路、施設。点ではなく街全体を見ている仕事に、土台のヒーローの記憶が眠っている。",
-    questionBody: "地域の建物やインフラをつくり、未来の景色を形にする仕事。答えは5文字。",
-    acceptedAnswers: ["まちづくり", "街づくり", "マチヅクリ"],
+      "次に必要なのは、函館の地盤を支えるグランドマスター。しかし、このヒーローだけは名前も力も封印されている。ヘルメットとエンブレムの記憶をたどり、森川組の力を取り戻せ。",
+    questionTitle: "封印解除の鍵",
+    questionLead: "企業名を思い出しただけでは力は戻らない。公式サイトの言葉と図形暗号を使って、封印の鍵を復元しよう。",
+    questionBody: "図形が表す文字を読み、森川組の社訓にある封印の鍵を答えよう。",
+    acceptedAnswers: ["Mの創発", "mの創発", "エムの創発", "えむのそうはつ", "Mのそうはつ", "DRB", "drb", "ディーアールビー"],
     hints: [
-      "相方から追加通信が届いた。建物だけでなく、道路や地域全体を見る言葉だ。",
-      "ヒーローの記憶が少し復元された。暮らしの土台を作る仕事に注目しよう。",
-      "企業HPのこのあたりを見てみよう。地域の未来を形にする言葉が答えだ。"
+      "相方から追加通信が届いた。まずはヘルメットとエンブレムから企業名を思い出そう。",
+      "ヒーローの記憶が少し復元された。森川組の公式サイトで社訓を探そう。",
+      "和同開珎のように、同じ図形に入る共通の文字を考えよう。"
+    ],
+    steps: [
+      {
+        title: "第1問 失われた名前",
+        lead: "右のヘルメットで身を守り、左のエンブレムのもと活動していた函館のヒーローがいる。",
+        body: "函館のグランドマスターである企業名を答えよう。",
+        acceptedAnswers: ["森川組", "もりかわぐみ", "モリカワグミ", "morikawagumi", "morikawa"],
+        hints: [
+          "白い現場ヘルメットと青緑のエンブレムが手がかりだ。",
+          "総合建設の会社で、函館の街づくりに関わっている。",
+          "会社名は漢字3文字。森、川、組。"
+        ],
+        clearMessage: "森川組の名前を思い出した。だが封印された力は、まだ戻っていない。",
+        puzzleType: "morikawa-identity"
+      },
+      {
+        title: "第2問 封印解除の鍵",
+        lead: "一つ目のヒントで得た企業の公式サイトを見ながら、図形に入る文字を完成させよう。",
+        body: "赤い四角、青い丸、黄色い三角が表す文字をつなげ、森川組の封印の鍵を答えよう。",
+        acceptedAnswers: ["Mの創発", "mの創発", "エムの創発", "えむのそうはつ", "Mのそうはつ", "DRB", "drb", "ディーアールビー"],
+        hints: [
+          "赤い四角は「RECRUIT □OVIE」に入る文字を表す。",
+          "青い丸は森川組の社訓の中にある漢字を探そう。",
+          "黄色い三角は、出△、△進、△見、△表に共通して入る漢字だ。"
+        ],
+        puzzleType: "morikawa-seal"
+      }
     ],
     heroDescription:
       "現場装備と戦闘装甲を融合した職人型ヒーロー。地盤を固め、崩れた道路を直し、怪獣の足元を制御する。",
@@ -243,12 +260,6 @@ const characterAssets = {
     height: 1774,
     alt: "スチールフレーム"
   },
-  "real-health": {
-    src: "assets/characters/health-guardian-v2.png",
-    width: 887,
-    height: 1774,
-    alt: "ヘルスガーディアン"
-  },
   "real-city": {
     src: "assets/characters/city-builder-v2.png",
     width: 887,
@@ -286,6 +297,7 @@ const STORAGE_KEYS = {
   unlocked: "fcan.clear",
   interests: "fcan.interests",
   hints: "fcan.hints",
+  steps: "fcan.steps",
   final: "fcan.finalUnlocked"
 };
 
@@ -294,9 +306,12 @@ const state = {
   unlocked: new Set(readJson(STORAGE_KEYS.unlocked, [])),
   interests: new Set(readJson(STORAGE_KEYS.interests, [])),
   hints: readJson(STORAGE_KEYS.hints, {}),
+  steps: readJson(STORAGE_KEYS.steps, {}),
   finalUnlocked: readJson(STORAGE_KEYS.final, false),
   recentUnlock: null
 };
+
+sanitizeState();
 
 const battleState = {
   timer: null,
@@ -404,7 +419,7 @@ function renderProfile() {
 
 function registrationFormHtml(participant = {}) {
   const selected = new Set(participant.interests || []);
-  const fields = ["建設", "医療", "ものづくり", "電気・情報", "まちづくり", "まだ決まっていない"];
+  const fields = ["建設", "造船・港", "ものづくり", "電気・情報", "まちづくり", "まだ決まっていない"];
   return `
     <form class="register-form" id="participant-form">
       <div class="section-heading">
@@ -449,12 +464,16 @@ function renderMissions() {
   grid.replaceChildren(
     ...missions.map((mission) => {
       const unlocked = state.unlocked.has(mission.id);
+      const { steps, stepIndex } = getActiveMissionStep(mission);
+      const inProgress = !unlocked && stepIndex > 0;
+      const statusLabel = unlocked ? "解放済み" : inProgress ? `STEP ${stepIndex + 1}/${steps.length}` : "未挑戦";
+      const buttonLabel = unlocked ? "企業紹介を見る" : inProgress ? "続きを解く" : "挑戦する";
       const card = el("article", `mission-card reveal ${unlocked ? "is-clear" : "is-locked-card"}`);
       card.style.setProperty("--accent", mission.accent);
       card.innerHTML = `
         ${characterSvg(mission.character, "mission-character", unlocked ? mission.heroName : "")}
         <div class="tag-row">
-          <span class="tag status ${unlocked ? "clear" : ""}">${unlocked ? "解放済み" : "未挑戦"}</span>
+          <span class="tag status ${unlocked ? "clear" : inProgress ? "progress" : ""}">${statusLabel}</span>
           <span class="tag">${stars(mission.difficulty)}</span>
           <span class="tag">${escapeHtml(mission.category)}</span>
         </div>
@@ -462,7 +481,7 @@ function renderMissions() {
         <p><strong>${escapeHtml(mission.companyName)}</strong></p>
         <p>${escapeHtml(mission.missionTitle)}</p>
         <p class="locked-copy">${unlocked ? escapeHtml(mission.heroDescription) : "通信ノイズで正体不明。このヒーローの記録はまだ復元されていない。"}</p>
-        <a class="button primary" href="#mission/${mission.id}">${unlocked ? "企業紹介を見る" : "挑戦する"}</a>
+        <a class="button primary" href="#mission/${mission.id}">${buttonLabel}</a>
       `;
       return card;
     })
@@ -475,7 +494,8 @@ function renderMission(id) {
   renderTemplate("mission-template");
   const detail = document.querySelector("#mission-detail");
   const unlocked = state.unlocked.has(mission.id);
-  const hintCount = getHintCount(mission.id);
+  const { steps, step, stepIndex } = getActiveMissionStep(mission);
+  const hintCount = getHintCount(mission.id, stepIndex);
   detail.innerHTML = `
     <aside class="mission-brief" style="--accent:${mission.accent}">
       <p class="eyebrow">MISSION / ${escapeHtml(mission.companyName)}</p>
@@ -488,11 +508,13 @@ function renderMission(id) {
       </div>
       <a class="button secondary booth-link" href="#companies">ブースへ行く導線を見る</a>
     </aside>
-    <article class="quiz-box ${unlocked ? "is-unlocked" : ""}" id="quiz-box">
-      <p class="eyebrow dark">RESEARCH</p>
-      <h2>${escapeHtml(mission.questionTitle)}</h2>
-      <p>${escapeHtml(mission.questionLead)}</p>
-      <p><strong>問題:</strong> ${escapeHtml(mission.questionBody)}</p>
+    <article class="quiz-box mission-${escapeAttribute(mission.id)} ${unlocked ? "is-unlocked" : ""}" id="quiz-box" style="--accent:${mission.accent}">
+      <p class="eyebrow dark">QUESTION ${stepIndex + 1} / ${steps.length}</p>
+      ${questProgressHtml(steps.length, stepIndex, unlocked)}
+      <h2>${escapeHtml(step.title)}</h2>
+      <p>${escapeHtml(step.lead)}</p>
+      ${puzzleHtml(step)}
+      <p><strong>問題:</strong> ${escapeHtml(step.body)}</p>
       <form id="answer-form" data-id="${mission.id}">
         <label for="answer-input">ヒーロー解放コード</label>
         <input id="answer-input" name="answer" autocomplete="off" placeholder="答えを入力" />
@@ -502,7 +524,7 @@ function renderMission(id) {
           ${missionWebsiteLinkHtml(mission)}
         </div>
       </form>
-      <div class="hint-panel" id="hint-panel">${hintPanelHtml(mission, hintCount)}</div>
+      <div class="hint-panel" id="hint-panel">${hintPanelHtml(step, hintCount)}</div>
       <p class="answer-result ${unlocked ? "ok" : ""}" id="answer-result">${unlocked ? "通信接続済み。企業紹介が開いています。" : ""}</p>
     </article>
     <article class="company-profile ${unlocked ? "is-visible" : ""}" id="company-profile">
@@ -514,11 +536,12 @@ function renderMission(id) {
   `;
 }
 
-function hintPanelHtml(mission, count) {
+function hintPanelHtml(step, count) {
+  const hints = step.hints || [];
   if (!count) return `<p class="hint-empty">ヒントはボタンを押すたびに1つずつ復元されます。ペナルティはありません。</p>`;
   return `
-    <div class="hint-meter">HINT ${count}/${mission.hints.length}</div>
-    ${mission.hints
+    <div class="hint-meter">HINT ${count}/${hints.length}</div>
+    ${hints
       .slice(0, count)
       .map((hint, index) => `<p class="hint is-visible"><strong>${index + 1}.</strong> ${escapeHtml(hint)}</p>`)
       .join("")}
@@ -623,7 +646,7 @@ function renderClear() {
   }
   document.querySelector("#clear-title").textContent = completed ? "ナゾゴラ撃退準備完了" : "ヒーローを全員集めよう";
   document.querySelector("#clear-copy").textContent = completed
-    ? "6人の企業ヒーローが集結。函館のフィールドで最後の作戦を開始できます。"
+    ? "5人の企業ヒーローが集結。函館のフィールドで最後の作戦を開始できます。"
     : `現在 ${state.unlocked.size} / ${missions.length}人。全ヒーロー収集後に解放されます。`;
   document.querySelector("#hero-collection").innerHTML = heroCollectionPanelHtml("full");
   renderFinalBattle(completed);
@@ -643,7 +666,7 @@ function renderFinalBattle(completed) {
     <section class="final-battle cinematic-battle ${status === "victory" ? "is-victory" : ""} ${status === "locked" ? "is-locked" : ""} ${status === "playing" ? "is-playing" : ""} ${finalStrike ? "is-final-strike" : ""}">
       <div class="final-battle-copy">
         <p class="eyebrow dark">FINAL BATTLE</p>
-        <h2>${completed ? "6人の力を接続せよ" : "全ヒーロー収集後に解放されます"}</h2>
+        <h2>${completed ? "5人の力を接続せよ" : "全ヒーロー収集後に解放されます"}</h2>
         <p>${battleMessage(status, activeStep)}</p>
       </div>
       <div class="battle-hp" aria-label="ナゾゴラHP ${hp}">
@@ -756,7 +779,7 @@ function battleMessage(status, activeStep) {
   if (status === "locked") return `現在 ${state.unlocked.size} / ${missions.length}人。未解放ヒーローの記録はシルエットのままです。`;
   if (status === "playing") return activeStep?.mission.attackName || "ヒーローの力が順番に発動している。";
   if (status === "victory") return "HERO MATCH COMPLETE。函館の街に、企業ヒーローの記憶が戻った。";
-  return "スチール、回復、土台、港、流れ、接続。6つの力でナゾゴラに挑もう。";
+  return "スチール、土台、港、流れ、接続。5つの力でナゾゴラに挑もう。";
 }
 
 function startFinalBattle() {
@@ -829,20 +852,35 @@ function handleSubmit(event) {
 function revealHint(id) {
   const mission = findMission(id);
   if (!mission) return;
-  state.hints[id] = Math.min(mission.hints.length, getHintCount(id) + 1);
+  const { step, stepIndex } = getActiveMissionStep(mission);
+  const hintKey = getHintKey(id, stepIndex);
+  state.hints[hintKey] = Math.min((step.hints || []).length, getHintCount(id, stepIndex) + 1);
   saveState();
-  document.querySelector("#hint-panel").innerHTML = hintPanelHtml(mission, state.hints[id]);
+  document.querySelector("#hint-panel").innerHTML = hintPanelHtml(step, state.hints[hintKey]);
 }
 
 function checkAnswer(id, rawAnswer) {
   const mission = findMission(id);
+  if (!mission) return;
+  const { steps, step, stepIndex } = getActiveMissionStep(mission);
   const result = document.querySelector("#answer-result");
   const quizBox = document.querySelector("#quiz-box");
-  const ok = mission.acceptedAnswers.some((answer) => normalize(answer) === normalize(rawAnswer));
+  const ok = (step.acceptedAnswers || []).some((answer) => normalize(answer) === normalize(rawAnswer));
   result.classList.toggle("ok", ok);
   result.classList.toggle("ng", !ok);
   if (!ok) {
     result.textContent = "通信がまだ安定しない……。企業のページにもう一つ手がかりがありそうだ。";
+    return;
+  }
+
+  if (stepIndex < steps.length - 1) {
+    result.textContent = step.clearMessage || "正解。次の問題のロックを解除します。";
+    quizBox.classList.add("unlocking");
+    window.setTimeout(() => {
+      state.steps[mission.id] = stepIndex + 1;
+      saveState();
+      renderMission(mission.id);
+    }, 650);
     return;
   }
 
@@ -851,6 +889,7 @@ function checkAnswer(id, rawAnswer) {
   window.setTimeout(() => {
     const wasUnlocked = state.unlocked.has(mission.id);
     state.unlocked.add(mission.id);
+    state.steps[mission.id] = steps.length;
     state.recentUnlock = mission.id;
     saveState();
     document.querySelector("#company-profile").classList.add("is-visible");
@@ -918,6 +957,7 @@ function resetProgress() {
   state.unlocked.clear();
   state.interests.clear();
   state.hints = {};
+  state.steps = {};
   state.finalUnlocked = false;
   state.recentUnlock = null;
   battleState.status = "ready";
@@ -951,6 +991,7 @@ function saveState() {
   localStorage.setItem(STORAGE_KEYS.unlocked, JSON.stringify([...state.unlocked]));
   localStorage.setItem(STORAGE_KEYS.interests, JSON.stringify([...state.interests]));
   localStorage.setItem(STORAGE_KEYS.hints, JSON.stringify(state.hints));
+  localStorage.setItem(STORAGE_KEYS.steps, JSON.stringify(state.steps));
   localStorage.setItem(STORAGE_KEYS.final, JSON.stringify(state.finalUnlocked));
 }
 
@@ -1007,12 +1048,167 @@ function memberNoticeHtml() {
     : `<aside class="member-notice"><strong>参加受付をすると進行状況を確認しやすくなります</strong><span>この端末だけに保存されます</span><a href="#profile">受付する</a></aside>`;
 }
 
+function questProgressHtml(total, currentIndex, unlocked) {
+  if (total <= 1) return "";
+  return `
+    <div class="quest-progress" aria-label="問題進行 ${currentIndex + 1} / ${total}">
+      ${Array.from({ length: total }, (_, index) => {
+        const complete = unlocked || index < currentIndex;
+        const current = !unlocked && index === currentIndex;
+        return `<span class="${complete ? "is-complete" : ""} ${current ? "is-current" : ""}">${index + 1}</span>`;
+      }).join("")}
+    </div>
+  `;
+}
+
+function puzzleHtml(step) {
+  if (step.puzzleType === "shodai-trade") {
+    return `
+      <div class="puzzle-panel steel-research">
+        <div class="blueprint-title"><span></span><strong>SYODAI STEEL SEARCH</strong><span></span></div>
+        <p>ホームページ調査コード</p>
+        <div class="trade-code" aria-label="丸に入る漢字2文字を答える問題">
+          <span>〇</span><span>〇</span><strong>工事</strong>
+        </div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "steel-grid") {
+    const rows = [
+      ["1", "", "キ", "③", "", "⑤", "", ""],
+      ["2", "①", "ン", "", "", "", "", ""],
+      ["3", "", "コ", "", "⑦", "", "", ""],
+      ["4", "④", "ウ", "", "", "", "", ""],
+      ["5", "", "②ジ", "⑥", "", "", "", ""]
+    ];
+    return `
+      <div class="puzzle-panel steel-grid-panel">
+        <div class="steel-grid-guide">
+          <p>縦の骨組み</p>
+          <strong>テッキンコウジ</strong>
+        </div>
+        <ol class="clue-list">
+          <li>夏に食べたくなるウリ科の野菜</li>
+          <li>お金を預けたり引き出したりできる金融機関</li>
+          <li>料理を作る人</li>
+          <li>人や車が道を通ること</li>
+          <li>トランプのババになるもの</li>
+        </ol>
+        <div class="steel-crossword" aria-label="鉄筋工事の骨組み暗号表">
+          ${rows
+            .map(
+              (row) => `
+                <div class="steel-row">
+                  <b>${row[0]}→</b>
+                  ${row.slice(1).map((cell) => `<span>${escapeHtml(cell)}</span>`).join("")}
+                </div>
+              `
+            )
+            .join("")}
+        </div>
+        <div class="answer-runes" aria-hidden="true">①②③④⑤⑥⑦</div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "morikawa-identity") {
+    return `
+      <div class="puzzle-panel morikawa-identity">
+        <div class="identity-visuals" aria-hidden="true">
+          <svg class="morikawa-emblem" viewBox="0 0 190 140" focusable="false">
+            <polygon class="emblem-side" points="24,36 75,5 75,75 24,108" />
+            <polygon class="emblem-side right" points="166,36 115,5 115,75 166,108" />
+            <polygon class="emblem-base" points="75,75 115,75 166,108 24,108" />
+            <polygon class="emblem-center" points="75,5 115,5 115,86 75,86" />
+            <polygon class="emblem-shine" points="75,5 115,5 115,45 75,45" />
+          </svg>
+          <svg class="helmet-clue" viewBox="0 0 190 130" focusable="false">
+            <path class="helmet-brim" d="M26 75c0 17 17 23 62 23h46c17 0 30-13 30-30V54c0-31-34-45-73-45S26 28 26 58v17z" />
+            <path class="helmet-cap" d="M28 67c16 8 44 11 78 11h31c16 0 27-6 27-19 0-28-34-50-73-50S26 32 26 58c0 3 1 6 2 9z" />
+            <path class="helmet-neck" d="M103 74v13c0 21 13 34 34 34s33-13 33-34V58" />
+            <circle class="helmet-mark" cx="127" cy="63" r="12" />
+          </svg>
+        </div>
+        <p>右のヘルメットで身を守り、左のエンブレムのもと活動していた函館のヒーロー。</p>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "morikawa-seal") {
+    return `
+      <div class="puzzle-panel morikawa-seal">
+        <div class="shape-expression" aria-label="赤い四角 の 青い丸 黄色い三角">
+          <span class="shape square red"></span>
+          <strong>の</strong>
+          <span class="shape circle blue"></span>
+          <span class="shape triangle yellow"></span>
+        </div>
+        <div class="seal-hints">
+          <p><span class="shape square red"></span> RECRUIT □OVIE</p>
+          <p><span class="shape circle blue"></span> 公式サイトの社訓から探せ</p>
+        </div>
+        <div class="kanji-cross" aria-label="黄色い三角に入る共通の漢字を探す問題">
+          <span>出△ → しゅっ〇〇</span>
+          <span>△進 → 〇〇しん</span>
+          <span>△見 → 〇〇けん</span>
+          <span>△表 → 〇〇ぴょう</span>
+        </div>
+      </div>
+    `;
+  }
+
+  return "";
+}
+
+function getMissionSteps(mission) {
+  if (Array.isArray(mission.steps) && mission.steps.length) return mission.steps;
+  return [
+    {
+      title: mission.questionTitle,
+      lead: mission.questionLead,
+      body: mission.questionBody,
+      acceptedAnswers: mission.acceptedAnswers,
+      hints: mission.hints
+    }
+  ];
+}
+
+function getActiveMissionStep(mission) {
+  const steps = getMissionSteps(mission);
+  const savedIndex = Number(state.steps[mission.id] || 0);
+  const stepIndex = state.unlocked.has(mission.id) ? steps.length - 1 : Math.min(Math.max(savedIndex, 0), steps.length - 1);
+  return { steps, step: steps[stepIndex], stepIndex };
+}
+
 function findMission(id) {
   return missions.find((mission) => mission.id === id);
 }
 
-function getHintCount(id) {
-  return Number(state.hints[id] || 0);
+function getHintKey(id, stepIndex) {
+  return `${id}:${stepIndex}`;
+}
+
+function getHintCount(id, stepIndex) {
+  return Number(state.hints[getHintKey(id, stepIndex)] || 0);
+}
+
+function sanitizeState() {
+  const ids = new Set(missions.map((mission) => mission.id));
+  state.unlocked = new Set([...state.unlocked].filter((id) => ids.has(id)));
+  state.interests = new Set([...state.interests].filter((id) => ids.has(id)));
+  state.steps = Object.fromEntries(
+    Object.entries(state.steps || {})
+      .filter(([id]) => ids.has(id))
+      .map(([id, index]) => {
+        const mission = findMission(id);
+        return [id, Math.min(Math.max(Number(index) || 0, 0), getMissionSteps(mission).length)];
+      })
+  );
+  state.hints = Object.fromEntries(
+    Object.entries(state.hints || {}).filter(([key]) => ids.has(key.split(":")[0]))
+  );
+  saveState();
 }
 
 function missionWebsiteLinkHtml(mission) {
