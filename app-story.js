@@ -13,6 +13,10 @@ const missions = [
     accent: "#e95b3c",
     website: "http://www.syoudai.jp/",
     recruitUrl: "http://www.syoudai.jp/recruit.php",
+    unlockVideo: {
+      src: "assets/videos/shodai-join-demo.mp4",
+      poster: "assets/videos/shodai-join-demo-poster.jpg"
+    },
     missionTitle: "鉄骨ロック解除コード",
     storyIntro:
       "強固な鉄の骨組みを操り、街の巨大な建物を支えるヒーロー「ショウダイ」の拠点にたどり着いた。ロック解除コードを得るには、翔大鋼業のホームページと暗号の骨組みを順番に解析する必要がある。",
@@ -825,6 +829,7 @@ function handleDocumentClick(event) {
   if (action === "follow-company") return followCompany(target);
   if (action === "reset") return resetProgress();
   if (action === "close-unlock") return closeHeroUnlock();
+  if (action === "replay-unlock-video") return replayUnlockVideo(target);
   if (action === "start-battle" || action === "replay-battle") return startFinalBattle();
   if (action === "skip-battle") return finishBattle();
   if (action === "edit-profile") {
@@ -907,14 +912,8 @@ function showHeroUnlock(mission) {
   modal.setAttribute("aria-modal", "true");
   modal.innerHTML = `
     <div class="unlock-energy" aria-hidden="true"></div>
-    <article class="unlock-card" style="--accent:${mission.accent}">
-      <div class="unlock-cinematic" aria-hidden="true">
-        <div class="unlock-speed-lines"></div>
-        <div class="unlock-burst"></div>
-        <p class="unlock-call-sign">HERO ENTRY</p>
-        <div class="unlock-character">${characterSvg(mission.character, "unlock-character-svg", mission.heroName)}</div>
-        <span class="unlock-name-plate">${escapeHtml(mission.heroName)}</span>
-      </div>
+    <article class="unlock-card ${mission.unlockVideo?.src ? "has-unlock-video" : ""}" style="--accent:${mission.accent}">
+      ${unlockCinematicHtml(mission)}
       <div class="unlock-result">
         <p class="eyebrow">HERO CALL SUCCESS</p>
         <h2>${escapeHtml(mission.heroName)}が仲間になった</h2>
@@ -930,7 +929,55 @@ function showHeroUnlock(mission) {
     </article>
   `;
   document.body.append(modal);
+  startUnlockVideo(modal);
   modal.querySelector("button")?.focus();
+}
+
+function unlockCinematicHtml(mission) {
+  if (mission.unlockVideo?.src) {
+    const poster = mission.unlockVideo.poster ? ` poster="${escapeAttribute(mission.unlockVideo.poster)}"` : "";
+    return `
+      <div class="unlock-cinematic has-video">
+        <video class="unlock-video" src="${escapeAttribute(mission.unlockVideo.src)}"${poster} autoplay muted playsinline preload="auto"></video>
+        <button class="unlock-video-replay" type="button" data-action="replay-unlock-video" aria-label="${escapeAttribute(mission.heroName)}の仲間演出をもう一度見る">もう一度見る</button>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="unlock-cinematic" aria-hidden="true">
+      <div class="unlock-speed-lines"></div>
+      <div class="unlock-burst"></div>
+      <p class="unlock-call-sign">HERO ENTRY</p>
+      <div class="unlock-character">${characterSvg(mission.character, "unlock-character-svg", mission.heroName)}</div>
+      <span class="unlock-name-plate">${escapeHtml(mission.heroName)}</span>
+    </div>
+  `;
+}
+
+function startUnlockVideo(container = document) {
+  const video = container.querySelector?.(".unlock-video");
+  if (!video) return;
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+  video.currentTime = 0;
+  video.play?.().catch(() => {
+    video.closest(".unlock-cinematic")?.classList.add("needs-manual-play");
+  });
+}
+
+function replayUnlockVideo(target) {
+  const video = target.closest(".unlock-cinematic")?.querySelector(".unlock-video");
+  if (!video) return;
+  video.closest(".unlock-cinematic")?.classList.remove("needs-manual-play");
+  video.muted = true;
+  video.playsInline = true;
+  video.currentTime = 0;
+  video.play?.().catch(() => {
+    video.closest(".unlock-cinematic")?.classList.add("needs-manual-play");
+  });
 }
 
 function closeHeroUnlock() {
