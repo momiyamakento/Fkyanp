@@ -1,3 +1,15 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+import { firebaseConfig } from "./firebase-config.js";
+
 const missions = [
   {
     id: "shodai",
@@ -315,6 +327,40 @@ const state = {
   recentUnlock: null
 };
 
+const firebaseEnabled = Boolean(firebaseConfig?.apiKey && !firebaseConfig.apiKey.includes("YOUR_"));
+let auth = null;
+let db = null;
+let currentUser = null;
+let isAdmin = false;
+
+if (firebaseEnabled) {
+  // 以前の端末内受付データを別アカウントへ表示しない。
+  state.participant = null;
+  const firebaseApp = initializeApp(firebaseConfig);
+  auth = getAuth(firebaseApp);
+  db = getFirestore(firebaseApp);
+  onAuthStateChanged(auth, async (user) => {
+    clearInMemoryProgress();
+    currentUser = user;
+    isAdmin = Boolean(user && (await user.getIdTokenResult()).claims.admin === true);
+    if (user) await loadParticipantFromCloud(user);
+    else {
+      state.participant = null;
+      localStorage.removeItem(STORAGE_KEYS.participant);
+    }
+    render();
+  });
+}
+
+function clearInMemoryProgress() {
+  state.unlocked = new Set();
+  state.interests = new Set();
+  state.hints = {};
+  state.steps = {};
+  state.finalUnlocked = false;
+  Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
+}
+
 sanitizeState();
 
 const battleState = {
@@ -341,6 +387,7 @@ function render() {
 
   if (route.name === "home") return renderTemplate("home-template");
   if (route.name === "profile") return renderProfile();
+  if (route.name === "admin") return renderAdmin();
   if (route.name === "story") return renderTemplate("story-template", storyAnchorId(route.id));
   if (route.name === "story-call") return renderTemplate("story-template", "story-call");
   if (route.name === "missions") return renderMissions();
@@ -386,6 +433,14 @@ function storyAnchorId(id) {
 function renderProfile() {
   renderTemplate("profile-template");
   const view = document.querySelector("#profile-view");
+  if (!firebaseEnabled) {
+    view.innerHTML = firebaseSetupNoticeHtml();
+    return;
+  }
+  if (!currentUser) {
+    view.innerHTML = authFormHtml();
+    return;
+  }
   if (!state.participant) {
     view.innerHTML = registrationFormHtml();
     return;
@@ -396,9 +451,10 @@ function renderProfile() {
     <article class="ticket-profile">
       <p class="eyebrow dark">MISSION PASS</p>
       <h2>${escapeHtml(state.participant.name)} さんの作戦参加証</h2>
-      <p class="success-note">作戦参加登録が完了しました。この端末に進行状況が保存されます。</p>
+      <p class="success-note">作戦参加登録が完了しました。登録情報と進行状況は安全に保存されています。</p>
       <dl class="profile-facts">
         <div><dt>受付番号</dt><dd>${escapeHtml(state.participant.id)}</dd></div>
+        <div><dt>メールアドレス</dt><dd>${escapeHtml(currentUser.email || "")}</dd></div>
         <div><dt>学年</dt><dd>${escapeHtml(state.participant.grade)}</dd></div>
         <div><dt>興味分野</dt><dd>${state.participant.interests.length ? state.participant.interests.map(escapeHtml).join(" / ") : "未選択"}</dd></div>
         <div><dt>クリア</dt><dd>${state.unlocked.size} / ${missions.length} clear</dd></div>
@@ -415,8 +471,9 @@ function renderProfile() {
         <a class="button primary" href="#missions">謎解きを始める</a>
         <button class="button ghost" type="button" data-action="edit-profile" aria-label="登録内容を編集">登録内容を編集</button>
         <button class="button ghost danger" type="button" data-action="delete-profile" aria-label="受付情報を削除">受付情報を削除</button>
+        <button class="button ghost" type="button" data-action="sign-out">ログアウト</button>
       </div>
-      <p class="privacy-note">この受付はデモ・イベント用です。入力内容はサーバーへ送信せず、このブラウザのlocalStorageだけに保存されます。</p>
+      <p class="privacy-note">登録情報はイベント運営、進行状況の管理、企業への関心の集計にのみ使用します。削除を希望する場合は運営へお問い合わせください。</p>
     </article>
   `;
 }
@@ -429,7 +486,7 @@ function registrationFormHtml(participant = {}) {
       <div class="section-heading">
         <p class="eyebrow dark">TEMP REGISTRATION</p>
         <h2>作戦参加登録</h2>
-        <p>本格的な個人情報収集ではなく、進行状況を見やすくするための簡易受付です。</p>
+        <p>運営が参加状況を把握し、イベントを改善するための参加登録です。</p>
       </div>
       <label for="participant-name">名前またはニックネーム</label>
       <input id="participant-name" name="name" autocomplete="nickname" required value="${escapeAttribute(participant.name || "")}" placeholder="例: はこだて太郎" />
@@ -454,10 +511,35 @@ function registrationFormHtml(participant = {}) {
             .join("")}
         </div>
       </fieldset>
+      <label class="consent-check"><input name="privacy-consent" type="checkbox" required ${participant.privacyConsent ? "checked" : ""} /> <span>利用目的・保存期間・問い合わせ先を確認し、個人情報の取り扱いに同意します。</span></label>
       <button class="button primary" type="submit" aria-label="作戦参加登録を完了する">${participant.id ? "登録内容を更新する" : "参加受付を完了する"}</button>
-      <p class="privacy-note">個人情報をサーバーに送信しません。入力内容と進行状況は、この端末のブラウザ内だけに保存されます。</p>
+      <p class="privacy-note">メールアドレスはアカウント管理に利用します。参加情報はイベント運営・集計に利用し、イベント終了後6か月を目安に削除します。問い合わせ先：運営事務局（連絡先をここに記載）</p>
     </form>
   `;
+}
+
+function authFormHtml() {
+  return `
+    <section class="auth-grid">
+      <form class="register-form" id="sign-up-form">
+        <div class="section-heading"><p class="eyebrow dark">CREATE ACCOUNT</p><h2>参加登録</h2><p>メールアドレスとパスワードで、別の端末でも進行状況を引き継げます。</p></div>
+        <label>メールアドレス<input name="email" type="email" autocomplete="email" required /></label>
+        <label>パスワード<input name="password" type="password" autocomplete="new-password" minlength="8" required /></label>
+        <button class="button primary" type="submit">アカウントを作成する</button>
+        <p class="form-note" role="status"></p>
+      </form>
+      <form class="register-form" id="sign-in-form">
+        <div class="section-heading"><p class="eyebrow dark">SIGN IN</p><h2>ログイン</h2><p>すでに登録済みの方はこちらからログインしてください。</p></div>
+        <label>メールアドレス<input name="email" type="email" autocomplete="email" required /></label>
+        <label>パスワード<input name="password" type="password" autocomplete="current-password" required /></label>
+        <button class="button secondary" type="submit">ログインする</button>
+        <p class="form-note" role="status"></p>
+      </form>
+    </section>`;
+}
+
+function firebaseSetupNoticeHtml() {
+  return `<article class="ticket-profile"><p class="eyebrow dark">SETUP REQUIRED</p><h2>参加者データベースを準備中です</h2><p>Firebaseの接続設定がまだ入力されていません。運営者は <code>firebase-config.js</code> にFirebaseプロジェクトの設定値を入力してください。</p><p class="privacy-note">設定前は、メールアドレスなどの個人情報を入力・保存できません。</p></article>`;
 }
 
 function renderMissions() {
@@ -835,18 +917,28 @@ function handleDocumentClick(event) {
   if (action === "edit-profile") {
     document.querySelector("#profile-view").innerHTML = registrationFormHtml(state.participant);
   }
-  if (action === "delete-profile" && window.confirm("受付情報を削除しますか？進行状況は残ります。")) {
+  if (action === "delete-profile" && window.confirm("受付情報と進行状況を運営データベースから削除しますか？この操作は元に戻せません。")) {
     state.participant = null;
     localStorage.removeItem(STORAGE_KEYS.participant);
+    if (currentUser && db) deleteDoc(doc(db, "participants", currentUser.uid)).catch((error) => console.error("参加者情報を削除できませんでした。", error));
     renderProfile();
   }
+  if (action === "sign-out") signOut(auth);
+  if (action === "load-participants") loadParticipants();
 }
 
 function handleSubmit(event) {
   if (event.target.id === "participant-form") {
     event.preventDefault();
-    saveParticipant(new FormData(event.target));
-    renderProfile();
+    saveParticipant(new FormData(event.target)).then(renderProfile).catch((error) => showFormError(event.target, error));
+  }
+  if (event.target.id === "sign-up-form") {
+    event.preventDefault();
+    createAccount(new FormData(event.target), event.target);
+  }
+  if (event.target.id === "sign-in-form") {
+    event.preventDefault();
+    loginAccount(new FormData(event.target), event.target);
   }
   if (event.target.id === "answer-form") {
     event.preventDefault();
@@ -987,15 +1079,24 @@ function closeHeroUnlock() {
   window.setTimeout(() => modal.remove(), 260);
 }
 
-function saveParticipant(formData) {
+async function saveParticipant(formData) {
+  if (!currentUser || !db) throw new Error("ログインが必要です。");
   state.participant = {
-    id: state.participant?.id || createParticipantId(),
+    id: currentUser.uid,
     name: formData.get("name")?.toString().trim() || "ゲスト",
     grade: formData.get("grade")?.toString() || "未選択",
     interests: formData.getAll("interests").map(String),
     createdAt: state.participant?.createdAt || new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
+    privacyConsent: formData.get("privacy-consent") === "on"
   };
+  await setDoc(doc(db, "participants", currentUser.uid), {
+    ...state.participant,
+    email: currentUser.email || "",
+    progress: progressSnapshot(),
+    createdAt: state.participant.createdAt,
+    updatedAt: serverTimestamp()
+  }, { merge: true });
   localStorage.setItem(STORAGE_KEYS.participant, JSON.stringify(state.participant));
 }
 
@@ -1040,6 +1141,98 @@ function saveState() {
   localStorage.setItem(STORAGE_KEYS.hints, JSON.stringify(state.hints));
   localStorage.setItem(STORAGE_KEYS.steps, JSON.stringify(state.steps));
   localStorage.setItem(STORAGE_KEYS.final, JSON.stringify(state.finalUnlocked));
+  if (currentUser && db && state.participant) {
+    setDoc(doc(db, "participants", currentUser.uid), { progress: progressSnapshot(), updatedAt: serverTimestamp() }, { merge: true })
+      .catch((error) => console.error("進行状況を保存できませんでした。", error));
+  }
+}
+
+function progressSnapshot() {
+  return {
+    unlocked: [...state.unlocked],
+    interests: [...state.interests],
+    hints: state.hints,
+    steps: state.steps,
+    finalUnlocked: state.finalUnlocked
+  };
+}
+
+async function loadParticipantFromCloud(user) {
+  try {
+    const snapshot = await getDoc(doc(db, "participants", user.uid));
+    if (snapshot.exists()) {
+      const data = snapshot.data();
+      state.participant = data;
+      if (data.progress) {
+        state.unlocked = new Set(data.progress.unlocked || []);
+        state.interests = new Set(data.progress.interests || []);
+        state.hints = data.progress.hints || {};
+        state.steps = data.progress.steps || {};
+        state.finalUnlocked = Boolean(data.progress.finalUnlocked);
+        saveState();
+      }
+      localStorage.setItem(STORAGE_KEYS.participant, JSON.stringify(state.participant));
+    } else {
+      state.participant = null;
+      localStorage.removeItem(STORAGE_KEYS.participant);
+    }
+  } catch (error) {
+    console.error("参加者情報を読み込めませんでした。", error);
+  }
+}
+
+async function createAccount(formData, form) {
+  try {
+    const credential = await createUserWithEmailAndPassword(auth, String(formData.get("email")).trim(), String(formData.get("password")));
+    await sendEmailVerification(credential.user);
+  } catch (error) {
+    showFormError(form, error);
+  }
+}
+
+async function loginAccount(formData, form) {
+  try {
+    await signInWithEmailAndPassword(auth, String(formData.get("email")).trim(), String(formData.get("password")));
+  } catch (error) {
+    showFormError(form, error);
+  }
+}
+
+function showFormError(form, error) {
+  const note = form.querySelector(".form-note");
+  if (note) note.textContent = firebaseErrorMessage(error);
+}
+
+function firebaseErrorMessage(error) {
+  const messages = {
+    "auth/email-already-in-use": "このメールアドレスはすでに登録されています。ログインしてください。",
+    "auth/invalid-credential": "メールアドレスまたはパスワードが正しくありません。",
+    "auth/weak-password": "パスワードの条件を満たしていません。8文字以上で設定してください。"
+  };
+  return messages[error?.code] || "処理に失敗しました。時間をおいて再度お試しください。";
+}
+
+function renderAdmin() {
+  if (!firebaseEnabled || !currentUser || !isAdmin) {
+    renderTemplate("profile-template");
+    document.querySelector("#profile-view").innerHTML = `<article class="ticket-profile"><h2>運営者専用ページです</h2><p>管理者権限を持つアカウントでログインしてください。</p></article>`;
+    return;
+  }
+  renderTemplate("profile-template");
+  document.querySelector("#profile-view").innerHTML = `<article class="ticket-profile"><p class="eyebrow dark">ADMIN</p><h2>参加者一覧</h2><p>個人情報は運営目的に限って取り扱ってください。</p><button class="button primary" type="button" data-action="load-participants">参加者一覧を読み込む</button><div id="participant-list"></div></article>`;
+}
+
+async function loadParticipants() {
+  const list = document.querySelector("#participant-list");
+  if (!list || !isAdmin) return;
+  list.textContent = "読み込み中…";
+  try {
+    const snapshot = await getDocs(collection(db, "participants"));
+    const rows = snapshot.docs.map((item) => item.data()).sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+    list.innerHTML = `<div class="participant-table"><table><thead><tr><th>名前</th><th>メールアドレス</th><th>学年</th><th>興味分野</th></tr></thead><tbody>${rows.map((participant) => `<tr><td>${escapeHtml(participant.name || "")}</td><td>${escapeHtml(participant.email || "")}</td><td>${escapeHtml(participant.grade || "")}</td><td>${(participant.interests || []).map(escapeHtml).join(" / ")}</td></tr>`).join("") || "<tr><td colspan=\"4\">参加者はまだいません。</td></tr>"}</tbody></table></div>`;
+  } catch (error) {
+    list.textContent = "参加者一覧を読み込めませんでした。管理者権限とFirestoreルールを確認してください。";
+  }
 }
 
 function heroCollectionPanelHtml(mode = "full") {
