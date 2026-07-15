@@ -32,7 +32,7 @@ jobs:
       - name: Prepare static files
         run: |
           mkdir _site
-          cp index.html styles.css app-story.js _site/
+          cp index.html styles.css app-story.js firebase-config.js _site/
           cp -R assets _site/assets
           touch _site/.nojekyll
 
