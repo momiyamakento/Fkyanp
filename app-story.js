@@ -1184,7 +1184,13 @@ async function loadParticipantFromCloud(user) {
 async function createAccount(formData, form) {
   try {
     const credential = await createUserWithEmailAndPassword(auth, String(formData.get("email")).trim(), String(formData.get("password")));
-    await sendEmailVerification(credential.user);
+    // 確認メールの送信失敗で、アカウント作成そのものを失敗扱いにしない。
+    // 例: 公開ドメインの許可設定がまだの場合でも、参加登録は続行できる。
+    try {
+      await sendEmailVerification(credential.user);
+    } catch (verificationError) {
+      console.warn("確認メールを送信できませんでした。", verificationError);
+    }
   } catch (error) {
     showFormError(form, error);
   }
@@ -1207,7 +1213,10 @@ function firebaseErrorMessage(error) {
   const messages = {
     "auth/email-already-in-use": "このメールアドレスはすでに登録されています。ログインしてください。",
     "auth/invalid-credential": "メールアドレスまたはパスワードが正しくありません。",
-    "auth/weak-password": "パスワードの条件を満たしていません。8文字以上で設定してください。"
+    "auth/weak-password": "パスワードの条件を満たしていません。8文字以上で設定してください。",
+    "auth/operation-not-allowed": "Firebaseでメール／パスワードのログイン設定を確認してください。",
+    "auth/unauthorized-domain": "公開サイトのドメインをFirebase Authenticationの承認済みドメインへ追加してください。",
+    "auth/network-request-failed": "通信に失敗しました。ネットワークを確認して再試行してください。"
   };
   return messages[error?.code] || "処理に失敗しました。時間をおいて再度お試しください。";
 }
