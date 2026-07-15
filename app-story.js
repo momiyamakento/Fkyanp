@@ -112,7 +112,7 @@ const missions = [
     steps: [
       {
         title: "第1問 失われた名前",
-        lead: "右のヘルメットで身を守り、左のエンブレムのもと活動していた函館のヒーローがいる。",
+        lead: "左のヘルメットで身を守り、右のエンブレムのもと活動していた函館のヒーローがいる。",
         body: "函館のグランドマスターである企業名を答えよう。",
         acceptedAnswers: ["森川組", "もりかわぐみ", "モリカワグミ", "morikawagumi", "morikawa"],
         hints: [
@@ -253,6 +253,20 @@ const missions = [
       "相方から追加通信が届いた。電気だけでなく、情報を届ける仕事にも注目しよう。",
       "ヒーローの記憶が少し復元された。つながる力、伝える力が鍵だ。",
       "企業HPのこのあたりを見てみよう。通信、電気、情報の組み合わせが答えにつながる。"
+    ],
+    steps: [
+      {
+        title: "第1問 スタジアムの暗号",
+        lead: "ここは、街を守る鉄壁の防御ヒーローのエリア。記憶を呼び戻すには、スタジアムに仕掛けられた最初の暗号を解かなければならない。",
+        body: "観客席の下にある伏せ字と数字を手がかりに、東興アイテックの『つながる力』を答えよう。",
+        acceptedAnswers: ["情報通信", "じょうほうつうしん", "ジョウホウツウシン", "通信情報"],
+        hints: [
+          "スタジアムの暗号は、電気だけでなく情報を届ける仕事を表している。",
+          "東興アイテックの企業ページで、通信・電気・情報の組み合わせを探そう。",
+          "現場と人をつなぎ、止まらない社会を支える4文字の言葉が答えだ。"
+        ],
+        puzzleType: "toko-stadium-code"
+      }
     ],
     heroDescription: "黒い戦闘スーツに発光ラインを走らせる司令塔型ヒーロー。電気と情報で全員の力を接続し、最後の一撃を可能にする。",
     unlockMessage: "全員の力を接続する。これで最後の一撃が撃てる！",
@@ -1365,21 +1379,10 @@ function puzzleHtml(step) {
     return `
       <div class="puzzle-panel morikawa-identity">
         <div class="identity-visuals" aria-hidden="true">
-          <svg class="morikawa-emblem" viewBox="0 0 190 140" focusable="false">
-            <polygon class="emblem-side" points="24,36 75,5 75,75 24,108" />
-            <polygon class="emblem-side right" points="166,36 115,5 115,75 166,108" />
-            <polygon class="emblem-base" points="75,75 115,75 166,108 24,108" />
-            <polygon class="emblem-center" points="75,5 115,5 115,86 75,86" />
-            <polygon class="emblem-shine" points="75,5 115,5 115,45 75,45" />
-          </svg>
-          <svg class="helmet-clue" viewBox="0 0 190 130" focusable="false">
-            <path class="helmet-brim" d="M26 75c0 17 17 23 62 23h46c17 0 30-13 30-30V54c0-31-34-45-73-45S26 28 26 58v17z" />
-            <path class="helmet-cap" d="M28 67c16 8 44 11 78 11h31c16 0 27-6 27-19 0-28-34-50-73-50S26 32 26 58c0 3 1 6 2 9z" />
-            <path class="helmet-neck" d="M103 74v13c0 21 13 34 34 34s33-13 33-34V58" />
-            <circle class="helmet-mark" cx="127" cy="63" r="12" />
-          </svg>
+          <img class="helmet-clue" src="assets/puzzles/morikawa-helmet.png" alt="" />
+          <img class="morikawa-emblem" src="assets/puzzles/morikawa-emblem.png" alt="" />
         </div>
-        <p>右のヘルメットで身を守り、左のエンブレムのもと活動していた函館のヒーロー。</p>
+        <p>左のヘルメットで身を守り、右のエンブレムのもと活動していた函館のヒーロー。</p>
       </div>
     `;
   }
@@ -1403,6 +1406,23 @@ function puzzleHtml(step) {
           <span>△見 → 〇〇けん</span>
           <span>△表 → 〇〇ぴょう</span>
         </div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "toko-stadium-code") {
+    return `
+      <div class="puzzle-panel toko-stadium-code" aria-label="スタジアムの伏せ字暗号">
+        <div class="stadium-frame" aria-hidden="true">
+          <div class="stadium-scoreboard"></div>
+          <img class="stadium-photo" src="assets/puzzles/toko-stadium.png" alt="" />
+        </div>
+        <div class="stadium-code-row" aria-label="1番目と2番目の文字を示す6文字の伏せ字">
+          <div class="stadium-code-group"><span></span><b>1</b><span></span><span></span><span></span><b>2</b></div>
+          <div class="stadium-code-group"><span></span><b>6</b><b>5</b><span></span><span></span><span></span></div>
+        </div>
+        <p class="stadium-password"><strong>3</strong><span></span><i></i>、<span></span><span></span><b>4</b>。</p>
+        <small>伏せ字と番号を手がかりに、企業の仕事に関わる言葉を復元しよう。</small>
       </div>
     `;
   }

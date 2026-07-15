@@ -1399,6 +1399,10 @@ img.mission-character {
   filter: drop-shadow(3px 4px 0 rgba(23, 48, 35, 0.12));
 }
 
+.helmet-clue {
+  order: -1;
+}
+
 .helmet-brim,
 .helmet-cap,
 .helmet-neck {
@@ -1512,6 +1516,197 @@ img.mission-character {
   background: #fffefa;
   border: 2px solid rgba(23, 48, 35, 0.74);
   font-weight: 950;
+}
+
+.mission-toko .puzzle-panel {
+  background: #303030;
+  border-color: #151515;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.28);
+}
+
+.toko-stadium-code {
+  padding: 22px;
+  color: #fffefa;
+}
+
+.stadium-frame {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  overflow: hidden;
+  border: 3px solid #fffefa;
+  background: #111b25;
+}
+
+.stadium-scoreboard {
+  width: 50%;
+  height: 34px;
+  margin: 0;
+  border: 3px solid #fffefa;
+}
+
+.stadium-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0;
+  object-fit: contain;
+}
+
+.stadium-stands {
+  position: absolute;
+  inset: 74px 0 68px;
+  background: repeating-linear-gradient(0deg, #17251f 0 17px, #bad59a 18px 35px);
+  transform: perspective(240px) rotateX(18deg);
+}
+
+.stadium-stands span,
+.stadium-crowd i {
+  position: absolute;
+  width: 13px;
+  height: 26px;
+  border-radius: 8px 8px 2px 2px;
+  background: #f4c12b;
+  box-shadow: 30px 9px 0 #e9583f, 69px -5px 0 #f1f1e7, 107px 12px 0 #19283a, 148px 0 0 #f4c12b, 186px 9px 0 #e9583f;
+}
+
+.stadium-stands span:nth-child(1) { top: 14%; left: 10%; }
+.stadium-stands span:nth-child(2) { top: 38%; left: 26%; }
+.stadium-stands span:nth-child(3) { top: 62%; left: 44%; }
+.stadium-stands span:nth-child(4) { top: 26%; left: 63%; }
+.stadium-stands span:nth-child(5) { top: 52%; left: 76%; }
+.stadium-stands span:nth-child(6) { top: 72%; left: 6%; }
+
+.stadium-crowd i {
+  bottom: 27px;
+  z-index: 1;
+  background: #e95b3c;
+}
+
+.stadium-crowd i:nth-child(1) { left: 8%; }
+.stadium-crowd i:nth-child(2) { left: 20%; background: #f4c12b; }
+.stadium-crowd i:nth-child(3) { left: 35%; background: #f4c12b; }
+.stadium-crowd i:nth-child(4) { left: 49%; background: #e95b3c; }
+.stadium-crowd i:nth-child(5) { left: 62%; background: #f4c12b; }
+.stadium-crowd i:nth-child(6) { left: 76%; background: #f1f1e7; }
+.stadium-crowd i:nth-child(7) { left: 86%; background: #e95b3c; }
+.stadium-crowd i:nth-child(8) { left: 4%; bottom: 8px; background: #f1f1e7; }
+
+.stadium-pitch {
+  position: absolute;
+  right: 9%;
+  bottom: 13px;
+  width: 22px;
+  height: 22px;
+  z-index: 2;
+  border: 2px solid #111;
+  border-radius: 50%;
+  background: conic-gradient(#fff 0 20%, #111 20% 40%, #fff 40% 60%, #111 60% 80%, #fff 80%);
+}
+
+.stadium-code-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.stadium-code-group {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.stadium-code-group span,
+.stadium-code-group b {
+  display: grid;
+  height: 30px;
+  place-items: center;
+  border: 2px solid #fffefa;
+  font-size: 20px;
+}
+
+.stadium-code-group b { font-weight: 950; }
+
+.stadium-password {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(20px, 0.55fr) auto minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(24px, 0.6fr);
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 6px !important;
+  color: #fffefa;
+  font-size: 26px;
+}
+
+.stadium-password strong,
+.stadium-password span,
+.stadium-password i,
+.stadium-password b {
+  display: inline-grid;
+  width: auto;
+  min-width: 0;
+  height: 50px;
+  place-items: center;
+  border: 2px solid #fffefa;
+  font-style: normal;
+}
+
+.stadium-password i { width: auto; height: 22px; }
+.stadium-password b { width: auto; height: 22px; font-size: 18px; }
+.toko-stadium-code small { color: rgba(255, 254, 250, 0.82); font-weight: 800; }
+
+@media (max-width: 480px) {
+  .identity-visuals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .helmet-clue,
+  .morikawa-emblem {
+    width: 100%;
+    max-width: 122px;
+  }
+
+  .toko-stadium-code {
+    padding: 10px;
+  }
+
+  .stadium-frame {
+    padding: 12px;
+  }
+
+  .stadium-code-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .stadium-code-group span,
+  .stadium-code-group b {
+    height: 28px;
+    font-size: 15px;
+  }
+
+  .stadium-password {
+    gap: 4px;
+    font-size: 22px;
+  }
+
+  .stadium-password strong,
+  .stadium-password span {
+    width: auto;
+    height: 44px;
+  }
+
+  .stadium-password i,
+  .stadium-password b {
+    width: auto;
+    min-height: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
 }
 
 .quiz-box label,
