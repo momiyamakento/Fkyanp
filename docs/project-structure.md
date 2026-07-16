@@ -18,11 +18,10 @@ C:\Fkyanp
       ├─ city-builder.png
       ├─ city-builder-v2.png
       ├─ dock-mechanic.png
-      ├─ dock-mechanic-v2.png
-      ├─ line-master.png
-      ├─ line-master-v2.png
+      ├─ dock-mechanic-female-v3.png
+      ├─ century-medic-v2.png
       ├─ energy-link.png
-      ├─ energy-link-v2.png
+      ├─ energy-link-fire-v3.png
       ├─ nazogora-full.png
       ├─ nazogora-full-v2.png
       └─ nazogora-head.png
@@ -68,7 +67,7 @@ C:\Fkyanp
 
 主に以下を担当しています。
 
-- 6社の企業ヒーローデータ
+- 5社の企業ヒーローデータ
 - キャラクターIDとPNG画像の対応表
 - ミッション名、謎、ヒント、答え、企業紹介文
 - 受付情報の保存

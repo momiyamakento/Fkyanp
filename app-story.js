@@ -152,9 +152,9 @@ const missions = [
   },
   {
     id: "dock",
-    companyName: "函館ドック",
-    heroName: "ドックメカニック",
-    allyName: "ドックメカニック",
+    companyName: "函館どっく",
+    heroName: "どっくメカニック",
+    allyName: "どっくメカニック",
     character: "real-harbor",
     role: "造船・修理・巨大メカの力",
     category: "造船・機械",
@@ -169,20 +169,48 @@ const missions = [
       "港から、古い無線信号が届いた。海には、決戦に必要な巨大な力が眠っている。船をつくり、直し、支える技術を調べ、海のヒーローを起動せよ。",
     questionTitle: "港の無線暗号",
     questionLead: "海に浮かぶ巨大な機械をつくり、直し、動かし続ける技術。それが決戦用メカの鍵になる。",
-    questionBody: "海で働く船をつくり、直し、支える技術。答えは2文字。",
-    acceptedAnswers: ["造船", "ぞうせん", "ゾウセン"],
+    questionBody: "会社の強みと合言葉を復元して、港の決戦メカを起動しよう。",
+    acceptedAnswers: ["ものづくり", "モノヅクリ", "物づくり", "物作り"],
     hints: [
       "相方から追加通信が届いた。港と船に関わる仕事を探そう。",
       "ヒーローの記憶が少し復元された。船を造る、と書く言葉だ。",
       "企業HPのこのあたりを見てみよう。建造と修繕の両方が大きな手がかりになる。"
     ],
-    heroDescription: "造船所の技術と重装備を備えたメカニックヒーロー。クレーンアームとアンカー武器で海から決戦を支える。",
-    unlockMessage: "海からの援護は任せろ。決戦兵器、起動準備完了だ！",
+    steps: [
+      {
+        title: "第1問 港の技術コア",
+        lead: "船舶の建造、検査・修理、鉄構機械の製作。函館どっくが選ばれ続けるために磨いている強みを探そう。",
+        body: "港の技術コアに入力する、ひらがな6文字の言葉を答えよう。",
+        acceptedAnswers: ["技術力", "ぎじゅつりょく", "ギジュツリョク"],
+        hints: ["公式サイトの会社紹介で、技術や品質に関わる言葉を探そう。", "漢字3文字では『技術力』。", "ひらがななら『ぎじゅつりょく』。"],
+        clearMessage: "技術コアを再起動。次は、港を越えて活躍する力を探そう。",
+        puzzleType: "dock-core"
+      },
+      {
+        title: "第2問 海から街へつながる仕事",
+        lead: "造船で培った技術は、船だけに使われているわけではない。橋梁製作や架設も扱う事業名を復元せよ。",
+        body: "『鉄構機械○○』の○○に入る、漢字2文字を答えよう。",
+        acceptedAnswers: ["事業", "じぎょう", "ジギョウ", "鉄構機械事業", "てっこうきかいじぎょう"],
+        hints: ["ヒントは『橋梁』と『架設』。", "答えは『鉄構機械事業』。", "空欄には『事業』が入る。"],
+        clearMessage: "海と街をつなぐ記録を入手。最後の合言葉を解読しよう。",
+        puzzleType: "dock-industry"
+      },
+      {
+        title: "第3問 港の合言葉",
+        lead: "AからDの記録をつなぐと、ヒーローの必殺技を起動する言葉が浮かび上がる。",
+        body: "『ここにしかない』という想いにつながる、ひらがな5文字の合言葉を答えよう。",
+        acceptedAnswers: ["ものづくり", "モノヅクリ", "物づくり", "物作り"],
+        hints: ["船、橋、機械。それらを生み出す営みを表す言葉。", "『ものをつくること』をひらがな5文字で。", "答えは『ものづくり』。"],
+        puzzleType: "dock-password"
+      }
+    ],
+    heroDescription: "造船所の技術と重装備を備えた女性メカニックヒーロー。クレーンアームとアンカー工具で、海から決戦を支える。",
+    unlockMessage: "海からの援護は任せて。決戦兵器、起動準備完了！",
     attackName: "ハーバーカノン",
     attackText: "港の巨大メカを起動し、海側から援護射撃を放つ。",
     attackClass: "attack-cannon",
     companyIntro: {
-      catch: "ドックメカニックの力の正体",
+      catch: "どっくメカニックの力の正体",
       power: "船をつくり、直し、海の仕事を支える造船と修繕の技術。",
       work: "大きな船や機械を扱い、チームで安全な運航を支える仕事。",
       town: "港町函館の産業や物流、人の移動と深くつながっています。",
@@ -190,42 +218,70 @@ const missions = [
     }
   },
   {
-    id: "daimei",
-    companyName: "大明工業",
-    heroName: "ラインマスター",
-    allyName: "ラインマスター",
-    character: "real-lifeline",
-    role: "管工事・水・空気・ライフラインの力",
-    category: "設備・ライフライン",
-    industry: "設備工事",
+    id: "century",
+    companyName: "センチュリーマリーナ函館",
+    heroName: "マリーナ・ヒーラー",
+    allyName: "マリーナ・ヒーラー",
+    character: "real-century",
+    role: "ホテル・おもてなし・回復の力",
+    category: "ホテル・観光",
+    industry: "ホテル",
     difficulty: 2,
     booth: "D-1",
-    accent: "#f5b82e",
-    website: "https://taimei-kk.com/",
-    recruitUrl: "https://taimei-kk.jbplt.jp",
-    missionTitle: "流れる力の正体",
+    accent: "#c99d47",
+    website: "https://www.centurymarina.com/",
+    recruitUrl: "https://www.centurymarina.com/recruit/",
+    missionTitle: "癒やしの合言葉",
     storyIntro:
-      "街の水と空気の流れが乱れ始めた。見えない場所で暮らしを支えていたライフラインの力が弱まっている。設備を支えるヒーローの正体を探れ。",
-    questionTitle: "見えない配管図",
-    questionLead: "水、空気、熱。見えない流れを整える仕事に、街を動かすコードが残っている。",
-    questionBody: "見えない場所で暮らしを動かす、水や空気などの仕組み。答えは2文字。",
-    acceptedAnswers: ["設備", "せつび", "セツビ"],
+      "決戦を前に、仲間たちの力が弱まっている。函館の夜を照らすホテルに残された、心と体を休ませる回復の力を見つけ出そう。",
+    questionTitle: "やすらぎのルームキー",
+    questionLead: "訪れる人を温かく迎え、くつろぎの時間を届ける力が、仲間を回復させる鍵になる。",
+    questionBody: "ホテルにある休息の記録を集め、回復の合言葉を復元しよう。",
+    acceptedAnswers: ["おもてなし", "オモテナシ", "OMOTENASHI", "omotenashi"],
     hints: [
-      "相方から追加通信が届いた。建物を快適に使うための仕組みに注目しよう。",
-      "ヒーローの記憶が少し復元された。水や空気の通り道を整える仕事だ。",
-      "企業HPのこのあたりを見てみよう。管工事やライフラインという言葉が近い。"
+      "相方から追加通信が届いた。人を迎え、心地よく過ごしてもらう仕事に注目しよう。",
+      "ヒーローの記憶が少し復元された。相手を思いやる心が回復の源だ。",
+      "企業HPのこのあたりを見てみよう。ホテルが届けるくつろぎや心配りが手がかりだ。"
     ],
-    heroDescription: "配管、バルブ、圧力ラインをまとった流体系ヒーロー。水流、蒸気、空気圧を操り、街のライフラインを守る。",
-    unlockMessage: "見えないところで街を動かす。それが俺たちの戦い方だ。",
-    attackName: "フローバインド",
-    attackText: "水と空気の流れを制御し、ナゾゴラの動きを止める。",
-    attackClass: "attack-flow",
+    steps: [
+      {
+        title: "第1問 最上階の回復エリア",
+        lead: "函館を一望できる最上階には、旅の疲れを癒やす回復エリアがある。公式サイトで施設名を探せ。",
+        body: "心身を休める施設をアルファベット3文字で答えよう。",
+        acceptedAnswers: ["SPA", "スパ", "spa"],
+        hints: ["温泉やリラクゼーションに関わる施設です。", "公式サイトのメニューにも3文字で載っています。", "答えは『SPA』。"],
+        clearMessage: "回復エリアの記録を取得。次は、ホテルがある港町の入口を探そう。",
+        puzzleType: "century-spa"
+      },
+      {
+        title: "第2問 港町のウェルカムサイン",
+        lead: "センチュリーマリーナ函館は、函館駅から徒歩5分、ある観光地から徒歩すぐの場所にある。",
+        body: "ホテルのすぐ近くにある、函館を代表する市場の名前を答えよう。",
+        acceptedAnswers: ["函館朝市", "朝市", "あさいち", "アサイチ"],
+        hints: ["ホテルのアクセス情報を見てみよう。", "函館駅のすぐそばにある観光地です。", "答えは『函館朝市』。"],
+        clearMessage: "港町の案内記録を取得。最後に、回復の力の名前を呼び戻そう。",
+        puzzleType: "century-access"
+      },
+      {
+        title: "第3問 やすらぎの合言葉",
+        lead: "休息の場所と港町への案内がそろった。マリーナ・ヒーラーが人々へ届ける力を言葉にしよう。",
+        body: "相手を思いやり、心地よく迎える心。ひらがな5文字で答えよう。",
+        acceptedAnswers: ["おもてなし", "オモテナシ", "OMOTENASHI", "omotenashi"],
+        hints: ["ホテルで大切にされる心配りです。", "人を温かく迎える日本語。", "答えは『おもてなし』。"],
+        puzzleType: "century-key"
+      }
+    ],
+    heroDescription: "洗練されたコンシェルジュ装備と温かな光をまとう男性回復ヒーロー。仲間の疲れを癒やし、決戦に必要な活力を取り戻す。",
+    unlockMessage: "どうぞ、ここでひと息。皆さんの力は、私が整えます。",
+    attackName: "マリーナ・リカバリー",
+    attackText: "やすらぎの光で仲間を回復し、戦う力を取り戻す。",
+    attackClass: "attack-heal",
     companyIntro: {
-      catch: "ラインマスターの力の正体",
-      power: "管工事や設備工事で、水・空気・熱の流れを整える技術。",
-      work: "建物の裏側で、暮らしに必要なライフラインを安全に動かす仕事。",
-      town: "普段は見えないけれど、快適な毎日を守る重要な役割です。",
-      points: ["設備工事はどんな場所で活躍しますか？", "見えない仕事の面白さは？", "技術を身につける流れは？"]
+      catch: "マリーナ・ヒーラーの力の正体",
+      power: "訪れる人を温かく迎え、心身を休めてもらうホテルのおもてなし。",
+      work: "宿泊、食事、景色、接客を通して、一人ひとりの心地よい時間をつくる仕事。",
+      town: "函館を訪れる人に街の魅力を伝え、旅の思い出を支える存在です。",
+      points: ["ホテルではどんな職種の人が協力していますか？", "おもてなしで大切にしていることは？", "函館らしさを伝える工夫はありますか？"]
     }
   },
   {
@@ -234,52 +290,93 @@ const missions = [
     heroName: "エナジーリンク",
     allyName: "エナジーリンク",
     character: "real-link",
-    role: "電気・通信・情報の力",
-    category: "電気・通信・情報",
-    industry: "電気・通信・情報",
+    role: "防水・外壁改修・火炎施工の力",
+    category: "建物改修・防水",
+    industry: "防水・外壁改修・塗装",
     difficulty: 3,
     booth: "D-2",
     accent: "#ef7b2d",
     website: "https://tokoai.com/",
     recruitUrl: "https://tokoai.com/recruit.html",
-    missionTitle: "つながる力を探せ",
+    missionTitle: "建物の未来を守れ",
     storyIntro:
-      "すべてのヒーローが集まりつつある。しかし、力がまだ一つにつながっていない。最後に必要なのは、電気と情報をつなぐエネルギーの力だ。東興アイテックの謎を解き、最終決戦の準備を完了せよ。",
-    questionTitle: "接続コードの復元",
-    questionLead: "現場、機械、人、情報。ばらばらの力をつなぐ技術が、最後の一撃の回路になる。",
-    questionBody: "全員の力を電気や情報で結び、現場を止めないための力。答えは4文字。",
-    acceptedAnswers: ["情報通信", "じょうほうつうしん", "ジョウホウツウシン", "通信情報"],
+      "怪獣の攻撃で建物の壁と屋上にひび割れが走った。最後に必要なのは、水や傷みから建物の未来を守る火属性ヒーローの力だ。東興アイテックの謎を解き、最終決戦の準備を完了せよ。",
+    questionTitle: "火炎施工コードの復元",
+    questionLead: "建物の健康状態を見極め、最適な施工を選ぶ技術が、街を守る炎の回路になる。",
+    questionBody: "建物の未来を守る力を、3つの記録から復元しよう。",
+    acceptedAnswers: ["防水", "ぼうすい", "ボウスイ"],
     hints: [
-      "相方から追加通信が届いた。電気だけでなく、情報を届ける仕事にも注目しよう。",
-      "ヒーローの記憶が少し復元された。つながる力、伝える力が鍵だ。",
-      "企業HPのこのあたりを見てみよう。通信、電気、情報の組み合わせが答えにつながる。"
+      "相方から追加通信が届いた。建物の価値や未来を守る仕事に注目しよう。",
+      "ヒーローの記憶が少し復元された。まずは建物の状態を見極める仕事が鍵だ。",
+      "企業HPのこのあたりを見てみよう。防水、外壁改修、調査・診断という言葉が近い。"
     ],
     steps: [
       {
-        title: "第1問 スタジアムの暗号",
-        lead: "ここは、街を守る鉄壁の防御ヒーローのエリア。記憶を呼び戻すには、スタジアムに仕掛けられた最初の暗号を解かなければならない。",
-        body: "観客席の下にある伏せ字と数字を手がかりに、東興アイテックの『つながる力』を答えよう。",
-        acceptedAnswers: ["情報通信", "じょうほうつうしん", "ジョウホウツウシン", "通信情報"],
-        hints: [
-          "スタジアムの暗号は、電気だけでなく情報を届ける仕事を表している。",
-          "東興アイテックの企業ページで、通信・電気・情報の組み合わせを探そう。",
-          "現場と人をつなぎ、止まらない社会を支える4文字の言葉が答えだ。"
-        ],
-        puzzleType: "toko-stadium-code"
+        title: "第1問 創造の記録",
+        lead: "記憶を失ったエナジーリンクは、自分たちが何者なのか思い出せない。公式サイトのメッセージを調査せよ。",
+        body: "『○○の価値を創造し、社会の期待に応える。』の○○に入る漢字2文字を答えよう。",
+        acceptedAnswers: ["建物", "たてもの", "タテモノ"],
+        hints: ["人が暮らしたり働いたりする場所です。", "公式サイトのトップにあるメッセージを確認しよう。", "答えは『建物』。"],
+        clearMessage: "創造の記録を接続。次は、建物の状態を見極める力を復元しよう。",
+        puzzleType: "toko-archive"
+      },
+      {
+        title: "第2問 ビルディングドクター",
+        lead: "建物の健康状態を診断し、最適な治療法を導き出す専門家。その最初の仕事を答えよう。",
+        body: "防水や外壁の状態を確かめる、漢字2文字・中点・漢字2文字の言葉を答えよう。",
+        acceptedAnswers: ["調査・診断", "調査診断", "ちょうさしんだん", "チョウサシンダン"],
+        hints: ["建物を直す前に、状態を確かめる仕事です。", "公式サイトでは『ビルディングドクター』と説明されています。", "答えは『調査・診断』。"],
+        clearMessage: "建物の状態を特定。最後に、水を遮る火属性の力を呼び戻そう。",
+        puzzleType: "toko-diagnosis"
+      },
+      {
+        title: "第3問 火炎施工の最終コード",
+        lead: "高温で溶かしたアスファルトを使う熱工法もある。炎の技術が建物から遮るものは何か。",
+        body: "水から建物・財産・人・生活を守る、漢字2文字の仕事を答えよう。",
+        acceptedAnswers: ["防水", "ぼうすい", "ボウスイ"],
+        hints: ["漏水を防ぐための仕事です。", "『水を防ぐ』と書きます。", "答えは『防水』。"],
+        puzzleType: "toko-waterproof"
       }
     ],
-    heroDescription: "黒い戦闘スーツに発光ラインを走らせる司令塔型ヒーロー。電気と情報で全員の力を接続し、最後の一撃を可能にする。",
-    unlockMessage: "全員の力を接続する。これで最後の一撃が撃てる！",
-    attackName: "コネクトブースト",
-    attackText: "全ヒーローの力を接続し、最後の合体攻撃を準備する。",
-    attackClass: "attack-link",
+    heroDescription: "黒い戦闘スーツに炎色の発光回路を走らせる火属性ヒーロー。熱工法の炎と防水技術で建物を守り、全員の力を燃え上がらせる。",
+    unlockMessage: "火炎施工、全開！ 建物を守る力を、最後の一撃につなぐ！",
+    attackName: "ブレイズ・ウォータープルーフ",
+    attackText: "炎の技術で防水層を展開し、仲間を守りながら最後の合体攻撃を準備する。",
+    attackClass: "attack-fire",
     companyIntro: {
-      catch: "エナジーリンクの力の正体",
-      power: "電気・通信・情報をつなぎ、現場や暮らしを動かし続ける技術。",
-      work: "設備や情報のつながりを支え、止まらない現場をつくる仕事。",
-      town: "学校、施設、企業活動など、街の連携を裏側から支えます。",
-      points: ["電気・通信の仕事はどこで使われていますか？", "現場を止めないために大切なことは？", "情報系に興味がある学生に合いますか？"]
+      catch: "火属性エナジーリンクの力の正体",
+      power: "防水・外壁改修・塗装の技術で、建物の価値と未来を守る力。",
+      work: "建物を調査・診断し、防水、外壁改修、塗装、建築工事から最適な方法を提案・施工する仕事。",
+      town: "学校や施設、住まいなど、街にある建物の安全で快適な未来を支えます。",
+      points: ["建物の調査・診断では何を確認しますか？", "防水工事はどんな場所で必要ですか？", "外壁改修の仕事に必要な力は何ですか？"]
     }
+  }
+];
+
+const finalPuzzles = [
+  {
+    title: "第1問 交差する国名",
+    lead: "小ボスのバリアを解除するには、カタカナの線が交差する回数を読む必要がある。",
+    body: "オランダ＝2、チュニジア＝1、スウェーデン＝0。では『ジャパン』はいくつ？",
+    acceptedAnswers: ["1", "１", "一"],
+    hints: ["文字数や画数ではありません。", "カタカナの線が交わる場所を数えよう。", "ジャパンでは『ヤ』の交差が1つです。"],
+    puzzleType: "final-crossings"
+  },
+  {
+    title: "第2問 フィールド停止コード",
+    lead: "小ボスを止めるコードは、曜日の英語の頭文字に隠されている。",
+    body: "S M T W T F S の並びから、丸＝S、三角＝T、四角＝O、星＝P として読め。答えは4文字。",
+    acceptedAnswers: ["STOP", "stop", "ストップ"],
+    hints: ["S M T W T F S は曜日の頭文字です。", "丸・三角・四角・星を順に英字へ置き換えよう。", "答えは『STOP』。"],
+    puzzleType: "final-stop"
+  },
+  {
+    title: "第3問 ナゾゴラの弱点",
+    lead: "停止コードで怪獣の動きが鈍った。迷路の道の外に残された文字から、狙う場所を見つけ出せ。",
+    body: "『あかよめ』の指示に従い、赤い文字を左から読んで、怪獣の弱点を答えよう。",
+    acceptedAnswers: ["背中", "せなか", "セナカ"],
+    hints: ["迷路を通った後に残る指示は『あかよめ』。", "赤い文字だけを左から読もう。", "答えは『背中』。"],
+    puzzleType: "final-weakpoint"
   }
 ];
 
@@ -297,19 +394,19 @@ const characterAssets = {
     alt: "シティビルダー"
   },
   "real-harbor": {
-    src: "assets/characters/dock-mechanic-v2.png",
+    src: "assets/characters/dock-mechanic-female-v3.png",
     width: 887,
     height: 1774,
-    alt: "ドックメカニック"
+    alt: "どっくメカニック"
   },
-  "real-lifeline": {
-    src: "assets/characters/line-master-v2.png",
+  "real-century": {
+    src: "assets/characters/century-medic-v2.png",
     width: 887,
     height: 1774,
-    alt: "ラインマスター"
+    alt: "マリーナ・ヒーラー"
   },
   "real-link": {
-    src: "assets/characters/energy-link-v2.png",
+    src: "assets/characters/energy-link-fire-v3.png",
     width: 887,
     height: 1774,
     alt: "エナジーリンク"
@@ -740,33 +837,83 @@ function companyProfileHtml(mission) {
 function renderClear() {
   renderTemplate("clear-template");
   const completed = state.unlocked.size === missions.length;
-  if (completed) {
-    state.finalUnlocked = true;
+  const finalStepIndex = getFinalPuzzleIndex();
+  const finalReady = completed && finalStepIndex >= finalPuzzles.length;
+  if (state.finalUnlocked !== finalReady) {
+    state.finalUnlocked = finalReady;
     saveState();
   }
-  document.querySelector("#clear-title").textContent = completed ? "ナゾゴラ撃退準備完了" : "ヒーローを全員集めよう";
+  document.querySelector("#clear-title").textContent = finalReady ? "ナゾゴラ撃退準備完了" : completed ? "最終作戦の暗号を解け" : "ヒーローを全員集めよう";
   document.querySelector("#clear-copy").textContent = completed
-    ? "5人の企業ヒーローが集結。函館のフィールドで最後の作戦を開始できます。"
+    ? finalReady
+      ? "5人の企業ヒーローが集結。函館のフィールドで最後の作戦を開始できます。"
+      : `5人が集結。怪獣の弱点を特定する最終暗号を解こう（${finalStepIndex} / ${finalPuzzles.length}）。`
     : `現在 ${state.unlocked.size} / ${missions.length}人。全ヒーロー収集後に解放されます。`;
   document.querySelector("#hero-collection").innerHTML = heroCollectionPanelHtml("full");
-  renderFinalBattle(completed);
+  document.querySelector("#final-puzzle-area").innerHTML = finalPuzzleHtml(completed, finalStepIndex);
+  renderFinalBattle(finalReady);
   const form = document.querySelector("#match-form");
-  if (form) form.outerHTML = endingActionsHtml(completed);
+  if (form) form.outerHTML = endingActionsHtml(finalReady);
 }
 
-function renderFinalBattle(completed) {
+function getFinalPuzzleIndex() {
+  return Math.min(Math.max(Number(state.steps.finalBattle || 0), 0), finalPuzzles.length);
+}
+
+function finalPuzzleHtml(completed, index) {
+  if (!completed) return `<aside class="final-brief locked-final-brief"><p class="eyebrow dark">FINAL CODE LOCKED</p><h2>最終暗号はヒーロー全員の解放後に出現します</h2><p>企業ミッションをすべて解くと、怪獣の弱点を探す3問の暗号が開きます。</p></aside>`;
+  if (index >= finalPuzzles.length) return `<aside class="final-brief is-clear"><p class="eyebrow dark">FINAL CODE COMPLETE</p><h2>弱点「背中」を特定</h2><p>全ての作戦暗号を突破。ヒーローの合体攻撃でナゾゴラを撃退しよう。</p></aside>`;
+  const puzzle = finalPuzzles[index];
+  const hintCount = getFinalHintCount(index);
+  return `
+    <section class="final-puzzle" style="--accent:${index === 2 ? "#e45336" : "#ffd34d"}">
+      <div class="final-puzzle-copy">
+        <p class="eyebrow dark">FINAL CODE ${index + 1} / ${finalPuzzles.length}</p>
+        <h2>${escapeHtml(puzzle.title)}</h2>
+        <p>${escapeHtml(puzzle.lead)}</p>
+      </div>
+      ${finalPuzzleVisualHtml(puzzle)}
+      <p><strong>問題:</strong> ${escapeHtml(puzzle.body)}</p>
+      <form id="final-answer-form" data-step="${index}">
+        <label for="final-answer-input">作戦コード</label>
+        <input id="final-answer-input" name="answer" autocomplete="off" placeholder="答えを入力" />
+        <div class="quiz-actions"><button class="button primary" type="submit">作戦コードを送信</button><button class="button ghost" type="button" data-action="final-hint" data-step="${index}">ヒントを見る</button></div>
+      </form>
+      <div class="hint-panel" id="final-hint-panel">${finalHintPanelHtml(puzzle, hintCount)}</div>
+      <p class="answer-result" id="final-answer-result"></p>
+    </section>
+  `;
+}
+
+function finalPuzzleVisualHtml(puzzle) {
+  if (puzzle.puzzleType === "final-crossings") return `<div class="final-visual crossing-visual" aria-label="国名のカタカナを見て線が交差する数を数える問題"><span>オランダ <b>＝ 2</b></span><span>チュニジア <b>＝ 1</b></span><span>スウェーデン <b>＝ 0</b></span><strong>ジャパン ＝ ？</strong></div>`;
+  if (puzzle.puzzleType === "final-stop") return `<div class="final-visual stop-visual" aria-label="曜日の頭文字を使った停止コード"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><p>○ + △ + □ + ☆</p><strong>？</strong></div>`;
+  return `<div class="final-visual maze-visual" aria-label="迷路の外に赤い文字で背中と書かれている問題"><div class="maze-path" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><span class="red-letter">背</span><span class="red-letter">中</span><p>道の外に残った赤い文字を、左から読め。</p></div>`;
+}
+
+function getFinalHintCount(index) {
+  return Number(state.hints[`final:${index}`] || 0);
+}
+
+function finalHintPanelHtml(puzzle, count) {
+  if (!count) return `<p class="hint-empty">ヒントはボタンを押すたびに1つずつ表示されます。</p>`;
+  return `<div class="hint-meter">HINT ${count}/${puzzle.hints.length}</div>${puzzle.hints.slice(0, count).map((hint, hintIndex) => `<p class="hint is-visible"><strong>${hintIndex + 1}.</strong> ${escapeHtml(hint)}</p>`).join("")}`;
+}
+
+function renderFinalBattle(battleReady) {
   const stage = document.querySelector("#battle-stage");
-  const status = completed ? battleState.status : "locked";
+  const heroesComplete = state.unlocked.size === missions.length;
+  const status = battleReady ? battleState.status : "locked";
   const activeStep = battleState.stepIndex >= 0 ? getBattleStep(battleState.stepIndex) : null;
   const active = activeStep?.mission;
   const activeIndex = active ? missions.findIndex((mission) => mission.id === active.id) : -1;
   const finalStrike = status === "playing" && battleState.stepIndex >= missions.length;
-  const hp = completed ? battleState.hp : 100;
+  const hp = battleReady ? battleState.hp : 100;
   stage.innerHTML = `
     <section class="final-battle cinematic-battle ${status === "victory" ? "is-victory" : ""} ${status === "locked" ? "is-locked" : ""} ${status === "playing" ? "is-playing" : ""} ${finalStrike ? "is-final-strike" : ""}">
       <div class="final-battle-copy">
         <p class="eyebrow dark">FINAL BATTLE</p>
-        <h2>${completed ? "5人の力を接続せよ" : "全ヒーロー収集後に解放されます"}</h2>
+        <h2>${battleReady ? "5人の力を接続せよ" : heroesComplete ? "最終暗号を解くと解放されます" : "全ヒーロー収集後に解放されます"}</h2>
         <p>${battleMessage(status, activeStep)}</p>
       </div>
       <div class="battle-hp" aria-label="ナゾゴラHP ${hp}">
@@ -805,7 +952,7 @@ function renderFinalBattle(completed) {
         }
         ${characterSvg("real-kaiju", "final-kaiju", "ナゾゴラ")}
         ${
-          completed
+          battleReady
             ? `<div class="final-heroes" aria-label="最終決戦のヒーロー">
                 ${missions
                   .map((mission, index) => {
@@ -819,12 +966,12 @@ function renderFinalBattle(completed) {
             : ""
         }
         ${status === "victory" ? `<div class="victory-burst" aria-hidden="true"><span>HERO MATCH COMPLETE</span></div>` : ""}
-        <p class="battle-action-text">${activeStep?.text || (completed ? "最終決戦を開始する準備はできている。" : `現在 ${state.unlocked.size} / ${missions.length}人`)}</p>
+        <p class="battle-action-text">${activeStep?.text || (battleReady ? "最終決戦を開始する準備はできている。" : heroesComplete ? "最終暗号をすべて解くと、決戦の扉が開く。" : `現在 ${state.unlocked.size} / ${missions.length}人`)}</p>
       </div>
       ${status === "victory" ? endingStoryHtml() : ""}
       <div class="battle-controls">
-        ${completed && status !== "playing" ? `<button class="button primary" type="button" data-action="${status === "victory" ? "replay-battle" : "start-battle"}">${status === "victory" ? "もう一度見る" : "最終決戦を開始する"}</button>` : ""}
-        ${completed && status === "playing" ? `<button class="button ghost" type="button" data-action="skip-battle">演出をスキップ</button>` : ""}
+        ${battleReady && status !== "playing" ? `<button class="button primary" type="button" data-action="${status === "victory" ? "replay-battle" : "start-battle"}">${status === "victory" ? "もう一度見る" : "最終決戦を開始する"}</button>` : ""}
+        ${battleReady && status === "playing" ? `<button class="button ghost" type="button" data-action="skip-battle">演出をスキップ</button>` : ""}
         <a class="button ghost" href="#missions">企業一覧へ</a>
       </div>
     </section>
@@ -876,10 +1023,14 @@ function getBattleStep(index) {
 }
 
 function battleMessage(status, activeStep) {
-  if (status === "locked") return `現在 ${state.unlocked.size} / ${missions.length}人。未解放ヒーローの記録はシルエットのままです。`;
+  if (status === "locked") {
+    return state.unlocked.size === missions.length
+      ? "5人が集結した。最終暗号をすべて解き、ナゾゴラの弱点を見つけ出そう。"
+      : `現在 ${state.unlocked.size} / ${missions.length}人。未解放ヒーローの記録はシルエットのままです。`;
+  }
   if (status === "playing") return activeStep?.mission.attackName || "ヒーローの力が順番に発動している。";
   if (status === "victory") return "HERO MATCH COMPLETE。函館の街に、企業ヒーローの記憶が戻った。";
-  return "スチール、土台、港、流れ、接続。5つの力でナゾゴラに挑もう。";
+  return "スチール、土台、港、回復、炎の接続。5つの力でナゾゴラに挑もう。";
 }
 
 function startFinalBattle() {
@@ -921,6 +1072,7 @@ function handleDocumentClick(event) {
   if (!target) return;
   const action = target.dataset.action;
   if (action === "hint") return revealHint(target.dataset.id);
+  if (action === "final-hint") return revealFinalHint(Number(target.dataset.step));
   if (action === "interest") return toggleInterest(target.dataset.id);
   if (action === "follow-company") return followCompany(target);
   if (action === "reset") return resetProgress();
@@ -957,6 +1109,10 @@ function handleSubmit(event) {
   if (event.target.id === "answer-form") {
     event.preventDefault();
     checkAnswer(event.target.dataset.id, new FormData(event.target).get("answer"));
+  }
+  if (event.target.id === "final-answer-form") {
+    event.preventDefault();
+    checkFinalAnswer(Number(event.target.dataset.step), new FormData(event.target).get("answer"));
   }
 }
 
@@ -1112,6 +1268,34 @@ async function saveParticipant(formData) {
     updatedAt: serverTimestamp()
   }, { merge: true });
   localStorage.setItem(STORAGE_KEYS.participant, JSON.stringify(state.participant));
+}
+
+function revealFinalHint(index) {
+  const puzzle = finalPuzzles[index];
+  if (!puzzle) return;
+  const key = `final:${index}`;
+  state.hints[key] = Math.min(puzzle.hints.length, getFinalHintCount(index) + 1);
+  saveState();
+  document.querySelector("#final-hint-panel").innerHTML = finalHintPanelHtml(puzzle, state.hints[key]);
+}
+
+function checkFinalAnswer(index, rawAnswer) {
+  const puzzle = finalPuzzles[index];
+  if (!puzzle || index !== getFinalPuzzleIndex()) return;
+  const result = document.querySelector("#final-answer-result");
+  const ok = puzzle.acceptedAnswers.some((answer) => normalize(answer) === normalize(rawAnswer));
+  result.classList.toggle("ok", ok);
+  result.classList.toggle("ng", !ok);
+  if (!ok) {
+    result.textContent = "作戦コードが合わない。図とヒントをもう一度確認しよう。";
+    return;
+  }
+  result.textContent = index < finalPuzzles.length - 1 ? "コード認証。次の最終暗号を開きます。" : "弱点を特定。最終決戦のロックを解除します。";
+  window.setTimeout(() => {
+    state.steps.finalBattle = index + 1;
+    saveState();
+    renderClear();
+  }, 550);
 }
 
 function resetProgress() {
@@ -1371,6 +1555,64 @@ function puzzleHtml(step) {
             .join("")}
         </div>
         <div class="answer-runes" aria-hidden="true">①②③④⑤⑥⑦</div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "dock-core") {
+    return `
+      <div class="puzzle-panel dock-file">
+        <div class="puzzle-file-header"><span>PORT ARCHIVE</span><strong>CORE 01</strong></div>
+        <div class="dock-signal" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p>船舶の建造・検査・修理・鉄構機械の製作。これらを支える強みを、ひらがなで復元しよう。</p>
+        <div class="answer-slots" aria-label="ひらがな6文字の答え"><span>＿</span><span>＿</span><span>＿</span><span>＿</span><span>＿</span><span>＿</span></div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "dock-industry") {
+    return `
+      <div class="puzzle-panel dock-file">
+        <div class="puzzle-file-header"><span>PORT ARCHIVE</span><strong>CORE 02</strong></div>
+        <div class="industry-route" aria-label="海と街を結ぶ仕事の記録"><span>造船の技術</span><b>→</b><span>橋梁製作・架設</span><b>→</b><span>鉄構機械 ○○</span></div>
+        <p>船で培った技術を、街の橋や機械にも生かしている。空欄を埋めて事業名を完成させよう。</p>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "dock-password") {
+    return `
+      <div class="puzzle-panel dock-file">
+        <div class="puzzle-file-header"><span>PORT ARCHIVE</span><strong>FINAL KEY</strong></div>
+        <div class="dock-records" aria-label="AからDの記録"><span>A 技術の強み</span><span>B 鉄構機械事業</span><span>C 船を建造する仕事</span><span>D 函館どっく</span></div>
+        <p class="cipher-line">A1 + C5 + D2 + B4　→　合言葉</p>
+        <div class="answer-slots" aria-label="ひらがな5文字の答え"><span>＿</span><span>＿</span><span>＿</span><span>＿</span><span>＿</span></div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "century-spa" || step.puzzleType === "century-access" || step.puzzleType === "century-key") {
+    const isSpa = step.puzzleType === "century-spa";
+    const isAccess = step.puzzleType === "century-access";
+    return `
+      <div class="puzzle-panel century-file">
+        <div class="puzzle-file-header"><span>MARINA RECOVERY LOG</span><strong>${isSpa ? "01" : isAccess ? "02" : "03"}</strong></div>
+        ${isSpa ? `<div class="spa-orb" aria-hidden="true"><span>SPA</span></div><p>最上階から函館を見渡す、心身を休めるための回復施設。</p>` : ""}
+        ${isAccess ? `<div class="access-route" aria-label="ホテルへの案内"><span>函館駅</span><b>徒歩5分</b><span>センチュリーマリーナ</span><b>徒歩すぐ</b><span>函館 ○○</span></div><p>港町の入口にある市場の名前を、公式サイトのアクセス情報から探そう。</p>` : ""}
+        ${!isSpa && !isAccess ? `<div class="hospitality-key" aria-hidden="true"><span>心配り</span><b>＋</b><span>くつろぎ</span><b>＝</b><strong>？</strong></div><p>回復の光を起動する、ホテルが大切にする心を言葉にしよう。</p>` : ""}
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "toko-archive" || step.puzzleType === "toko-diagnosis" || step.puzzleType === "toko-waterproof") {
+    const isArchive = step.puzzleType === "toko-archive";
+    const isDiagnosis = step.puzzleType === "toko-diagnosis";
+    return `
+      <div class="puzzle-panel toko-circuit-file">
+        <div class="puzzle-file-header"><span>FIRE LINK ARCHIVE</span><strong>${isArchive ? "MEMORY 01" : isDiagnosis ? "MEMORY 02" : "MEMORY 03"}</strong></div>
+        ${isArchive ? `<div class="archive-blocks" aria-label="創造の記録"><span>防水</span><span>外壁改修</span><span>塗装</span><strong>○○の価値を創造</strong></div><p>複数の専門技術で、街の建物の未来を支えている。</p>` : ""}
+        ${isDiagnosis ? `<div class="name-cipher" aria-label="建物の健康状態を調べる流れ"><span>調べる</span><i>→</i><span>見極める</span><i>→</i><strong>○○・○○</strong></div><p>建物の状態を確認し、最適な治療法を導く仕事の名前を復元しよう。</p>` : ""}
+        ${!isArchive && !isDiagnosis ? `<div class="name-cipher" aria-label="防水の仕事を表す暗号"><span>水</span><i>×</i><span>建物</span><i>→</i><strong>○○</strong></div><p>熱工法を含む技術で、水から建物を守る仕事の名前を入力しよう。</p>` : ""}
       </div>
     `;
   }
