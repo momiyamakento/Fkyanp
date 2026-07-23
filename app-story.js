@@ -44,8 +44,12 @@ const missions = [
     steps: [
       {
         title: "第1問 得意技を探せ",
+        dialogue: {
+          speaker: "ナビゲーター",
+          text: "よくここまで辿り着いた。ここは強固な鉄の骨組みを操り、街の巨大な建物を支えるヒーロー「ショウダイ」の拠点だ。奴を仲間にするためのロック解除コードを手に入れるため、まずは君たちのスマホで翔大鋼業のホームページを調査せよ！"
+        },
         lead:
-          "まずは翔大鋼業のホームページを調査せよ。街の建物を頑丈に支えるために行っている、工事の名前が最初のコードになる。",
+          "翔大鋼業のホームページを調査し、函館の街の建物を頑丈に支えるために行っている、漢字2文字の得意技（工事の名前）を見つけ出せ！",
         body: "漢字2文字の得意技を見つけよう。【 〇〇工事 】",
         acceptedAnswers: ["鉄筋", "鉄筋工事", "てっきん", "てっきんこうじ", "テッキン", "テッキンコウジ"],
         hints: [
@@ -66,7 +70,30 @@ const missions = [
           "中央の縦列には「テッキンコウジ」が入っている。",
           "①②③④⑤⑥⑦を順番に読むと、翔大鋼業がお客さんのニーズに応える力になる。"
         ],
+        clearMessage: "なるほど、暗号は翔大鋼業自慢の、安心安全の「技術力」だったのか！ 建物の倒壊警報を受信。小ボス戦へ移行する。",
         puzzleType: "steel-grid"
+      },
+      {
+        title: "小ボス戦 崩落ロックを解除せよ",
+        transition: {
+          speaker: "ナビゲーター",
+          text: "なるほど、暗号は翔大鋼業自慢の、安心安全の「技術力」だったのか！"
+        },
+        dialogue: {
+          speaker: "ナビゲーター",
+          tone: "alert",
+          text: "あぶない！ 建物が倒れてくる！ 謎を解いてショウダイのパワーで建物の内側の鉄筋を建て直してくれ！"
+        },
+        lead: "曜日を漢字に直し、その画数が多角形の辺の数を表すと考えよう。金曜日に対応する形を復元せよ。",
+        body: "sunからsatまでの並びで「？」に入る形を答えよう。【 金の○角形 】",
+        acceptedAnswers: ["金の8角形", "金の８角形", "金の八角形", "8角形", "８角形", "八角形", "きんの8かくけい", "きんのはちかくけい"],
+        hints: [
+          "曜日を漢字にして、画数を数えてみよう。",
+          "日・月・火・水・木は4画なので四角、土は3画なので三角です。",
+          "金は8画。答えは「金の8角形」。"
+        ],
+        clearMessage: "金の8角形を入力。ショウダイが鉄筋を再構築し、建物は持ちこたえた！",
+        puzzleType: "shodai-miniboss"
       }
     ],
     heroDescription:
@@ -112,6 +139,10 @@ const missions = [
     steps: [
       {
         title: "第1問 失われた名前",
+        dialogue: {
+          speaker: "ナビゲーター",
+          text: "次に思い出すヒーローのカギになるのが上の2つだ！ ヘルメットで身を守り、エンブレムのもと活動していた函館のヒーローだ。函館のグランドマスターである彼がいれば、怪獣の動きを止めるのもたやすい。早急に思い出してくれ！"
+        },
         lead: "左のヘルメットで身を守り、右のエンブレムのもと活動していた函館のヒーローがいる。",
         body: "函館のグランドマスターである企業名を答えよう。",
         acceptedAnswers: ["森川組", "もりかわぐみ", "モリカワグミ", "morikawagumi", "morikawa"],
@@ -125,7 +156,11 @@ const missions = [
       },
       {
         title: "第2問 封印解除の鍵",
-        lead: "一つ目のヒントで得た企業の公式サイトを見ながら、図形に入る文字を完成させよう。",
+        transition: {
+          speaker: "ナビゲーター",
+          text: "そう！ 函館のグランドマスターは森川組だ。だが名前を思い出しただけでは、封印された力を取り戻せない。下の問題を解き、何とか森川組の力を取り戻してくれ。"
+        },
+        lead: "一つ目のヒントで得た企業の公式サイトを見ながら、下の言葉を完成させよう。色は同じ図形を区別するためのものだ。",
         body: "赤い四角、青い丸、黄色い三角が表す文字をつなげ、森川組の封印の鍵を答えよう。",
         acceptedAnswers: ["Mの創発", "mの創発", "エムの創発", "えむのそうはつ", "Mのそうはつ", "DRB", "drb", "ディーアールビー"],
         hints: [
@@ -133,7 +168,30 @@ const missions = [
           "青い丸は森川組の社訓の中にある漢字を探そう。",
           "黄色い三角は、出△、△進、△見、△表に共通して入る漢字だ。"
         ],
+        clearMessage: "ありがとう。封印の鍵は「Mの創発」だったのか！ リズミックパワーを復元し、救助信号へ向かう。",
         puzzleType: "morikawa-seal"
+      },
+      {
+        title: "小ボス戦 市民を救え",
+        transition: {
+          speaker: "シティビルダー",
+          text: "ありがとう。封印の鍵は「Mの創発」だったのか。森川組は全宇宙の時空により得るエネルギーによって、リズミックパワーが「生成―形成―増幅」へと進化し、自然界とのダイナミックバランス（動的安定）を保有する。この力こそが、森川組がグランドマスターである理由だ。これで怪獣の足止めができる。"
+        },
+        dialogue: {
+          speaker: "ナビゲーター",
+          tone: "alert",
+          text: "おっと、あそこに函館の市民が倒れているぞ！ 謎を解くことで力を解放し、助けてくれ！"
+        },
+        lead: "サッカー用語を「ある」と「なし」に分けた法則を読み取り、救助プロトコルを起動せよ。",
+        body: "エフ・キャンは「ある」「なし」のどちらに入るか答えよう。",
+        acceptedAnswers: ["ある", "有る", "あり", "有", "あるのほう"],
+        hints: [
+          "「ある」側のサッカー用語を、カッコ内のカタカナまで声に出してみよう。",
+          "「ある」側にはフォ・フィ・フリ・フがあり、「なし」側のDFはフェです。",
+          "答えは「ある」。"
+        ],
+        clearMessage: "救助完了！ 森川組が災害発生時に現場事務所周辺の住民を支援する力で、市民を助け出した。",
+        puzzleType: "morikawa-rescue"
       }
     ],
     heroDescription:
@@ -179,29 +237,68 @@ const missions = [
     steps: [
       {
         title: "第1問 港の技術コア",
-        lead: "船舶の建造、検査・修理、鉄構機械の製作。函館どっくが選ばれ続けるために磨いている強みを探そう。",
-        body: "港の技術コアに入力する、ひらがな6文字の言葉を答えよう。",
+        dialogue: {
+          speaker: "ナビゲーター",
+          text: "どっくの本拠地にたどり着いた！ どっくには会えたが、みんながどっくの存在を忘れてしまったことでヒーローの力が失われてしまっている。企業ページを確認し、ヒーローの力を取り戻そう。"
+        },
+        lead: "船舶の建造、艦艇や商船の各種検査・修理、鉄構機械の製作。函館どっくが選ばれ続けるために進化させ続けている、一番の強みを探そう。",
+        body: "港の技術コアに入力する、漢字3文字の言葉を答えよう。",
         acceptedAnswers: ["技術力", "ぎじゅつりょく", "ギジュツリョク"],
         hints: ["公式サイトの会社紹介で、技術や品質に関わる言葉を探そう。", "漢字3文字では『技術力』。", "ひらがななら『ぎじゅつりょく』。"],
         clearMessage: "技術コアを再起動。次は、港を越えて活躍する力を探そう。",
         puzzleType: "dock-core"
       },
       {
-        title: "第2問 海から街へつながる仕事",
-        lead: "造船で培った技術は、船だけに使われているわけではない。橋梁製作や架設も扱う事業名を復元せよ。",
-        body: "『鉄構機械○○』の○○に入る、漢字2文字を答えよう。",
-        acceptedAnswers: ["事業", "じぎょう", "ジギョウ", "鉄構機械事業", "てっこうきかいじぎょう"],
-        hints: ["ヒントは『橋梁』と『架設』。", "答えは『鉄構機械事業』。", "空欄には『事業』が入る。"],
-        clearMessage: "海と街をつなぐ記録を入手。最後の合言葉を解読しよう。",
-        puzzleType: "dock-industry"
+        title: "第2問 失われた武器",
+        transition: {
+          speaker: "ナビゲーター",
+          text: "技術力の記憶を取り戻した。だが、ヒーローの武器が隠されてしまったようだ。3つの言葉の法則性を見つけ出し、どれが武器なのか選ぶんだ！"
+        },
+        lead: "ヒーローの武器が隠されてしまった。『王冠、ヘッドフォン、はちまき』に共通する言葉を手がかりに、武器を選べ。",
+        body: "1. 安全靴　2. ヘルメット　3. シールド。正しい武器を答えよう。",
+        acceptedAnswers: ["ヘルメット", "へるめっと"],
+        hints: ["3つの言葉に共通するのは、身につける場所です。", "王冠、ヘッドフォン、はちまきは頭につけます。", "答えは『ヘルメット』。"],
+        clearMessage: "武器を回収。新造船の記録と合言葉を解読しよう。",
+        puzzleType: "dock-weapon"
       },
       {
         title: "第3問 港の合言葉",
-        lead: "AからDの記録をつなぐと、ヒーローの必殺技を起動する言葉が浮かび上がる。",
-        body: "『ここにしかない』という想いにつながる、ひらがな5文字の合言葉を答えよう。",
+        transition: {
+          speaker: "どっくメカニック",
+          text: "力を取り戻したが、必殺技を使うには合言葉が必要で、その合言葉が思い出せない。これまでどんな活躍をしてきたかを調べ、必殺技の合言葉を思い出そう！"
+        },
+        dialogue: {
+          speaker: "ナビゲーター",
+          text: "ヒーローを仲間にするには合言葉が必要だ！ 合言葉のカギとなる暗号が落とされているぞ。それをもとに解き明かせ！"
+        },
+        lead: "新造船で建造する『内航フェリーと貨物船』、会社名『はこだてどっく』の記録を使い、必殺技の合言葉を復元せよ。",
+        body: "暗号メモの文字を順に取り、函館どっくのキャッチコピーにつながる、ひらがな5文字の合言葉を答えよう。",
         acceptedAnswers: ["ものづくり", "モノヅクリ", "物づくり", "物作り"],
-        hints: ["船、橋、機械。それらを生み出す営みを表す言葉。", "『ものをつくること』をひらがな5文字で。", "答えは『ものづくり』。"],
+        hints: ["暗号メモでは、A＝ぎじゅつりょく、C＝かもつせん、D＝はこだてどっくです。", "C2＋の＋A4゛＋D7＋A5 を順番に読もう。", "答えは『ものづくり』。"],
+        clearMessage: "必殺技の合言葉は「ものづくり」だ！ 港の安全ロックに残る最後の警報を解除しよう。",
         puzzleType: "dock-password"
+      },
+      {
+        title: "小ボス戦 港の安全ロック",
+        transition: {
+          speaker: "どっくメカニック",
+          text: "必殺技の合言葉は「ものづくり」だ！"
+        },
+        dialogue: {
+          speaker: "ナビゲーター",
+          tone: "alert",
+          text: "港の安全ロックが暴走している。月ごとの日数の差を読み取り、設備を安全な状態へ戻してくれ！"
+        },
+        lead: "各月の日数を使った差の記録から、最後のロックに入る数字を導こう。",
+        body: "12月と5月の日数の差を、半角または全角の数字で答えよう。",
+        acceptedAnswers: ["0", "０", "零", "れい", "ゼロ"],
+        hints: [
+          "7月は31日、6月は30日なので、最初の式は1になります。",
+          "8月と7月、11月と9月はそれぞれ同じ日数です。",
+          "12月も5月も31日。答えは0。"
+        ],
+        clearMessage: "安全ロック解除。どっくメカニックが港の設備を安定化し、海からの援護準備が整った！",
+        puzzleType: "dock-miniboss"
       }
     ],
     heroDescription: "造船所の技術と重装備を備えた女性メカニックヒーロー。クレーンアームとアンカー工具で、海から決戦を支える。",
@@ -235,40 +332,61 @@ const missions = [
     storyIntro:
       "決戦を前に、仲間たちの力が弱まっている。函館の夜を照らすホテルに残された、心と体を休ませる回復の力を見つけ出そう。",
     questionTitle: "やすらぎのルームキー",
-    questionLead: "訪れる人を温かく迎え、くつろぎの時間を届ける力が、仲間を回復させる鍵になる。",
-    questionBody: "ホテルにある休息の記録を集め、回復の合言葉を復元しよう。",
-    acceptedAnswers: ["おもてなし", "オモテナシ", "OMOTENASHI", "omotenashi"],
+    questionLead: "函館の海を生かした、非日常のリラックス空間に残る記録を集めよう。",
+    questionBody: "ホテルの魅力と朝食の謎を解き、回復の合言葉を復元しよう。",
+    acceptedAnswers: ["食事", "しょくじ", "ショクジ"],
     hints: [
-      "相方から追加通信が届いた。人を迎え、心地よく過ごしてもらう仕事に注目しよう。",
-      "ヒーローの記憶が少し復元された。相手を思いやる心が回復の源だ。",
-      "企業HPのこのあたりを見てみよう。ホテルが届けるくつろぎや心配りが手がかりだ。"
+      "相方から追加通信が届いた。港町の景色と、ホテルの過ごし方に注目しよう。",
+      "ヒーローの記憶が少し復元された。海や船をテーマにした非日常の空間が鍵だ。",
+      "最後は、50音順で文字を前後に動かしてみよう。"
     ],
     steps: [
       {
-        title: "第1問 最上階の回復エリア",
-        lead: "函館を一望できる最上階には、旅の疲れを癒やす回復エリアがある。公式サイトで施設名を探せ。",
-        body: "心身を休める施設をアルファベット3文字で答えよう。",
-        acceptedAnswers: ["SPA", "スパ", "spa"],
-        hints: ["温泉やリラクゼーションに関わる施設です。", "公式サイトのメニューにも3文字で載っています。", "答えは『SPA』。"],
-        clearMessage: "回復エリアの記録を取得。次は、ホテルがある港町の入口を探そう。",
-        puzzleType: "century-spa"
+        title: "第1問 非日常の場所",
+        dialogue: {
+          speaker: "ナビゲーター",
+          text: "次に思い出すヒーローは、函館の海を生かしたリラックスできる空間を提供している。疲労を癒やし、怪獣に立ち向かう力を取り戻そう。センチュリーマリーナの記録から、合言葉を探せ！"
+        },
+        lead: "日常を離れ、ひとときのプライベートな時間が叶う場所。海や船をモチーフにしたホテルの魅力を調べよう。",
+        body: "『プライベート・○○○○○○が叶う場所。』の○○○○○○に入る言葉を答えよう。",
+        acceptedAnswers: ["クルージング", "くるーじんぐ"],
+        hints: ["ホテルの公式サイトにある紹介文を見よう。", "海や船で楽しむ非日常の体験です。", "答えは『クルージング』。"],
+        clearMessage: "謎解きの鍵が開いたぞ！ この調子でヒーローの力を呼び覚まそう。次は函館らしい景色の鍵だ。",
+        puzzleType: "century-cruising"
       },
       {
-        title: "第2問 港町のウェルカムサイン",
-        lead: "センチュリーマリーナ函館は、函館駅から徒歩5分、ある観光地から徒歩すぐの場所にある。",
-        body: "ホテルのすぐ近くにある、函館を代表する市場の名前を答えよう。",
-        acceptedAnswers: ["函館朝市", "朝市", "あさいち", "アサイチ"],
-        hints: ["ホテルのアクセス情報を見てみよう。", "函館駅のすぐそばにある観光地です。", "答えは『函館朝市』。"],
-        clearMessage: "港町の案内記録を取得。最後に、回復の力の名前を呼び戻そう。",
-        puzzleType: "century-access"
+        title: "第2問 景色の鍵",
+        transition: {
+          speaker: "ナビゲーター",
+          text: "センチュリーマリーナは、港町函館の特徴を生かし、海や船をモチーフにした建物づくりで、非日常のひと時を味わえるホテルをつくっている。"
+        },
+        dialogue: {
+          speaker: "マリーナ・ヒーラー",
+          text: "本拠地の客室や露天風呂から見える景色が、私の記憶の鍵だ。函館の夜景や海を最大限に生かしたおもてなしを思い出してくれ。"
+        },
+        lead: "函館の夜景や海を最大限に生かしたおもてなし。その魅力を表す文字を、色と数字から抜き出そう。",
+        body: "赤・青・黒の行と数字を手がかりに、3文字の言葉を答えよう。",
+        acceptedAnswers: ["景色", "けしき", "ケシキ"],
+        hints: ["赤い行の9は『け』になります。", "数字は、その行の何文字目かを示しています。", "答えは『けしき』。"],
+        clearMessage: "景色の記録を取得。朝食に関する最後の鍵を解こう。",
+        puzzleType: "century-scenery"
       },
       {
-        title: "第3問 やすらぎの合言葉",
-        lead: "休息の場所と港町への案内がそろった。マリーナ・ヒーラーが人々へ届ける力を言葉にしよう。",
-        body: "相手を思いやり、心地よく迎える心。ひらがな5文字で答えよう。",
-        acceptedAnswers: ["おもてなし", "オモテナシ", "OMOTENASHI", "omotenashi"],
-        hints: ["ホテルで大切にされる心配りです。", "人を温かく迎える日本語。", "答えは『おもてなし』。"],
-        puzzleType: "century-key"
+        title: "第3問 朝食の合言葉",
+        transition: {
+          speaker: "ナビゲーター",
+          text: "景色の記録を取得。次は朝食に関する最後の鍵を解こう。"
+        },
+        dialogue: {
+          speaker: "マリーナ・ヒーラー",
+          text: "函館の海鮮や北海道の食材を生かした食事も、私の大切な力だ。特に朝食の新鮮なお刺身やいくらを思い出してくれ。"
+        },
+        lead: "ひらがなを50音順で前後に動かす暗号。函館の海鮮や北海道の食材にこだわるホテルの力を呼び起こそう。",
+        body: "さ＋1、ろ－5、お＋3、ぞ－3 を解き、4文字の合言葉を答えよう。",
+        acceptedAnswers: ["食事", "しょくじ", "ショクジ"],
+        hints: ["＋と－は50音順で進む向きです。", "さの1つ次は『し』、ろの5つ前は『よ』。", "答えは『しょくじ』。"],
+        clearMessage: "朝食の合言葉を取得。マリーナ・ヒーラーの回復の力が再起動した！",
+        puzzleType: "century-meal"
       }
     ],
     heroDescription: "洗練されたコンシェルジュ装備と温かな光をまとう男性回復ヒーロー。仲間の疲れを癒やし、決戦に必要な活力を取り戻す。",
@@ -301,41 +419,80 @@ const missions = [
     missionTitle: "建物の未来を守れ",
     storyIntro:
       "怪獣の攻撃で建物の壁と屋上にひび割れが走った。最後に必要なのは、水や傷みから建物の未来を守る火属性ヒーローの力だ。東興アイテックの謎を解き、最終決戦の準備を完了せよ。",
-    questionTitle: "火炎施工コードの復元",
-    questionLead: "建物の健康状態を見極め、最適な施工を選ぶ技術が、街を守る炎の回路になる。",
-    questionBody: "建物の未来を守る力を、3つの記録から復元しよう。",
-    acceptedAnswers: ["防水", "ぼうすい", "ボウスイ"],
+    questionTitle: "失われた名前を取り戻せ",
+    questionLead: "火を使い街を守る鉄壁の防御ヒーローは、すべての記憶を失っている。2つの暗号を解き、名前と使命を取り戻そう。",
+    questionBody: "建物を守る使命と、方位の暗号から本当の名前を復元しよう。",
+    acceptedAnswers: ["東興", "とうこう", "トウコウ"],
     hints: [
-      "相方から追加通信が届いた。建物の価値や未来を守る仕事に注目しよう。",
-      "ヒーローの記憶が少し復元された。まずは建物の状態を見極める仕事が鍵だ。",
-      "企業HPのこのあたりを見てみよう。防水、外壁改修、調査・診断という言葉が近い。"
+      "相方から追加通信が届いた。建物の状態を見極め、社会に役立てる使命に注目しよう。",
+      "最初の暗号は、建物を診断する仕事につながる文章です。",
+      "最後は方位の音読みと、色付きの四角を組み合わせよう。"
     ],
     steps: [
       {
-        title: "第1問 創造の記録",
-        lead: "記憶を失ったエナジーリンクは、自分たちが何者なのか思い出せない。公式サイトのメッセージを調査せよ。",
-        body: "『○○の価値を創造し、社会の期待に応える。』の○○に入る漢字2文字を答えよう。",
-        acceptedAnswers: ["建物", "たてもの", "タテモノ"],
-        hints: ["人が暮らしたり働いたりする場所です。", "公式サイトのトップにあるメッセージを確認しよう。", "答えは『建物』。"],
-        clearMessage: "創造の記録を接続。次は、建物の状態を見極める力を復元しよう。",
-        puzzleType: "toko-archive"
+        title: "第1問 最初のパスワード",
+        dialogue: {
+          speaker: "ナビゲーター",
+          text: "ここは、火を使い街を守る鉄壁の防御ヒーローのエリアだ。ヒーローはすべての記憶を失い、完全に沈黙している。2つの暗号を解き、まずは第1のセキュリティをハッキングせよ！"
+        },
+        lead: "6つの番号に入る文字をつなぐと、ヒーローが取り戻すべき使命の文章になる。最初のパスワードを導き出そう。",
+        body: "1から6を順番に読み、使命の文章を答えよう。",
+        acceptedAnswers: ["建物を診断し、社会に還元する。", "建物を診断し、社会に還元する", "建物を診断し社会に還元する。", "建物を診断し社会に還元する", "たてものをしんだんし、しゃかいにかんげんする。", "たてものをしんだんししゃかいにかんげんする"],
+        hints: ["企業ページや記録にある、建物を守るための考え方に注目しよう。", "文章は『建物を診断し、』から始まります。", "答えは『建物を診断し、社会に還元する。』。"],
+        clearMessage: "パスワード認証。ヒーローの意識が半分戻ってきた。創造の記録を解析しよう。",
+        puzzleType: "toko-message"
       },
       {
-        title: "第2問 ビルディングドクター",
-        lead: "建物の健康状態を診断し、最適な治療法を導き出す専門家。その最初の仕事を答えよう。",
-        body: "防水や外壁の状態を確かめる、漢字2文字・中点・漢字2文字の言葉を答えよう。",
-        acceptedAnswers: ["調査・診断", "調査診断", "ちょうさしんだん", "チョウサシンダン"],
-        hints: ["建物を直す前に、状態を確かめる仕事です。", "公式サイトでは『ビルディングドクター』と説明されています。", "答えは『調査・診断』。"],
-        clearMessage: "建物の状態を特定。最後に、水を遮る火属性の力を呼び戻そう。",
+        title: "中間ミッション 創造の記録を解析せよ",
+        transition: {
+          speaker: "ナビゲーター",
+          text: "見事だ！ パスワード認証。ヒーローの意識が半分戻ってきたぞ。……しかし、まだ表情は虚ろだ。"
+        },
+        dialogue: {
+          speaker: "エナジーリンク",
+          text: "建物を診断し、社会に還元する。……それが私との絆だ。だが、それだけでは思い出せない。私は一体どんな想いで、何を創っていたのだ……？"
+        },
+        lead: "【システム警告】コアデータが不足している。ヒーローが守るべき『この場所の真実』を知るため、創造の記録を解析しよう。",
+        body: "建物を長持ちさせるために、彼らがまず行う工程を、番号または言葉で答えよう。",
+        acceptedAnswers: ["2", "２", "建物の劣化状態を調査・診断し、最適な工法を導き出す", "建物の劣化状態を調査診断し最適な工法を導き出す", "調査・診断", "調査診断"],
+        hints: ["防水や塗装の前に、建物の状態を見極める必要があります。", "正解の選択肢は、建物の『劣化状態』を調べる工程です。", "答えは2。調査・診断して最適な工法を導き出します。"],
+        clearMessage: "創造の記録を同期。街の安心を支える基盤が、ヒーローの記憶につながった！",
         puzzleType: "toko-diagnosis"
       },
       {
-        title: "第3問 火炎施工の最終コード",
-        lead: "高温で溶かしたアスファルトを使う熱工法もある。炎の技術が建物から遮るものは何か。",
-        body: "水から建物・財産・人・生活を守る、漢字2文字の仕事を答えよう。",
-        acceptedAnswers: ["防水", "ぼうすい", "ボウスイ"],
-        hints: ["漏水を防ぐための仕事です。", "『水を防ぐ』と書きます。", "答えは『防水』。"],
-        puzzleType: "toko-waterproof"
+        title: "第2の謎 失われた名前を取り戻せ",
+        transition: {
+          speaker: "ナビゲーター",
+          text: "素晴らしい！ 彼らが創っているもの、それこそがこの街の安心を支える基盤だった。データがヒーローに同期されていく……！"
+        },
+        dialogue: {
+          speaker: "エナジーリンク",
+          text: "そうだ……思い出しつつあるぞ。私はただの防壁ではない。人々の暮らしを、技術で支えるために生まれたんだ……！"
+        },
+        lead: "意識がかなり戻ってきた。だが完全復活には、あと一歩、決定的なピースが足りない。方位と色の暗号から、本当の名前を覚醒させよう。",
+        body: "方位の音読みと色付きの四角を組み合わせ、ヒーローの名前を答えよう。",
+        acceptedAnswers: ["東興", "とうこう", "トウコウ"],
+        hints: ["北斎の最初の2文字は『ほく』。方位の音読みを探そう。", "青い四角は『さい』、赤い四角は『こう』を表します。", "『とう』と『こう』を組み合わせると答えになります。"],
+        clearMessage: "マスターコード認証完了。トウコウの記憶と誇りが戻った！ ……だが、防衛システムが起動した。",
+        puzzleType: "toko-compass"
+      },
+      {
+        title: "緊急ミッション 小ボスを撃破せよ",
+        transition: {
+          speaker: "エナジーリンク",
+          text: "……ふぅ、助かった。ありがとう！ 君たちの知恵が、私の名前と誇り……記憶を呼び覚ました。さあ、私の力を君たちに貸そう！"
+        },
+        dialogue: {
+          speaker: "システム",
+          tone: "alert",
+          text: "警告：完全覚醒を阻止する防衛システムが起動しました。これが本当に最後のロックです。12マスのグリッドを解析せよ！"
+        },
+        lead: "目の前に表示されたのは、奇妙な12マスのグリッド。スマホのフリック入力を手がかりに、防衛システムを停止させよう。",
+        body: "数字の順にフリック入力を読み、ひらがなで答えよう。",
+        acceptedAnswers: ["えふきゃん", "エフキャン", "Fキャン", "fキャン", "F-CAN", "FCAN", "fcan"],
+        hints: ["12マスは、スマホのかなフリック入力の配列を表しています。", "数字の順に読み、矢印はフリック方向、○はそのキーをそのまま選ぶ合図です。", "答えは『えふきゃん』。"],
+        clearMessage: "防衛システム停止。エナジーリンクが完全覚醒し、炎と防水層を展開した！",
+        puzzleType: "toko-flick-boss"
       }
     ],
     heroDescription: "黒い戦闘スーツに炎色の発光回路を走らせる火属性ヒーロー。熱工法の炎と防水技術で建物を守り、全員の力を燃え上がらせる。",
@@ -353,29 +510,52 @@ const missions = [
   }
 ];
 
+missions.sort((a, b) => ["shodai", "morikawa", "dock", "toko", "century"].indexOf(a.id) - ["shodai", "morikawa", "dock", "toko", "century"].indexOf(b.id));
+
 const finalPuzzles = [
   {
-    title: "第1問 交差する国名",
-    lead: "小ボスのバリアを解除するには、カタカナの線が交差する回数を読む必要がある。",
-    body: "オランダ＝2、チュニジア＝1、スウェーデン＝0。では『ジャパン』はいくつ？",
-    acceptedAnswers: ["1", "１", "一"],
-    hints: ["文字数や画数ではありません。", "カタカナの線が交わる場所を数えよう。", "ジャパンでは『ヤ』の交差が1つです。"],
-    puzzleType: "final-crossings"
+    title: "第1問 迷路の指示",
+    lead: "「やっとヒーロー全員が力を取り戻して仲間になった！ 今こそ怪獣を退治する時だ！」まずは迷路に隠れた攻撃の合図を探そう。",
+    body: "スタートからゴールまで進み、経路上のひらがなで指示を読む。その後、迷路内のカタカナを左から読んで答えよう。",
+    acceptedAnswers: ["オフサイド", "おふさいど", "offside"],
+    hints: ["道をたどると、何かを指示するひらがなが見つかります。", "経路上の文字は『ひだりからかなよめ』。迷路内のカタカナを左から読みましょう。", "答えは『オフサイド』。"],
+    clearMessage: "「あれ、謎を解いたのに攻撃が効いていないな……。もっと攻撃しよう！」次の作戦を開きます。",
+    puzzleType: "final-maze"
   },
   {
-    title: "第2問 フィールド停止コード",
-    lead: "小ボスを止めるコードは、曜日の英語の頭文字に隠されている。",
-    body: "S M T W T F S の並びから、丸＝S、三角＝T、四角＝O、星＝P として読め。答えは4文字。",
-    acceptedAnswers: ["STOP", "stop", "ストップ"],
-    hints: ["S M T W T F S は曜日の頭文字です。", "丸・三角・四角・星を順に英字へ置き換えよう。", "答えは『STOP』。"],
-    puzzleType: "final-stop"
+    title: "第2問 十二支の矢印",
+    lead: "第1攻撃では怪獣を止められない。十二支の動物名を矢印のマスに入れ、次の攻撃を導こう。",
+    body: "十二支の動物名をひらがなで左から早い順にマスへ入れ、紫の矢印が通る文字を答えよう。",
+    acceptedAnswers: ["さつま汁", "さつまじる", "サツマジル"],
+    hints: ["左から早い順に、十二支の動物名が入ります。", "紫の矢印が通る文字だけを読みます。", "答えは『さつま汁』。"],
+    clearMessage: "怪獣に攻撃してもHPは減らない。怪獣は弱点からの攻撃しかきかないようだ。弱点を探そう！",
+    puzzleType: "final-zodiac"
   },
   {
-    title: "第3問 ナゾゴラの弱点",
-    lead: "停止コードで怪獣の動きが鈍った。迷路の道の外に残された文字から、狙う場所を見つけ出せ。",
-    body: "『あかよめ』の指示に従い、赤い文字を左から読んで、怪獣の弱点を答えよう。",
+    title: "第3問 静かな音",
+    lead: "弱点を探す鍵は、音楽記号の中にある。大声と静かな仕草が表す記号を読み取ろう。",
+    body: "大声で叫ぶ人は f（フォルテ）を表している。静かにしている人が表すローマ字を答えよう。",
+    acceptedAnswers: ["P", "p", "ピアノ"],
+    hints: ["音楽記号では、強くは f（フォルテ）です。", "静かに、弱くを表す音楽記号を考えよう。", "答えは p（ピアノ）。"],
+    clearMessage: "記号Pを取得。もう一つ、同じ文字を導く鍵を探そう。",
+    puzzleType: "final-piano"
+  },
+  {
+    title: "第4問 じゃんけんコード",
+    lead: "もう一つの鍵も同じローマ字を表している。じゃんけんの関係から、？に入る手を導こう。",
+    body: "C＝2、G＝0、？＝5。？＜C、C＜G、G＜？ のとき、？に入るローマ字を答えよう。",
+    acceptedAnswers: ["P", "p", "パー"],
+    hints: ["＜は『勝てる』と考えよう。", "Cはチョキ、Gはグーを表しています。", "残る手はパー。答えは P。"],
+    clearMessage: "Pが2つそろった。会場パンフレットの2つのPを重ねるように折り、弱点の指示を探そう。",
+    puzzleType: "final-rps"
+  },
+  {
+    title: "第5問 怪獣の弱点",
+    lead: "第3問と第4問のPは、会場パンフレットの「駐車場P」と「臨時駐車場P」を表している。",
+    body: "2つのPを重ねるようにパンフレットを折り、浮かんだ指示に従う。第1問の迷路へ戻り、怪獣の弱点を答えよう。",
     acceptedAnswers: ["背中", "せなか", "セナカ"],
-    hints: ["迷路を通った後に残る指示は『あかよめ』。", "赤い文字だけを左から読もう。", "答えは『背中』。"],
+    hints: ["第3問と第4問の答えはPとPを表します。", "会場パンフレットの地図で、駐車場と臨時駐車場のPを重ねます。", "浮かび上がる指示は『いちにもどりひらがなよめ』。迷路の経路以外のひらがなを読むと『あかよめ』です。パンフレットの赤文字を読もう。"],
+    clearMessage: "ようやく怪獣の弱点がわかったぞ！ 怪獣の弱点は背中だ！ 最終決戦のロックを解除します。",
     puzzleType: "final-weakpoint"
   }
 ];
@@ -401,14 +581,14 @@ const characterAssets = {
   },
   "real-century": {
     src: "assets/characters/century-medic-v2.png",
-    width: 887,
-    height: 1774,
+    width: 864,
+    height: 1821,
     alt: "マリーナ・ヒーラー"
   },
   "real-link": {
     src: "assets/characters/energy-link-fire-v3.png",
-    width: 887,
-    height: 1774,
+    width: 864,
+    height: 1821,
     alt: "エナジーリンク"
   },
   "real-kaiju": {
@@ -695,7 +875,7 @@ function renderMission(id) {
   const hintCount = getHintCount(mission.id, stepIndex);
   detail.innerHTML = `
     <aside class="mission-brief" style="--accent:${mission.accent}">
-      <p class="eyebrow">MISSION / ${escapeHtml(mission.companyName)}</p>
+      <p class="eyebrow mission-kicker"><span>MISSION /</span><span>${escapeHtml(mission.companyName)}</span></p>
       <h1>${escapeHtml(mission.missionTitle)}</h1>
       <p>${escapeHtml(mission.storyIntro)}</p>
       <div class="tag-row">
@@ -710,6 +890,8 @@ function renderMission(id) {
       ${questProgressHtml(steps.length, stepIndex, unlocked)}
       <h2>${escapeHtml(step.title)}</h2>
       <p>${escapeHtml(step.lead)}</p>
+      ${missionDialogueHtml(step.transition)}
+      ${missionDialogueHtml(step.dialogue)}
       ${puzzleHtml(step)}
       <p><strong>問題:</strong> ${escapeHtml(step.body)}</p>
       <form id="answer-form" data-id="${mission.id}">
@@ -742,6 +924,19 @@ function hintPanelHtml(step, count) {
       .slice(0, count)
       .map((hint, index) => `<p class="hint is-visible"><strong>${index + 1}.</strong> ${escapeHtml(hint)}</p>`)
       .join("")}
+  `;
+}
+
+function missionDialogueHtml(dialogue) {
+  if (!dialogue?.text) return "";
+
+  const speaker = dialogue.speaker || "ナビゲーター";
+  const toneClass = dialogue.tone === "alert" ? " is-alert" : "";
+  return `
+    <aside class="mission-dialogue${toneClass}" aria-label="${escapeAttribute(speaker)}からの通信">
+      <div class="mission-dialogue-meta"><span>MISSION COMMS</span><strong>${escapeHtml(speaker)}</strong></div>
+      <p>「${escapeHtml(dialogue.text)}」</p>
+    </aside>
   `;
 }
 
@@ -861,7 +1056,7 @@ function getFinalPuzzleIndex() {
 }
 
 function finalPuzzleHtml(completed, index) {
-  if (!completed) return `<aside class="final-brief locked-final-brief"><p class="eyebrow dark">FINAL CODE LOCKED</p><h2>最終暗号はヒーロー全員の解放後に出現します</h2><p>企業ミッションをすべて解くと、怪獣の弱点を探す3問の暗号が開きます。</p></aside>`;
+  if (!completed) return `<aside class="final-brief locked-final-brief"><p class="eyebrow dark">FINAL CODE LOCKED</p><h2>最終暗号はヒーロー全員の解放後に出現します</h2><p>企業ミッションをすべて解くと、怪獣の弱点を探す5問の暗号が開きます。</p></aside>`;
   if (index >= finalPuzzles.length) return `<aside class="final-brief is-clear"><p class="eyebrow dark">FINAL CODE COMPLETE</p><h2>弱点「背中」を特定</h2><p>全ての作戦暗号を突破。ヒーローの合体攻撃でナゾゴラを撃退しよう。</p></aside>`;
   const puzzle = finalPuzzles[index];
   const hintCount = getFinalHintCount(index);
@@ -886,9 +1081,134 @@ function finalPuzzleHtml(completed, index) {
 }
 
 function finalPuzzleVisualHtml(puzzle) {
-  if (puzzle.puzzleType === "final-crossings") return `<div class="final-visual crossing-visual" aria-label="国名のカタカナを見て線が交差する数を数える問題"><span>オランダ <b>＝ 2</b></span><span>チュニジア <b>＝ 1</b></span><span>スウェーデン <b>＝ 0</b></span><strong>ジャパン ＝ ？</strong></div>`;
-  if (puzzle.puzzleType === "final-stop") return `<div class="final-visual stop-visual" aria-label="曜日の頭文字を使った停止コード"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><p>○ + △ + □ + ☆</p><strong>？</strong></div>`;
-  return `<div class="final-visual maze-visual" aria-label="迷路の外に赤い文字で背中と書かれている問題"><div class="maze-path" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><span class="red-letter">背</span><span class="red-letter">中</span><p>道の外に残った赤い文字を、左から読め。</p></div>`;
+  if (puzzle.puzzleType === "final-maze") return finalMazeVisualHtml();
+  if (puzzle.puzzleType === "final-zodiac") return finalZodiacVisualHtml();
+  if (puzzle.puzzleType === "final-piano") return finalPianoVisualHtml();
+  if (puzzle.puzzleType === "final-rps") return finalRpsVisualHtml();
+  return finalWeakpointVisualHtml();
+}
+
+function finalFigureHtml(className, diagram, caption) {
+  return '<figure class="final-visual final-figure ' + className + '">' +
+    '<div class="final-figure-scroll">' + diagram + '</div>' +
+    '<figcaption class="final-figure-caption">' + caption + '</figcaption>' +
+  '</figure>';
+}
+
+function finalMazeVisualHtml() {
+  const routeLetters = [
+    [140, 140, "ひ"], [210, 140, "だ"], [280, 140, "り"],
+    [280, 215, "か"], [210, 215, "ら"], [140, 215, "か"],
+    [140, 290, "な"], [210, 290, "よ"], [280, 290, "め"]
+  ].map(([x, y, value]) => '<g class="maze-route-token"><rect x="' + (x - 25) + '" y="' + (y - 25) + '" width="50" height="50" rx="8" /><text x="' + x + '" y="' + (y + 9) + '">' + value + '</text></g>').join("");
+  const redLetters = [
+    [475, "オ"], [530, "フ"], [585, "サ"], [640, "イ"], [695, "ド"]
+  ].map(([x, value]) => '<g class="maze-red-token"><rect x="' + (x - 24) + '" y="151" width="48" height="48" rx="7" /><text x="' + x + '" y="185">' + value + '</text></g>').join("");
+  const diagram = [
+    '<svg class="final-figure-svg final-maze-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" role="img" aria-label="スタートからゴールへ続く、ひらがなと赤いカタカナ入りの迷路">',
+      '<rect class="diagram-paper" x="18" y="18" width="764" height="464" rx="4" />',
+      '<text class="maze-marker" x="54" y="72">▼ スタートから太い道をたどる</text>',
+      '<path class="maze-route-line" d="M78 140H280V215H140V290H352" />',
+      '<circle class="maze-start-dot" cx="78" cy="140" r="16" />',
+      '<text class="maze-start-label" x="48" y="119">START</text>',
+      '<g>', routeLetters, '</g>',
+      '<circle class="maze-goal-dot" cx="352" cy="290" r="16" />',
+      '<text class="maze-goal-label" x="322" y="335">▼ ゴール</text>',
+      '<rect class="maze-red-panel" x="425" y="106" width="330" height="132" rx="10" />',
+      '<text class="maze-red-heading" x="449" y="137">迷路内の赤い文字を左から読む</text>',
+      '<g>', redLetters, '</g>',
+      '<text class="maze-route-note" x="75" y="400">経路上のひらがな：ひ → だ → り → か → ら → か → な → よ → め</text>',
+      '<text class="maze-route-note maze-route-note--small" x="75" y="432">道の指示に従って、赤い文字を左から読もう。</text>',
+    '</svg>'
+  ].join("");
+  return finalFigureHtml("final-maze-figure", diagram, '<strong>図の読み方：</strong>スタートからゴールまでの<strong>経路上のひらがな</strong>を先に読もう。指示に従って、迷路内の<strong>カタカナ</strong>を左から読む。');
+}
+
+function finalZodiacVisualHtml() {
+  const cells = [
+    [38, 242], [84, 242], [130, 242], [176, 242], [222, 242], [268, 242], [314, 242], [360, 242], [406, 242], [452, 242], [498, 242], [544, 242], [590, 242], [636, 242], [682, 242], [728, 242],
+    [84, 196], [130, 196], [176, 196], [222, 196], [268, 196], [314, 196], [360, 196], [406, 196], [452, 196], [498, 196], [544, 196], [590, 196], [636, 196],
+    [406, 150], [452, 150]
+  ].map(([x, y]) => '<rect class="zodiac-cell" x="' + x + '" y="' + y + '" width="46" height="46" />').join("");
+  const diagram = [
+    '<svg class="final-figure-svg final-zodiac-svg" viewBox="0 0 800 390" preserveAspectRatio="xMidYMid meet" role="img" aria-label="十二支を入れるマスと赤、青、紫の矢印">',
+      '<defs>',
+        '<marker id="final-arrow-red" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12z" fill="#e64036" /></marker>',
+        '<marker id="final-arrow-blue" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12z" fill="#397ce6" /></marker>',
+        '<marker id="final-arrow-purple" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12z" fill="#8529df" /></marker>',
+      '</defs>',
+      '<rect class="diagram-paper" x="18" y="18" width="764" height="354" rx="4" />',
+      '<text class="zodiac-title" x="44" y="58">十二支の動物名を、ひらがなで左から早い順に入れよう</text>',
+      '<g>', cells, '</g>',
+      '<path class="zodiac-arrow zodiac-arrow--red" d="M176 118 L245 242 L291 150 L291 294" marker-end="url(#final-arrow-red)" />',
+      '<path class="zodiac-arrow zodiac-arrow--blue" d="M392 130 L392 242 L438 242 L438 176" marker-end="url(#final-arrow-blue)" />',
+      '<path class="zodiac-arrow zodiac-arrow--purple" d="M584 116 L584 196 L498 196 L452 242 L590 242 L590 294" marker-end="url(#final-arrow-purple)" />',
+      '<text class="zodiac-arrow-label zodiac-arrow-label--red" x="305" y="344">赤：到達</text>',
+      '<text class="zodiac-arrow-label zodiac-arrow-label--blue" x="353" y="112">青：うまみ</text>',
+      '<text class="zodiac-arrow-label zodiac-arrow-label--purple" x="570" y="352">紫：？</text>',
+    '</svg>'
+  ].join("");
+  return finalFigureHtml("final-zodiac-figure", diagram, '<strong>図の読み方：</strong>白いマスへ「ねずみ」から「いのしし」までを続けて入れる。<strong>紫の矢印</strong>が通る文字を答えよう。');
+}
+
+function finalPianoVisualHtml() {
+  const diagram = [
+    '<svg class="final-figure-svg final-piano-svg" viewBox="0 0 800 580" preserveAspectRatio="xMidYMid meet" role="img" aria-label="叫ぶ人がフォルテf、静かにする人が何を表すかを考える問題">',
+      '<rect class="diagram-paper" x="18" y="18" width="764" height="544" rx="4" />',
+      '<g class="piano-row">',
+        '<circle class="piano-face" cx="155" cy="132" r="43" /><path class="piano-hair" d="M113 114Q155 64 197 114V97Q155 52 113 97z" />',
+        '<path class="piano-body" d="M103 219Q155 172 207 219L225 282H85z" /><path class="piano-mouth" d="M135 154Q155 185 175 154" />',
+        '<path class="sound-wave" d="M58 117l-25 18 25 18-25 18M76 100l-28 20 28 20-28 20" />',
+        '<path class="piano-arrow" d="M290 150H507M470 108l48 42-48 42" /><text class="piano-symbol" x="620" y="188">f</text>',
+        '<text class="piano-label" x="96" y="310">大声で叫ぶ</text><text class="piano-label" x="612" y="258">フォルテ</text>',
+      '</g>',
+      '<g class="piano-row">',
+        '<circle class="piano-face" cx="155" cy="390" r="43" /><path class="piano-hair" d="M113 372Q155 322 197 372V355Q155 310 113 355z" />',
+        '<path class="piano-body" d="M103 477Q155 430 207 477L225 530H85z" /><path class="quiet-finger" d="M178 422l11-69M178 422l-20-28" />',
+        '<path class="piano-arrow" d="M290 407H507M470 365l48 42-48 42" /><text class="piano-symbol piano-symbol--question" x="624" y="454">?</text>',
+        '<text class="piano-label" x="105" y="548">静かにする</text><text class="piano-label" x="595" y="530">？</text>',
+      '</g>',
+    '</svg>'
+  ].join("");
+  return finalFigureHtml("final-piano-figure", diagram, '<strong>図の読み方：</strong>上段の<strong>f</strong>は「強く」を表すフォルテ。下段の静かな仕草が表す音楽記号を考えよう。');
+}
+
+function finalRpsVisualHtml() {
+  const diagram = [
+    '<svg class="final-figure-svg final-rps-svg" viewBox="0 0 800 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="チョキ、グー、パーの勝敗と指の数からローマ字を導く問題">',
+      '<defs><marker id="final-rps-arrow" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12z" fill="#173023" /></marker></defs>',
+      '<rect class="diagram-paper" x="18" y="18" width="764" height="344" rx="4" />',
+      '<text class="rps-title" x="70" y="66">＜ は「勝てる」と考えよう</text>',
+      '<g class="rps-card"><rect x="78" y="102" width="178" height="116" rx="8" /><text x="118" y="150">C = 2</text><text class="rps-small" x="108" y="190">チョキ / 指2本</text></g>',
+      '<g class="rps-card"><rect x="312" y="102" width="178" height="116" rx="8" /><text x="352" y="150">G = 0</text><text class="rps-small" x="345" y="190">グー / 指0本</text></g>',
+      '<g class="rps-card rps-card--answer"><rect x="546" y="102" width="178" height="116" rx="8" /><text x="582" y="150">？ = 5</text><text class="rps-small" x="584" y="190">？ / 指5本</text></g>',
+      '<path class="rps-cycle" d="M256 160H302M490 160H536M636 232C560 310 238 310 164 232" marker-end="url(#final-rps-arrow)" />',
+      '<text class="rps-cycle-label" x="317" y="342">？ ＜ C　　C ＜ G　　G ＜ ？</text>',
+    '</svg>'
+  ].join("");
+  return finalFigureHtml("final-rps-figure", diagram, '<strong>図の読み方：</strong>C＝チョキ、G＝グー。勝敗の輪と<strong>5本の指</strong>を手がかりに、残るローマ字を答えよう。');
+}
+
+function finalWeakpointVisualHtml() {
+  const diagram = [
+    '<svg class="final-figure-svg final-weakpoint-svg" viewBox="0 0 800 430" preserveAspectRatio="xMidYMid meet" role="img" aria-label="会場パンフレットの駐車場Pと臨時駐車場Pを重ねる手順を示す図">',
+      '<defs><marker id="final-fold-arrow" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12z" fill="#e64036" /></marker></defs>',
+      '<rect class="diagram-paper" x="18" y="18" width="764" height="394" rx="4" />',
+      '<text class="weakpoint-title" x="52" y="62">会場パンフレットの2つのPを重ねる</text>',
+      '<g class="fold-map">',
+        '<rect x="58" y="95" width="230" height="182" rx="5" /><path d="M173 95V277" class="fold-line" />',
+        '<path d="M80 124H265M80 156H220M80 218H260" class="map-road" />',
+        '<rect x="93" y="176" width="52" height="42" class="map-parking" /><text x="111" y="205">P</text>',
+        '<rect x="205" y="118" width="52" height="42" class="map-parking map-parking--temporary" /><text x="223" y="147">P</text>',
+        '<text class="map-label" x="83" y="248">駐車場</text><text class="map-label" x="184" y="186">臨時駐車場</text>',
+      '</g>',
+      '<path class="fold-arrow" d="M323 184H438M406 151l38 33-38 33" />',
+      '<g class="fold-result"><rect x="468" y="105" width="278" height="144" rx="5" /><text class="fold-result-title" x="500" y="146">重ねると見える指示</text><text class="fold-result-code" x="500" y="192">いちにもどり</text><text class="fold-result-code" x="500" y="222">ひらがなよめ</text></g>',
+      '<path class="fold-next-arrow" d="M604 270V352" marker-end="url(#final-fold-arrow)" />',
+      '<text class="fold-next-label" x="446" y="388">第1問の迷路へ戻る</text>',
+    '</svg>'
+  ].join("");
+  return finalFigureHtml("final-weakpoint-figure", diagram, '<strong>Web版の補助図：</strong>パンフレットが手元にない場合も、Pを重ねて出た指示に従おう。第1問で<strong>経路以外のひらがな</strong>を読み、パンフレットの赤文字を確認する。');
 }
 
 function getFinalHintCount(index) {
@@ -1290,7 +1610,7 @@ function checkFinalAnswer(index, rawAnswer) {
     result.textContent = "作戦コードが合わない。図とヒントをもう一度確認しよう。";
     return;
   }
-  result.textContent = index < finalPuzzles.length - 1 ? "コード認証。次の最終暗号を開きます。" : "弱点を特定。最終決戦のロックを解除します。";
+  result.textContent = puzzle.clearMessage || (index < finalPuzzles.length - 1 ? "コード認証。次の最終暗号を開きます。" : "弱点を特定。最終決戦のロックを解除します。");
   window.setTimeout(() => {
     state.steps.finalBattle = index + 1;
     saveState();
@@ -1485,7 +1805,9 @@ function renderFixedProgress() {
   document.querySelector(".fixed-progress")?.remove();
   const bar = el("aside", "fixed-progress");
   bar.setAttribute("aria-label", "進行状況");
-  bar.innerHTML = `<strong>${state.unlocked.size} / ${missions.length} clear</strong><span>${missions.filter((mission) => state.unlocked.has(mission.id)).map((mission) => mission.heroName).join("、") || "企業ヒーロー探索中"}</span>`;
+  const unlockedCount = state.unlocked.size;
+  const progressLabel = unlockedCount ? `ヒーロー ${unlockedCount}人を解放` : "企業ヒーロー探索中";
+  bar.innerHTML = `<strong>${unlockedCount} / ${missions.length} clear</strong><span>${progressLabel}</span>`;
   document.body.append(bar);
 }
 
@@ -1517,6 +1839,30 @@ function puzzleHtml(step) {
         <div class="trade-code" aria-label="丸に入る漢字2文字を答える問題">
           <span>〇</span><span>〇</span><strong>工事</strong>
         </div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "shodai-miniboss") {
+    const weekdays = [
+      ["sun", "日", "□"],
+      ["mon", "月", "□"],
+      ["tue", "火", "□"],
+      ["wed", "水", "□"],
+      ["thu", "木", "□"],
+      ["fri", "金", "？"],
+      ["sat", "土", "△"]
+    ];
+    return `
+      <div class="puzzle-panel steel-boss-panel">
+        <div class="boss-alert"><span>MINI BOSS / BUILDING COLLAPSE</span><strong>崩落ロック警報</strong></div>
+        <p>曜日を漢字に変え、画数と同じ辺の数を持つ多角形に置き換えよう。</p>
+        <div class="weekday-shapes" aria-label="曜日を漢字と多角形に置き換える問題">
+          ${weekdays
+            .map(([english, kanji, shape]) => `<span><small>${english}</small><b>${kanji}</b><i>${shape}</i></span>`)
+            .join("")}
+        </div>
+        <div class="shape-question"><span>金曜日</span><b>→</b><strong>？角形</strong></div>
       </div>
     `;
   }
@@ -1570,12 +1916,13 @@ function puzzleHtml(step) {
     `;
   }
 
-  if (step.puzzleType === "dock-industry") {
+  if (step.puzzleType === "dock-weapon") {
     return `
       <div class="puzzle-panel dock-file">
         <div class="puzzle-file-header"><span>PORT ARCHIVE</span><strong>CORE 02</strong></div>
-        <div class="industry-route" aria-label="海と街を結ぶ仕事の記録"><span>造船の技術</span><b>→</b><span>橋梁製作・架設</span><b>→</b><span>鉄構機械 ○○</span></div>
-        <p>船で培った技術を、街の橋や機械にも生かしている。空欄を埋めて事業名を完成させよう。</p>
+        <div class="dock-head-clues"><span>王冠</span><span>ヘッドフォン</span><span>はちまき</span></div>
+        <div class="dock-weapon-options"><span>1. 安全靴</span><span>2. ヘルメット</span><span>3. シールド</span></div>
+        <p>3つの言葉に共通する、身につける場所を考えよう。</p>
       </div>
     `;
   }
@@ -1584,35 +1931,146 @@ function puzzleHtml(step) {
     return `
       <div class="puzzle-panel dock-file">
         <div class="puzzle-file-header"><span>PORT ARCHIVE</span><strong>FINAL KEY</strong></div>
-        <div class="dock-records" aria-label="AからDの記録"><span>A 技術の強み</span><span>B 鉄構機械事業</span><span>C 船を建造する仕事</span><span>D 函館どっく</span></div>
-        <p class="cipher-line">A1 + C5 + D2 + B4　→　合言葉</p>
+        <div class="dock-records" aria-label="暗号に使う記録"><span>A　ぎじゅつりょく</span><span>C　かもつせん</span><span>D　はこだてどっく</span></div>
+        <p class="cipher-line">C2 ＋ の ＋ A4゛ ＋ D7 ＋ A5　＝　？</p>
         <div class="answer-slots" aria-label="ひらがな5文字の答え"><span>＿</span><span>＿</span><span>＿</span><span>＿</span><span>＿</span></div>
       </div>
     `;
   }
 
-  if (step.puzzleType === "century-spa" || step.puzzleType === "century-access" || step.puzzleType === "century-key") {
-    const isSpa = step.puzzleType === "century-spa";
-    const isAccess = step.puzzleType === "century-access";
+  if (step.puzzleType === "dock-miniboss") {
+    const logs = [
+      ["7月", "6月", "1"],
+      ["8月", "7月", "0"],
+      ["11月", "9月", "0"],
+      ["12月", "5月", "？"]
+    ];
     return `
-      <div class="puzzle-panel century-file">
-        <div class="puzzle-file-header"><span>MARINA RECOVERY LOG</span><strong>${isSpa ? "01" : isAccess ? "02" : "03"}</strong></div>
-        ${isSpa ? `<div class="spa-orb" aria-hidden="true"><span>SPA</span></div><p>最上階から函館を見渡す、心身を休めるための回復施設。</p>` : ""}
-        ${isAccess ? `<div class="access-route" aria-label="ホテルへの案内"><span>函館駅</span><b>徒歩5分</b><span>センチュリーマリーナ</span><b>徒歩すぐ</b><span>函館 ○○</span></div><p>港町の入口にある市場の名前を、公式サイトのアクセス情報から探そう。</p>` : ""}
-        ${!isSpa && !isAccess ? `<div class="hospitality-key" aria-hidden="true"><span>心配り</span><b>＋</b><span>くつろぎ</span><b>＝</b><strong>？</strong></div><p>回復の光を起動する、ホテルが大切にする心を言葉にしよう。</p>` : ""}
+      <div class="puzzle-panel dock-file dock-miniboss">
+        <div class="dock-miniboss-alert"><span>PORT SAFETY LOCK / MINI BOSS</span><strong>港湾設備警報</strong></div>
+        <p>それぞれの月の日数を比べ、差を安全ロックへ入力しよう。</p>
+        <div class="month-difference-log" aria-label="月の日数の差を求める問題">
+          ${logs
+            .map(([left, right, result], index) => `<div class="month-equation${index === logs.length - 1 ? " is-locked" : ""}"><span>${left}</span><b>−</b><span>${right}</span><strong>＝ ${result}</strong></div>`)
+            .join("")}
+        </div>
+        <div class="dock-lock-question"><span>12月と5月</span><b>→</b><strong>？</strong></div>
       </div>
     `;
   }
 
-  if (step.puzzleType === "toko-archive" || step.puzzleType === "toko-diagnosis" || step.puzzleType === "toko-waterproof") {
-    const isArchive = step.puzzleType === "toko-archive";
-    const isDiagnosis = step.puzzleType === "toko-diagnosis";
+  if (step.puzzleType === "toko-diagnosis") {
+    const options = [
+      ["1", "古い塗膜をすべて剥がしてから塗り直す"],
+      ["2", "建物の劣化状態を調査・診断し、最適な工法を導き出す"],
+      ["3", "防水シートを一面に貼り重ねる"]
+    ];
+    return `
+      <div class="puzzle-panel toko-circuit-file toko-diagnosis">
+        <div class="puzzle-file-header"><span>FIRE LINK ARCHIVE</span><strong>MEMORY 02</strong></div>
+        <div class="toko-diagnosis-alert"><span>CREATION ARCHIVE / MID MISSION</span><strong>創造の記録</strong></div>
+        <p>建物を長持ちさせるために、まず行う工程を選ぼう。</p>
+        <div class="toko-diagnosis-options" aria-label="建物を長持ちさせるために最初に行う工程を選ぶ問題">
+          ${options
+            .map(([number, text]) => `<div class="toko-diagnosis-option"><b>${number}</b><span>${text}</span></div>`)
+            .join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "century-cruising" || step.puzzleType === "century-scenery" || step.puzzleType === "century-meal") {
+    const isCruising = step.puzzleType === "century-cruising";
+    const isScenery = step.puzzleType === "century-scenery";
+    return `
+      <div class="puzzle-panel century-file">
+        <div class="puzzle-file-header"><span>MARINA RECOVERY LOG</span><strong>${isCruising ? "01" : isScenery ? "02" : "03"}</strong></div>
+        ${isCruising ? `<div class="cruising-clue"><span>プライベート・</span><strong>○○○○○○</strong><span>が叶う場所</span></div><p>海や船をテーマにした、非日常の体験を表す言葉を探そう。</p>` : ""}
+        ${isScenery ? `<div class="scenery-clue"><span class="red">100万ドルのやけい</span><span class="blue">しおラーメン</span><span>カトリックきょうかい</span><b>9 / 1 / 6 ＝ ？</b></div><p>色が示す行から、数字番目の文字を抜き出そう。</p>` : ""}
+        ${!isCruising && !isScenery ? `<div class="kana-shift"><span>さ + 1</span><span>ろ − 5</span><span>お + 3</span><span>ぞ − 3</span><strong>○○○○</strong></div><p>50音順で、文字を前後に動かそう。</p>` : ""}
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "toko-message") {
+    const codeStrip = (numbers) => `
+      <div class="toko-password-code-strip" aria-hidden="true">
+        ${numbers
+          .map((number) => `<span class="${number ? "is-number" : ""}">${number || ""}</span>`)
+          .join("")}
+      </div>
+    `;
+    const wordSlots = (count) => `
+      <span class="toko-password-word" style="--slot-count:${count}" aria-hidden="true">
+        ${"<i></i>".repeat(count)}
+      </span>
+    `;
+    return `
+      <div class="puzzle-panel toko-circuit-file toko-password-file">
+        <div class="puzzle-file-header"><span>FIRE LINK ARCHIVE</span><strong>MEMORY 01</strong></div>
+        <section class="toko-password-figure" role="img" aria-label="2つの番号付き文字列と、2つの句に分かれた空欄文が並ぶ第1セキュリティの暗号図">
+          <p class="toko-password-figure-title">第1セキュリティ / 文字列照合</p>
+          <div class="toko-password-reference" aria-hidden="true">QR / 参照画像を確認</div>
+          <div class="toko-password-code-groups">
+            ${codeStrip(["1", "2", "", "", "", "3"])}
+            ${codeStrip(["4", "5", "", "", "", "6"])}
+          </div>
+          <div class="toko-password-sentence" aria-hidden="true">
+            <div class="toko-password-clause">
+              ${wordSlots(3)}${wordSlots(2)}${wordSlots(1)}<b>、</b>
+            </div>
+            <div class="toko-password-clause">
+              ${wordSlots(3)}${wordSlots(2)}${wordSlots(2)}<b>。</b>
+            </div>
+          </div>
+          <p class="toko-password-instruction">企業ページの文章を見つけ、番号の文字を①から⑥の順に読もう。</p>
+        </section>
+        <p>下の空欄文を完成させると、ヒーローが取り戻すべき使命が現れます。</p>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "toko-compass") {
     return `
       <div class="puzzle-panel toko-circuit-file">
-        <div class="puzzle-file-header"><span>FIRE LINK ARCHIVE</span><strong>${isArchive ? "MEMORY 01" : isDiagnosis ? "MEMORY 02" : "MEMORY 03"}</strong></div>
-        ${isArchive ? `<div class="archive-blocks" aria-label="創造の記録"><span>防水</span><span>外壁改修</span><span>塗装</span><strong>○○の価値を創造</strong></div><p>複数の専門技術で、街の建物の未来を支えている。</p>` : ""}
-        ${isDiagnosis ? `<div class="name-cipher" aria-label="建物の健康状態を調べる流れ"><span>調べる</span><i>→</i><span>見極める</span><i>→</i><strong>○○・○○</strong></div><p>建物の状態を確認し、最適な治療法を導く仕事の名前を復元しよう。</p>` : ""}
-        ${!isArchive && !isDiagnosis ? `<div class="name-cipher" aria-label="防水の仕事を表す暗号"><span>水</span><i>×</i><span>建物</span><i>→</i><strong>○○</strong></div><p>熱工法を含む技術で、水から建物を守る仕事の名前を入力しよう。</p>` : ""}
+        <div class="puzzle-file-header"><span>FIRE LINK ARCHIVE</span><strong>MEMORY 03</strong></div>
+        <div class="compass-clue" aria-label="方位と色付きマスを組み合わせる暗号"><span class="compass-word north">北斎<br /><b>ほくさい</b></span><span class="compass-word west">再生<br /><b>さいせい</b></span><span class="compass-word south">軟膏<br /><b>なんこう</b></span><span class="compass-square black">方位の音</span><span class="compass-square blue">さい</span><span class="compass-square red">こう</span><strong>？ ＋ ？</strong></div><p>方位の音読みと、色付きの四角が表す音を組み合わせよう。</p>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "toko-flick-boss") {
+    const cells = [
+      ["1", "→", "is-right"],
+      ["3", "←", "is-left"],
+      null,
+      null,
+      null,
+      ["2", "↑", "is-up"],
+      null,
+      ["4", "○", "is-tap"],
+      null,
+      ["5", "○", "is-tap"],
+      ["6", "↑", "is-up"],
+      null
+    ];
+    return `
+      <div class="puzzle-panel toko-circuit-file toko-flick-boss">
+        <div class="toko-flick-alert"><span>FIREWALL LOCK / MINI BOSS</span><strong>完全覚醒防衛システム</strong></div>
+        <p>数字の順に、スマホのかなフリック入力として読み解こう。</p>
+        <div class="toko-flick-pad" aria-label="スマホのフリック入力を表す12マスの暗号">
+          ${cells
+            .map((cell) =>
+              cell
+                ? `<span class="toko-flick-cell is-marked ${cell[2]}"><b>${cell[0]}</b><i>${cell[1]}</i></span>`
+                : `<span class="toko-flick-cell" aria-hidden="true"></span>`
+            )
+            .join("")}
+        </div>
+        <div class="toko-flick-legend" aria-label="端末差をなくすためのフリック入力の読み取り規則">
+          <span><b>①</b> あを右へ</span><span><b>②</b> はを上へ</span><span><b>③</b> かを左へ</span><span><b>④→⑤</b> やを小文字へ</span><span><b>⑥</b> んを選ぶ</span>
+        </div>
+        <div class="toko-flick-question"><span>① → ⑥ の順に入力</span><b>→</b><strong>？</strong></div>
       </div>
     `;
   }
@@ -1648,6 +2106,33 @@ function puzzleHtml(step) {
           <span>△見 → 〇〇けん</span>
           <span>△表 → 〇〇ぴょう</span>
         </div>
+      </div>
+    `;
+  }
+
+  if (step.puzzleType === "morikawa-rescue") {
+    const presentTerms = [
+      ["FW", "フォワード"],
+      ["MF", "ミッドフィルダー"],
+      ["FK", "フリーキック"],
+      ["HT", "ハーフタイム"]
+    ];
+    const absentTerms = [
+      ["GK", "ゴールキーパー"],
+      ["DF", "ディフェンダー"],
+      ["PK", "ペナルティキック"],
+      ["VAR", "ビデオ判定"]
+    ];
+    const termList = (terms) => terms.map(([short, reading]) => `<li><b>${short}</b><span>${reading}</span></li>`).join("");
+    return `
+      <div class="puzzle-panel morikawa-rescue">
+        <div class="rescue-signal"><span>RESCUE SIGNAL / HAKODATE</span><strong>市民救助プロトコル</strong></div>
+        <p>カッコ内のサッカー用語も手がかりに、「ある」と「なし」を分ける法則を考えよう。</p>
+        <div class="football-sort" aria-label="サッカー用語をあるとなしに分類する問題">
+          <section class="has-f"><h3>ある</h3><ul>${termList(presentTerms)}</ul></section>
+          <section class="has-not-f"><h3>なし</h3><ul>${termList(absentTerms)}</ul></section>
+        </div>
+        <div class="fcan-choice"><span>エフ・キャン</span><b>→</b><strong>ある / なし</strong></div>
       </div>
     `;
   }
