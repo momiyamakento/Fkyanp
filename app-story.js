@@ -2032,9 +2032,38 @@ function puzzleHtml(step) {
 
   if (step.puzzleType === "toko-compass") {
     return `
-      <div class="puzzle-panel toko-circuit-file">
+      <div class="puzzle-panel toko-circuit-file toko-compass-file">
         <div class="puzzle-file-header"><span>FIRE LINK ARCHIVE</span><strong>MEMORY 03</strong></div>
-        <div class="compass-clue" aria-label="方位と色付きマスを組み合わせる暗号"><span class="compass-word north">北斎<br /><b>ほくさい</b></span><span class="compass-word west">再生<br /><b>さいせい</b></span><span class="compass-word south">軟膏<br /><b>なんこう</b></span><span class="compass-square black">方位の音</span><span class="compass-square blue">さい</span><span class="compass-square red">こう</span><strong>？ ＋ ？</strong></div><p>方位の音読みと、色付きの四角が表す音を組み合わせよう。</p>
+        <section class="toko-compass-figure" aria-label="方位の音と色付きの四角を組み合わせる暗号">
+          <p class="toko-compass-title">方位の音 + 色の音 をつなごう</p>
+          <div class="toko-compass-legend" aria-hidden="true"><span class="is-direction">黒：方位の音</span><span class="is-blue">青：さい</span><span class="is-red">赤：こう</span></div>
+          <p class="toko-compass-step">① 3つの例を声に出して、方位と色が表す音を確認しよう。</p>
+          <div class="toko-compass-layout">
+            <div class="toko-mini-compass" aria-hidden="true">
+              <span class="is-north">北</span><span class="is-east">東</span><span class="is-south">南</span><span class="is-west">西</span><i></i>
+            </div>
+            <div class="toko-compass-examples">
+              <div class="toko-compass-example">
+                <div class="toko-token-row"><span class="toko-sound-token is-direction"><b>北</b><small>ほく</small></span><b>＋</b><span class="toko-sound-token is-blue">さい</span></div>
+                <p><strong>北斎</strong><span>ほくさい</span></p>
+              </div>
+              <div class="toko-compass-example">
+                <div class="toko-token-row"><span class="toko-sound-token is-blue">さい</span><b>＋</b><span class="toko-sound-token is-direction"><b>西</b><small>せい</small></span></div>
+                <p><strong>再生</strong><span>さいせい</span></p>
+              </div>
+              <div class="toko-compass-example">
+                <div class="toko-token-row"><span class="toko-sound-token is-direction"><b>南</b><small>なん</small></span><b>＋</b><span class="toko-sound-token is-red">こう</span></div>
+                <p><strong>軟膏</strong><span>なんこう</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="toko-compass-target">
+            <span class="toko-compass-target-step">② 東を使う</span>
+            <span class="toko-sound-token is-direction"><b>東</b><small>？</small></span><b>＋</b><span class="toko-sound-token is-red">こう</span><b>＝</b><strong>？</strong>
+            <p class="toko-compass-target-help">東の音と赤い四角の音を組み合わせて、ヒーローの名前を答えよう。</p>
+          </div>
+        </section>
+        <p>黒い四角は方位の音読み、青・赤の四角はそれぞれ決まった音を表します。</p>
       </div>
     `;
   }
