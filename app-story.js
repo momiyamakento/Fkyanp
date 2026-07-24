@@ -608,6 +608,9 @@ const STORAGE_KEYS = {
   final: "fcan.finalUnlocked"
 };
 
+// 一時的な画面確認用。企業ミッション未クリアでも最終暗号だけを試せるようにする。
+const FINAL_BATTLE_TEST_MODE = true;
+
 const state = {
   participant: readJson(STORAGE_KEYS.participant, null),
   unlocked: new Set(readJson(STORAGE_KEYS.unlocked, [])),
@@ -1031,15 +1034,19 @@ function companyProfileHtml(mission) {
 
 function renderClear() {
   renderTemplate("clear-template");
-  const completed = state.unlocked.size === missions.length;
+  const allHeroesUnlocked = state.unlocked.size === missions.length;
+  const isTestMode = FINAL_BATTLE_TEST_MODE && !allHeroesUnlocked;
+  const completed = allHeroesUnlocked || FINAL_BATTLE_TEST_MODE;
   const finalStepIndex = getFinalPuzzleIndex();
-  const finalReady = completed && finalStepIndex >= finalPuzzles.length;
+  const finalReady = allHeroesUnlocked && finalStepIndex >= finalPuzzles.length;
   if (state.finalUnlocked !== finalReady) {
     state.finalUnlocked = finalReady;
     saveState();
   }
-  document.querySelector("#clear-title").textContent = finalReady ? "ナゾゴラ撃退準備完了" : completed ? "最終作戦の暗号を解け" : "ヒーローを全員集めよう";
-  document.querySelector("#clear-copy").textContent = completed
+  document.querySelector("#clear-title").textContent = finalReady ? "ナゾゴラ撃退準備完了" : isTestMode ? "最終作戦の暗号を解け（テスト）" : completed ? "最終作戦の暗号を解け" : "ヒーローを全員集めよう";
+  document.querySelector("#clear-copy").textContent = isTestMode
+    ? `テストモード：企業ミッション未クリアでも最終暗号を解けます（${finalStepIndex} / ${finalPuzzles.length}）。`
+    : completed
     ? finalReady
       ? "5人の企業ヒーローが集結。函館のフィールドで最後の作戦を開始できます。"
       : `5人が集結。怪獣の弱点を特定する最終暗号を解こう（${finalStepIndex} / ${finalPuzzles.length}）。`
@@ -1088,67 +1095,99 @@ function finalPuzzleVisualHtml(puzzle) {
   return finalWeakpointVisualHtml();
 }
 
-function finalFigureHtml(className, diagram, caption) {
+function finalFigureHtml(className, diagram, caption, mobileDiagram = "") {
   return '<figure class="final-visual final-figure ' + className + '">' +
-    '<div class="final-figure-scroll">' + diagram + '</div>' +
+    '<div class="final-figure-scroll">' + diagram + mobileDiagram + '</div>' +
     '<figcaption class="final-figure-caption">' + caption + '</figcaption>' +
   '</figure>';
 }
 
-function finalMazeVisualHtml() {
-  const routeLetters = [
-    [140, 140, "ひ"], [210, 140, "だ"], [280, 140, "り"],
-    [280, 215, "か"], [210, 215, "ら"], [140, 215, "か"],
-    [140, 290, "な"], [210, 290, "よ"], [280, 290, "め"]
-  ].map(([x, y, value]) => '<g class="maze-route-token"><rect x="' + (x - 25) + '" y="' + (y - 25) + '" width="50" height="50" rx="8" /><text x="' + x + '" y="' + (y + 9) + '">' + value + '</text></g>').join("");
-  const redLetters = [
-    [475, "オ"], [530, "フ"], [585, "サ"], [640, "イ"], [695, "ド"]
-  ].map(([x, value]) => '<g class="maze-red-token"><rect x="' + (x - 24) + '" y="151" width="48" height="48" rx="7" /><text x="' + x + '" y="185">' + value + '</text></g>').join("");
-  const diagram = [
-    '<svg class="final-figure-svg final-maze-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" role="img" aria-label="スタートからゴールへ続く、ひらがなと赤いカタカナ入りの迷路">',
-      '<rect class="diagram-paper" x="18" y="18" width="764" height="464" rx="4" />',
-      '<text class="maze-marker" x="54" y="72">▼ スタートから太い道をたどる</text>',
-      '<path class="maze-route-line" d="M78 140H280V215H140V290H352" />',
-      '<circle class="maze-start-dot" cx="78" cy="140" r="16" />',
-      '<text class="maze-start-label" x="48" y="119">START</text>',
-      '<g>', routeLetters, '</g>',
-      '<circle class="maze-goal-dot" cx="352" cy="290" r="16" />',
-      '<text class="maze-goal-label" x="322" y="335">▼ ゴール</text>',
-      '<rect class="maze-red-panel" x="425" y="106" width="330" height="132" rx="10" />',
-      '<text class="maze-red-heading" x="449" y="137">迷路内の赤い文字を左から読む</text>',
-      '<g>', redLetters, '</g>',
-      '<text class="maze-route-note" x="75" y="400">経路上のひらがな：ひ → だ → り → か → ら → か → な → よ → め</text>',
-      '<text class="maze-route-note maze-route-note--small" x="75" y="432">道の指示に従って、赤い文字を左から読もう。</text>',
-    '</svg>'
+function finalMazeMobileHtml() {
+  const route = "ひだりからかなよめ".split("").map((letter) => '<span class="final-mobile-route-token">' + letter + '</span>').join("");
+  const redLetters = "オフサイド".split("").map((letter, index) => '<span class="final-mobile-red-token is-' + (index + 1) + '">' + letter + '</span>').join("");
+  const returnLetters = "あかよめ".split("").map((letter) => '<span>' + letter + '</span>').join("");
+  return [
+    '<div class="final-figure-mobile final-mobile-maze">',
+      '<p class="final-mobile-instruction"><b>1</b> 緑の道をたどって、ひらがなを順に読む</p>',
+      '<div class="final-mobile-route"><strong>START</strong>', route, '<strong>GOAL</strong></div>',
+      '<p class="final-mobile-instruction"><b>2</b> 指示に従い、赤い文字を左から読む</p>',
+      '<div class="final-mobile-red-letters">', redLetters, '</div>',
+      '<div class="final-mobile-return-clue"><small>緑の道の外にあるひらがな（第5問で使う）</small><div>', returnLetters, '</div></div>',
+    '</div>'
   ].join("");
-  return finalFigureHtml("final-maze-figure", diagram, '<strong>図の読み方：</strong>スタートからゴールまでの<strong>経路上のひらがな</strong>を先に読もう。指示に従って、迷路内の<strong>カタカナ</strong>を左から読む。');
+}
+
+function finalZodiacMobileHtml() {
+  const purpleCells = new Set([9, 12, 16, 19, 21]);
+  const cells = Array.from({ length: 29 }, (_, index) => {
+    const position = index + 1;
+    return '<span class="final-mobile-zodiac-cell' + (purpleCells.has(position) ? ' is-purple' : '') + '"></span>';
+  }).join("");
+  return [
+    '<div class="final-figure-mobile final-mobile-zodiac">',
+      '<p class="final-mobile-instruction"><b>1</b> 十二支を「ねずみ」から順に、ひらがなで左から入れる</p>',
+      '<div class="final-mobile-zodiac-grid">', cells, '</div>',
+      '<p class="final-mobile-zodiac-key"><span>紫で囲まれたマス</span>に入る文字を、左から読もう</p>',
+    '</div>'
+  ].join("");
+}
+
+function finalPianoMobileHtml() {
+  return [
+    '<div class="final-figure-mobile final-mobile-piano">',
+      '<div class="final-mobile-piano-row">',
+        '<div class="final-mobile-piano-action"><strong>大声で叫ぶ</strong><span>強く鳴らす</span></div>',
+        '<span class="final-mobile-arrow">→</span>',
+        '<div class="final-mobile-piano-result"><b>f</b><span>フォルテ</span></div>',
+      '</div>',
+      '<div class="final-mobile-piano-row is-quiet">',
+        '<div class="final-mobile-piano-action"><strong>静かにする</strong><span>弱く鳴らす</span></div>',
+        '<span class="final-mobile-arrow">→</span>',
+        '<div class="final-mobile-piano-result"><b>?</b><span>？</span></div>',
+      '</div>',
+    '</div>'
+  ].join("");
+}
+
+function finalRpsMobileHtml() {
+  return [
+    '<div class="final-figure-mobile final-mobile-rps">',
+      '<p class="final-mobile-rps-title">＜ は「勝てる」と考えよう</p>',
+      '<div class="final-mobile-rps-cards">',
+        '<div><b>C = 2</b><span>チョキ<br>指2本</span></div>',
+        '<div><b>G = 0</b><span>グー<br>指0本</span></div>',
+        '<div class="is-answer"><b>？ = 5</b><span>？<br>指5本</span></div>',
+      '</div>',
+      '<p class="final-mobile-rps-cycle">？ ＜ C　　C ＜ G　　G ＜ ？</p>',
+    '</div>'
+  ].join("");
+}
+
+function finalWeakpointMobileHtml() {
+  return [
+    '<div class="final-figure-mobile final-mobile-weakpoint">',
+      '<p class="final-mobile-instruction"><b>P</b> パンフレットの2つのPが重なるように折る</p>',
+      '<div class="final-mobile-fold-map">',
+        '<span class="final-mobile-map-road is-one"></span><span class="final-mobile-map-road is-two"></span><span class="final-mobile-map-road is-three"></span>',
+        '<i class="final-mobile-fold-line"></i>',
+        '<div class="final-mobile-parking is-parking"><b>P</b><span>駐車場</span></div>',
+        '<div class="final-mobile-parking is-temporary"><b>P</b><span>臨時駐車場</span></div>',
+      '</div>',
+      '<span class="final-mobile-down-arrow">↓</span>',
+      '<div class="final-mobile-fold-result"><strong>重ねると見える指示</strong><b>いちにもどり<br>ひらがなよめ</b></div>',
+      '<p class="final-mobile-return">第1問の迷路へ戻る</p>',
+    '</div>'
+  ].join("");
+}
+
+function finalMazeVisualHtml() {
+  const diagram = '<img class="final-source-image final-maze-source" src="assets/puzzles/final-maze-pdf.png?v=20260724-final-qa25" width="1990" height="1360" alt="PDF原図の、スタートからゴールへ進むひらがなとカタカナ入りの迷路" />';
+  return finalFigureHtml("final-maze-figure final-source-figure", diagram, '<strong>PDF原図：</strong>スタートからゴールまで進み、経路上のひらがなを読む。指示に従って、迷路内のカタカナを左から読む。');
 }
 
 function finalZodiacVisualHtml() {
-  const cells = [
-    [38, 242], [84, 242], [130, 242], [176, 242], [222, 242], [268, 242], [314, 242], [360, 242], [406, 242], [452, 242], [498, 242], [544, 242], [590, 242], [636, 242], [682, 242], [728, 242],
-    [84, 196], [130, 196], [176, 196], [222, 196], [268, 196], [314, 196], [360, 196], [406, 196], [452, 196], [498, 196], [544, 196], [590, 196], [636, 196],
-    [406, 150], [452, 150]
-  ].map(([x, y]) => '<rect class="zodiac-cell" x="' + x + '" y="' + y + '" width="46" height="46" />').join("");
-  const diagram = [
-    '<svg class="final-figure-svg final-zodiac-svg" viewBox="0 0 800 390" preserveAspectRatio="xMidYMid meet" role="img" aria-label="十二支を入れるマスと赤、青、紫の矢印">',
-      '<defs>',
-        '<marker id="final-arrow-red" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12z" fill="#e64036" /></marker>',
-        '<marker id="final-arrow-blue" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12z" fill="#397ce6" /></marker>',
-        '<marker id="final-arrow-purple" viewBox="0 0 12 12" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12z" fill="#8529df" /></marker>',
-      '</defs>',
-      '<rect class="diagram-paper" x="18" y="18" width="764" height="354" rx="4" />',
-      '<text class="zodiac-title" x="44" y="58">十二支の動物名を、ひらがなで左から早い順に入れよう</text>',
-      '<g>', cells, '</g>',
-      '<path class="zodiac-arrow zodiac-arrow--red" d="M176 118 L245 242 L291 150 L291 294" marker-end="url(#final-arrow-red)" />',
-      '<path class="zodiac-arrow zodiac-arrow--blue" d="M392 130 L392 242 L438 242 L438 176" marker-end="url(#final-arrow-blue)" />',
-      '<path class="zodiac-arrow zodiac-arrow--purple" d="M584 116 L584 196 L498 196 L452 242 L590 242 L590 294" marker-end="url(#final-arrow-purple)" />',
-      '<text class="zodiac-arrow-label zodiac-arrow-label--red" x="305" y="344">赤：到達</text>',
-      '<text class="zodiac-arrow-label zodiac-arrow-label--blue" x="353" y="112">青：うまみ</text>',
-      '<text class="zodiac-arrow-label zodiac-arrow-label--purple" x="570" y="352">紫：？</text>',
-    '</svg>'
-  ].join("");
-  return finalFigureHtml("final-zodiac-figure", diagram, '<strong>図の読み方：</strong>白いマスへ「ねずみ」から「いのしし」までを続けて入れる。<strong>紫の矢印</strong>が通る文字を答えよう。');
+  const diagram = '<img class="final-source-image final-zodiac-source" src="assets/puzzles/final-zodiac-pdf.png?v=20260724-final-qa25" width="1990" height="1000" alt="PDF原図の、十二支を入れるマスと赤、青、紫の矢印" />';
+  return finalFigureHtml("final-zodiac-figure final-source-figure", diagram, '<strong>PDF原図：</strong>白いマスへ「ねずみ」から「いのしし」までを続けて入れ、<strong>紫の矢印</strong>が通る文字を答えよう。');
 }
 
 function finalPianoVisualHtml() {
@@ -1170,7 +1209,7 @@ function finalPianoVisualHtml() {
       '</g>',
     '</svg>'
   ].join("");
-  return finalFigureHtml("final-piano-figure", diagram, '<strong>図の読み方：</strong>上段の<strong>f</strong>は「強く」を表すフォルテ。下段の静かな仕草が表す音楽記号を考えよう。');
+  return finalFigureHtml("final-piano-figure", diagram, '<strong>図の読み方：</strong>上段の<strong>f</strong>は「強く」を表すフォルテ。下段の静かな仕草が表す音楽記号を考えよう。', finalPianoMobileHtml());
 }
 
 function finalRpsVisualHtml() {
@@ -1186,7 +1225,7 @@ function finalRpsVisualHtml() {
       '<text class="rps-cycle-label" x="317" y="342">？ ＜ C　　C ＜ G　　G ＜ ？</text>',
     '</svg>'
   ].join("");
-  return finalFigureHtml("final-rps-figure", diagram, '<strong>図の読み方：</strong>C＝チョキ、G＝グー。勝敗の輪と<strong>5本の指</strong>を手がかりに、残るローマ字を答えよう。');
+  return finalFigureHtml("final-rps-figure", diagram, '<strong>図の読み方：</strong>C＝チョキ、G＝グー。勝敗の輪と<strong>5本の指</strong>を手がかりに、残るローマ字を答えよう。', finalRpsMobileHtml());
 }
 
 function finalWeakpointVisualHtml() {
@@ -1208,7 +1247,7 @@ function finalWeakpointVisualHtml() {
       '<text class="fold-next-label" x="446" y="388">第1問の迷路へ戻る</text>',
     '</svg>'
   ].join("");
-  return finalFigureHtml("final-weakpoint-figure", diagram, '<strong>Web版の補助図：</strong>パンフレットが手元にない場合も、Pを重ねて出た指示に従おう。第1問で<strong>経路以外のひらがな</strong>を読み、パンフレットの赤文字を確認する。');
+  return finalFigureHtml("final-weakpoint-figure", diagram, '<strong>Web版の補助図：</strong>パンフレットが手元にない場合も、Pを重ねて出た指示に従おう。第1問で<strong>経路以外のひらがな</strong>を読み、パンフレットの赤文字を確認する。', finalWeakpointMobileHtml());
 }
 
 function getFinalHintCount(index) {
@@ -1873,7 +1912,7 @@ function puzzleHtml(step) {
       ["2", "①", "ン", "", "", "", "", ""],
       ["3", "", "コ", "", "⑦", "", "", ""],
       ["4", "④", "ウ", "", "", "", "", ""],
-      ["5", "", "②ジ", "⑥", "", "", "", ""]
+      ["5", "", "②", "⑥", "", "", "", ""]
     ];
     return `
       <div class="puzzle-panel steel-grid-panel">
@@ -2039,9 +2078,10 @@ function puzzleHtml(step) {
           <div class="toko-compass-legend" aria-hidden="true"><span class="is-direction">黒：方位の音</span><span class="is-blue">青：さい</span><span class="is-red">赤：こう</span></div>
           <p class="toko-compass-step">① 3つの例を声に出して、方位と色が表す音を確認しよう。</p>
           <div class="toko-compass-layout">
-            <div class="toko-mini-compass" aria-hidden="true">
-              <span class="is-north">北</span><span class="is-east">東</span><span class="is-south">南</span><span class="is-west">西</span><i></i>
-            </div>
+            <figure class="toko-compass-reference">
+              <img src="assets/puzzles/toko-compass-clue.png" width="530" height="681" alt="北斎、再生、軟膏の例、方位磁針、色付きの四角と答え欄が描かれた方位と色の暗号図" />
+              <figcaption>PDFの暗号図</figcaption>
+            </figure>
             <div class="toko-compass-examples">
               <div class="toko-compass-example">
                 <div class="toko-token-row"><span class="toko-sound-token is-direction"><b>北</b><small>ほく</small></span><b>＋</b><span class="toko-sound-token is-blue">さい</span></div>
